@@ -13,7 +13,7 @@ class Task {
     private var id: Int
     private var name: String
     private var description: String
-    private var category: Categories
+    private var category: Category
     private var status: Status
     private var subTask: [Int] // Array of task ID
     private var images: [String]
@@ -22,7 +22,7 @@ class Task {
     private var createdDate: Date
     
     // Constructor
-    init(id: Int, name: String, description: String, category: Categories, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date) {
+    init(id: Int, name: String, description: String, category: Category, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date) {
         self.id = id
         self.name = name
         self.description = description
@@ -48,7 +48,7 @@ class Task {
         self.description = description
     }
     
-    public func setCategory(category: Categories) -> Void {
+    public func setCategory(category: Category) -> Void {
         self.category = category
     }
     
@@ -89,7 +89,7 @@ class Task {
         return description
     }
     
-    public func getCategory() -> Categories {
+    public func getCategory() -> Category {
         return category
     }
     

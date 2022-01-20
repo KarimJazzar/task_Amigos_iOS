@@ -27,22 +27,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         completeTableView.delegate = self
         completeTableView.dataSource = self
         
-        var tempTask = Task(id: 0, name: "Incomplete Task 1", description: "This is an example of incomplete task.", category: Categories.school, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+        var tempTask = Task(id: 0, name: "Incomplete Task 1", description: "This is an example of incomplete task.", category: Category.work, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
         
         taskList.append(tempTask)
         incompleteTasks.append(tempTask)
         
-        tempTask = Task(id: 0, name: "Incomplete Task 2", description: "This is an example of incomplete task.", category: Categories.school, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+        tempTask = Task(id: 0, name: "Incomplete Task 2", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
         
         taskList.append(tempTask)
         incompleteTasks.append(tempTask)
         
-        tempTask = Task(id: 0, name: "Complete Task 1", description: "This is an example of complete task.", category: Categories.school, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+        tempTask = Task(id: 0, name: "Complete Task 1", description: "This is an example of complete task.", category: Category.groceries, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
         
         taskList.append(tempTask)
         completeTasks.append(tempTask)
         
-        tempTask = Task(id: 0, name: "Complete Task 2", description: "This is an example of complete task.", category: Categories.school, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+        tempTask = Task(id: 0, name: "Complete Task 2", description: "This is an example of complete task.", category: Category.shopping, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
         
         taskList.append(tempTask)
         completeTasks.append(tempTask)
@@ -75,8 +75,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let isCompleteTable = tableView == completeTableView
         let cell = CheckCellType(isCompleteTable: isCompleteTable)
         let tempTask = isCompleteTable ? completeTasks[indexPath.row] : incompleteTasks[indexPath.row]
+        let color = CategoryHelper.GetCategoryColor(category: tempTask.getCategory())
         
-        cell.categoryLabel.text = "Category \(tempTask.getCategory())"
+        print("\(color)")
+
+        cell.categoryColorLine.backgroundColor = color
+        cell.categoryLabel.text = CategoryHelper.GetCategoryString(category: tempTask.getCategory())
+        cell.categoryLabel.textColor = color
         cell.taskName.text = "\(tempTask.getName())"
         
         let dateFormat = DateFormatter()

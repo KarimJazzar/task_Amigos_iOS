@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Categories {
+enum Category {
     case work, school, shopping, groceries
 }
