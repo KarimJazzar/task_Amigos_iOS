@@ -81,7 +81,7 @@ class Task {
         return id
     }
     
-    public func setName() -> String {
+    public func getName() -> String {
         return name
     }
     
