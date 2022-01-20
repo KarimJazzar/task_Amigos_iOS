@@ -54,10 +54,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         taskList.append(tempTask)
         completeTasks.append(tempTask)
-
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {}, completion: { finished in self.completeView.frame.origin.x = (self.completeView.frame.origin.x * 2) + self.completeView.frame.width
-        })
         
+        AnimationHelper.FixPositionX(view: completeView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,25 +108,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Check swipe direction
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
         let swipeGesture = gesture as UISwipeGestureRecognizer
-        print("SWIPE = \(swipeGesture.direction)")
+        
         switch swipeGesture.direction {
             case .left:
                 let newX = UIScreen.main.bounds.width - completeView.frame.width - 15
-                SlideAnimation(view: completeView, x: newX)
-                SlideAnimation(view: incompleteView, x: newX - incompleteView.frame.width - 15)
+                AnimationHelper.SlideX(view: completeView, x: newX)
+                AnimationHelper.SlideX(view: incompleteView, x: newX - incompleteView.frame.width - 15)
                 break
             case .right:
-                SlideAnimation(view: completeView, x: completeView.frame.width + 30)
-                SlideAnimation(view: incompleteView, x: 15)
+                AnimationHelper.SlideX(view: completeView, x: completeView.frame.width + 30)
+                AnimationHelper.SlideX(view: incompleteView, x: 15)
                 break
             default:
                 break
-        }
-    }
-    
-    func SlideAnimation(view: UIView, x: CGFloat) {
-        UIView.animate(withDuration: 0.5) {
-            view.frame.origin.x = CGFloat(x)
         }
     }
 }

@@ -20,6 +20,7 @@
 		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
 		CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */; };
 		CF466BBC2799F22800DA75D1 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */; };
+		CFE51726279A1E94006CD986 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51725279A1E94006CD986 /* AnimationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
+		CFE51725279A1E94006CD986 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */,
+				CFE51725279A1E94006CD986 /* AnimationHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			files = (
 				CF466BBC2799F22800DA75D1 /* CategoryHelper.swift in Sources */,
 				CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */,
+				CFE51726279A1E94006CD986 /* AnimationHelper.swift in Sources */,
 				CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */,
 				65D48A502798EF0D00880817 /* AddViewController.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
