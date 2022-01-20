@@ -18,6 +18,7 @@
 		CF2EE1C5278E630700A80185 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C4278E630700A80185 /* Category.swift */; };
 		CF2EE1C8278E634200A80185 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C7278E634200A80185 /* Status.swift */; };
 		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
+		CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		CF2EE1C4278E630700A80185 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CF2EE1C7278E634200A80185 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
+		CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				CF2EE1C4278E630700A80185 /* Category.swift */,
 				CF2EE1C7278E634200A80185 /* Status.swift */,
 				65D48A4F2798EF0D00880817 /* AddViewController.swift */,
+				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
 			);
 			path = task_Amigos_iOS;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */,
 				CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */,
 				65D48A502798EF0D00880817 /* AddViewController.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
