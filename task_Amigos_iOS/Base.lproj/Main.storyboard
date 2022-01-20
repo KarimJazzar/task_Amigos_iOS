@@ -98,7 +98,7 @@
                                                             <imageReference key="image" image="calendar" catalog="system" symbolScale="medium" renderingMode="template"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QL7-cF-zgw">
-                                                            <rect key="frame" x="33" y="63" width="24" height="13"/>
+                                                            <rect key="frame" x="33" y="63" width="239" height="13"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -123,7 +123,7 @@
                                                         <constraint firstItem="u30-v8-06k" firstAttribute="leading" secondItem="s39-7n-FYy" secondAttribute="leading" id="QzV-ZY-DF7"/>
                                                         <constraint firstItem="gBb-Yi-S6e" firstAttribute="leading" secondItem="u30-v8-06k" secondAttribute="trailing" constant="10" id="SKv-Rr-dbz"/>
                                                         <constraint firstItem="cLB-Co-ZMP" firstAttribute="leading" secondItem="u30-v8-06k" secondAttribute="trailing" constant="10" id="XBL-k6-3jA"/>
-                                                        <constraint firstAttribute="trailing" secondItem="QL7-cF-zgw" secondAttribute="trailing" constant="230" id="Z9t-wy-wkt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="QL7-cF-zgw" secondAttribute="trailing" constant="15" id="Z9t-wy-wkt"/>
                                                         <constraint firstItem="QL7-cF-zgw" firstAttribute="height" secondItem="gBb-Yi-S6e" secondAttribute="height" multiplier="1.04" id="e5U-sm-mi8"/>
                                                         <constraint firstItem="ffv-zG-w0Y" firstAttribute="top" secondItem="gBb-Yi-S6e" secondAttribute="bottom" constant="1.5" id="g4a-EY-6l9"/>
                                                         <constraint firstItem="ffv-zG-w0Y" firstAttribute="leading" secondItem="u30-v8-06k" secondAttribute="trailing" constant="10" id="hj8-aa-iQG"/>
@@ -205,7 +205,7 @@
                                                             <imageReference key="image" image="calendar" catalog="system" symbolScale="medium" renderingMode="template"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaI-Uc-gVH">
-                                                            <rect key="frame" x="33" y="63" width="24" height="13"/>
+                                                            <rect key="frame" x="33" y="63" width="239" height="13"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -223,7 +223,7 @@
                                                         <constraint firstItem="G3G-RG-bMy" firstAttribute="leading" secondItem="Qgr-hC-ypb" secondAttribute="trailing" constant="10" id="5rU-3j-r1h"/>
                                                         <constraint firstAttribute="bottom" secondItem="Qgr-hC-ypb" secondAttribute="bottom" id="9Np-e2-r1B"/>
                                                         <constraint firstAttribute="trailing" secondItem="G3G-RG-bMy" secondAttribute="trailing" constant="10" id="BVJ-FB-291"/>
-                                                        <constraint firstAttribute="trailing" secondItem="xaI-Uc-gVH" secondAttribute="trailing" constant="230" id="CQC-VY-QKc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="xaI-Uc-gVH" secondAttribute="trailing" constant="15" id="CQC-VY-QKc"/>
                                                         <constraint firstItem="Qgr-hC-ypb" firstAttribute="top" secondItem="bi0-0E-s1B" secondAttribute="top" id="HA2-dS-aXh"/>
                                                         <constraint firstItem="F0F-Cg-v9W" firstAttribute="top" secondItem="G3G-RG-bMy" secondAttribute="bottom" constant="10" id="IHN-4L-c8p"/>
                                                         <constraint firstItem="F0F-Cg-v9W" firstAttribute="leading" secondItem="Qgr-hC-ypb" secondAttribute="trailing" constant="10" id="PTo-rG-2ko"/>
