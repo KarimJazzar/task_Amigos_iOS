@@ -9,12 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var incompleteTasks: [Task] = []
+    var taskList: [Task] = [Task]()
+    @IBOutlet weak var incompleteView: UIView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         
     }
     

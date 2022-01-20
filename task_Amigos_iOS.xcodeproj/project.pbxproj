@@ -13,12 +13,11 @@
 		65D489EB278E551800880817 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65D489E9278E551800880817 /* Main.storyboard */; };
 		65D489ED278E551C00880817 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D489EC278E551C00880817 /* Assets.xcassets */; };
 		65D489F0278E551C00880817 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65D489EE278E551C00880817 /* LaunchScreen.storyboard */; };
-		65D489F8278F9FC400880817 /* CompTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489F7278F9FC400880817 /* CompTableViewCell.swift */; };
-		65D489FA278FA10900880817 /* IncompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */; };
 		65D48A502798EF0D00880817 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D48A4F2798EF0D00880817 /* AddViewController.swift */; };
 		CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C2278E5F7E00A80185 /* Task.swift */; };
 		CF2EE1C5278E630700A80185 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C4278E630700A80185 /* Category.swift */; };
 		CF2EE1C8278E634200A80185 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C7278E634200A80185 /* Status.swift */; };
+		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,12 +29,11 @@
 		65D489EC278E551C00880817 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65D489EF278E551C00880817 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65D489F1278E551C00880817 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65D489F7278F9FC400880817 /* CompTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompTableViewCell.swift; sourceTree = "<group>"; };
-		65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompleteTableViewCell.swift; sourceTree = "<group>"; };
 		65D48A4F2798EF0D00880817 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		CF2EE1C2278E5F7E00A80185 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CF2EE1C4278E630700A80185 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CF2EE1C7278E634200A80185 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +66,7 @@
 		65D489E2278E551800880817 /* task_Amigos_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CF466BB42799993100DA75D1 /* Images */,
 				65D489E3278E551800880817 /* AppDelegate.swift */,
 				65D489E5278E551800880817 /* SceneDelegate.swift */,
 				65D489E7278E551800880817 /* ViewController.swift */,
@@ -78,11 +77,17 @@
 				CF2EE1C2278E5F7E00A80185 /* Task.swift */,
 				CF2EE1C4278E630700A80185 /* Category.swift */,
 				CF2EE1C7278E634200A80185 /* Status.swift */,
-				65D489F7278F9FC400880817 /* CompTableViewCell.swift */,
-				65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */,
 				65D48A4F2798EF0D00880817 /* AddViewController.swift */,
 			);
 			path = task_Amigos_iOS;
+			sourceTree = "<group>";
+		};
+		CF466BB42799993100DA75D1 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				CF466BB52799995B00DA75D1 /* add_btn.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +149,7 @@
 			files = (
 				65D489F0278E551C00880817 /* LaunchScreen.storyboard in Resources */,
 				65D489ED278E551C00880817 /* Assets.xcassets in Resources */,
+				CF466BB62799995B00DA75D1 /* add_btn.png in Resources */,
 				65D489EB278E551800880817 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,11 +161,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65D489F8278F9FC400880817 /* CompTableViewCell.swift in Sources */,
 				CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */,
 				65D48A502798EF0D00880817 /* AddViewController.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
-				65D489FA278FA10900880817 /* IncompleteTableViewCell.swift in Sources */,
 				65D489E8278E551800880817 /* ViewController.swift in Sources */,
 				65D489E4278E551800880817 /* AppDelegate.swift in Sources */,
 				65D489E6278E551800880817 /* SceneDelegate.swift in Sources */,

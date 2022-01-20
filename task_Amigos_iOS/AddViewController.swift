@@ -29,8 +29,8 @@ class AddViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "addTaskSegue"){
-            let dest = segue.destination as? ViewController
-            dest?.incompleteTasks.append(task!)
+            //let dest = segue.destination as? ViewController
+            //dest?.incompleteTasks.append(task!)
         }
     }
     
