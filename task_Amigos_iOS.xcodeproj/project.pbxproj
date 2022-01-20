@@ -15,6 +15,7 @@
 		65D489F0278E551C00880817 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65D489EE278E551C00880817 /* LaunchScreen.storyboard */; };
 		65D489F8278F9FC400880817 /* CompTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489F7278F9FC400880817 /* CompTableViewCell.swift */; };
 		65D489FA278FA10900880817 /* IncompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */; };
+		65D48A502798EF0D00880817 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D48A4F2798EF0D00880817 /* AddViewController.swift */; };
 		CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C2278E5F7E00A80185 /* Task.swift */; };
 		CF2EE1C5278E630700A80185 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C4278E630700A80185 /* Category.swift */; };
 		CF2EE1C8278E634200A80185 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EE1C7278E634200A80185 /* Status.swift */; };
@@ -31,6 +32,7 @@
 		65D489F1278E551C00880817 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65D489F7278F9FC400880817 /* CompTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompTableViewCell.swift; sourceTree = "<group>"; };
 		65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompleteTableViewCell.swift; sourceTree = "<group>"; };
+		65D48A4F2798EF0D00880817 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		CF2EE1C2278E5F7E00A80185 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CF2EE1C4278E630700A80185 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CF2EE1C7278E634200A80185 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				CF2EE1C7278E634200A80185 /* Status.swift */,
 				65D489F7278F9FC400880817 /* CompTableViewCell.swift */,
 				65D489F9278FA10900880817 /* IncompleteTableViewCell.swift */,
+				65D48A4F2798EF0D00880817 /* AddViewController.swift */,
 			);
 			path = task_Amigos_iOS;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			files = (
 				65D489F8278F9FC400880817 /* CompTableViewCell.swift in Sources */,
 				CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */,
+				65D48A502798EF0D00880817 /* AddViewController.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
 				65D489FA278FA10900880817 /* IncompleteTableViewCell.swift in Sources */,
 				65D489E8278E551800880817 /* ViewController.swift in Sources */,
