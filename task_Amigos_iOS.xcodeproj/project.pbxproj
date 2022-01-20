@@ -70,20 +70,17 @@
 		65D489E2278E551800880817 /* task_Amigos_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CF466BC12799F87D00DA75D1 /* Helpers */,
+				CF466BC02799F87200DA75D1 /* Models */,
+				CF466BBE2799F85600DA75D1 /* Views */,
+				CF466BBD2799F84400DA75D1 /* Controllers */,
 				CF466BB42799993100DA75D1 /* Images */,
 				65D489E3278E551800880817 /* AppDelegate.swift */,
 				65D489E5278E551800880817 /* SceneDelegate.swift */,
-				65D489E7278E551800880817 /* ViewController.swift */,
 				65D489E9278E551800880817 /* Main.storyboard */,
 				65D489EC278E551C00880817 /* Assets.xcassets */,
 				65D489EE278E551C00880817 /* LaunchScreen.storyboard */,
 				65D489F1278E551C00880817 /* Info.plist */,
-				CF2EE1C2278E5F7E00A80185 /* Task.swift */,
-				CF2EE1C4278E630700A80185 /* Category.swift */,
-				CF2EE1C7278E634200A80185 /* Status.swift */,
-				65D48A4F2798EF0D00880817 /* AddViewController.swift */,
-				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
-				CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */,
 			);
 			path = task_Amigos_iOS;
 			sourceTree = "<group>";
@@ -94,6 +91,41 @@
 				CF466BB52799995B00DA75D1 /* add_btn.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		CF466BBD2799F84400DA75D1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				65D48A4F2798EF0D00880817 /* AddViewController.swift */,
+				65D489E7278E551800880817 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CF466BBE2799F85600DA75D1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CF466BC02799F87200DA75D1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CF2EE1C2278E5F7E00A80185 /* Task.swift */,
+				CF2EE1C4278E630700A80185 /* Category.swift */,
+				CF2EE1C7278E634200A80185 /* Status.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CF466BC12799F87D00DA75D1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
