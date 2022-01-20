@@ -12,6 +12,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var taskList: [Task] = [Task]()
     var incompleteTasks: [Task] = [Task]()
     var completeTasks: [Task] = [Task]()
+    private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
+    
     @IBOutlet weak var incompleteView: UIView!
     @IBOutlet weak var completeView: UIView!
     @IBOutlet weak var incompleteTableView: UITableView!
@@ -26,6 +28,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         completeTableView.delegate = self
         completeTableView.dataSource = self
+        
+        for gesture in gestureList {
+            let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
+            tempSwipe.direction = gesture
+            view.addGestureRecognizer(tempSwipe)
+        }
         
         var tempTask = Task(id: 0, name: "Incomplete Task 1", description: "This is an example of incomplete task.", category: Category.work, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
         
@@ -96,6 +104,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return completeTableView.dequeueReusableCell(withIdentifier: "taskCellComplete") as! TaskTableViewCell
         } else {
             return incompleteTableView.dequeueReusableCell(withIdentifier: "taskCellIncomplete") as! TaskTableViewCell
+        }
+    }
+    
+    // Check swipe direction
+    @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+        let swipeGesture = gesture as UISwipeGestureRecognizer
+        print("SWIPE = \(swipeGesture.direction)")
+        switch swipeGesture.direction {
+            case .left:
+                let newX = UIScreen.main.bounds.width - completeView.frame.width - 15
+                SlideAnimation(view: completeView, x: newX)
+                SlideAnimation(view: incompleteView, x: newX - incompleteView.frame.width - 15)
+                break
+            case .right:
+                SlideAnimation(view: completeView, x: completeView.frame.width + 30)
+                SlideAnimation(view: incompleteView, x: 15)
+                break
+            default:
+                break
+        }
+    }
+    
+    func SlideAnimation(view: UIView, x: CGFloat) {
+        UIView.animate(withDuration: 0.5) {
+            view.frame.origin.x = CGFloat(x)
         }
     }
 }
