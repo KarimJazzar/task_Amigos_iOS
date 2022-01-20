@@ -22,8 +22,8 @@ class Task {
     private var createdDate: Date
     
     // Constructor
-    init(id: Int, name: String, description: String, category: Categories, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date) {
-        self.id = id
+    init(name: String, description: String, category: Categories, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date) {
+        //self.id = id
         self.name = name
         self.description = description
         self.category = category

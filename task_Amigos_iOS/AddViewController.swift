@@ -14,18 +14,26 @@ class AddViewController: UIViewController {
     
     @IBOutlet weak var taskDescription: UITextView!
     
+    let currentDateTime = Date()
+    var task: Task?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let currentDateTime = Date()
+        
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = df.string(from: currentDateTime)
         createdDate.text = dateString
         
-        
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "addTaskSegue"){
+            let dest = segue.destination as? ViewController
+            dest?.incompleteTasks.append(task!)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -35,5 +43,10 @@ class AddViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func add(_ sender: UIButton) {
+        //task = Task(name: taskName.text!, description: taskDescription.text, category: , status: , subTask: , images: , audios: , dueDate: , createdDate: currentDateTime)
+        performSegue(withIdentifier: "addTaskSegue", sender: <#T##Any?#>)
+    }
+    
 }
