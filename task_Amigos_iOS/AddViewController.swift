@@ -46,7 +46,8 @@ class AddViewController: UIViewController {
     
     @IBAction func add(_ sender: UIButton) {
         //task = Task(name: taskName.text!, description: taskDescription.text, category: , status: , subTask: , images: , audios: , dueDate: , createdDate: currentDateTime)
-        performSegue(withIdentifier: "addTaskSegue", sender: <#T##Any?#>)
+        dismiss(animated: true, completion: nil)
+        //performSegue(withIdentifier: "addTaskSegue", sender: <#T##Any?#>)
     }
     
 }
