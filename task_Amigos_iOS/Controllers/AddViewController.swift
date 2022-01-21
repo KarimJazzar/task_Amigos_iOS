@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddViewController: UIViewController {
 
@@ -48,6 +49,6 @@ class AddViewController: UIViewController {
         //task = Task(name: taskName.text!, description: taskDescription.text, category: , status: , subTask: , images: , audios: , dueDate: , createdDate: currentDateTime)
         dismiss(animated: true, completion: nil)
         //performSegue(withIdentifier: "addTaskSegue", sender: <#T##Any?#>)
-    }
+    
     
 }

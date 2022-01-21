@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         
         incompleteTableView.delegate = self
@@ -130,6 +132,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: 0.5) {
             view.frame.origin.x = CGFloat(x)
         }
+    }
+    
+    func addTask(t:Task){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                else {
+                    return
+                }
+                let managedContext = appDelegate.persistentContainer.viewContext
+                //2
+                let newTask = NSEntityDescription.insertNewObject(forEntityName: "Task", into: managedContext)
+                //4
+                newTask.setValue(t.getName, forKey: "name")
+                newTask.setValue(t.getDescription, forKey: "desc")
+                newTask.setValue(0, forKey: "status")
+                newTask.setValue(t.getSubTask, forKey: "subtask")
+                newTask.setValue(t.getImages, forKey: "images")
+                newTask.setValue(t.getAudios, forKey: "audios")
+                newTask.setValue(t.getDueDate, forKey: "dueDate")
+                newTask.setValue(t.getCreatedDate, forKey: "createdDate")
+
+                do {
+                    try managedContext.save()
+                    print("Record Added!")
+                    //To display an alert box
+                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default) {
+                        (action: UIAlertAction!) in
+                    }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } catch
+                let error as NSError {
+                    print("Could not save. \(error),\(error.userInfo)")
+                }
     }
 }
 
