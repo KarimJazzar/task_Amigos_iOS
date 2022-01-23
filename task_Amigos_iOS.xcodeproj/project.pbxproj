@@ -20,7 +20,6 @@
 		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
 		CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */; };
 		CF466BBC2799F22800DA75D1 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */; };
-		CFBBC8D3279D819800D23CD7 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBBC8D2279D819800D23CD7 /* add_btn.png */; };
 		CFE51726279A1E94006CD986 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51725279A1E94006CD986 /* AnimationHelper.swift */; };
 		CFE5172A279A3347006CD986 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51729279A3347006CD986 /* TaskManager.swift */; };
 /* End PBXBuildFile section */
@@ -41,7 +40,6 @@
 		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
-		CFBBC8D2279D819800D23CD7 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		CFE51725279A1E94006CD986 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 		CFE51729279A3347006CD986 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,7 +74,6 @@
 		65D489E2278E551800880817 /* task_Amigos_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CFBBC8D1279D815000D23CD7 /* Res */,
 				CF466BC12799F87D00DA75D1 /* Helpers */,
 				CF466BC02799F87200DA75D1 /* Models */,
 				CF466BBE2799F85600DA75D1 /* Views */,
@@ -137,14 +134,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		CFBBC8D1279D815000D23CD7 /* Res */ = {
-			isa = PBXGroup;
-			children = (
-				CFBBC8D2279D819800D23CD7 /* add_btn.png */,
-			);
-			path = Res;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,7 +191,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFBBC8D3279D819800D23CD7 /* add_btn.png in Resources */,
 				65D489F0278E551C00880817 /* LaunchScreen.storyboard in Resources */,
 				65D489ED278E551C00880817 /* Assets.xcassets in Resources */,
 				CF466BB62799995B00DA75D1 /* add_btn.png in Resources */,
