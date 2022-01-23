@@ -10,6 +10,11 @@ import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var managedContext: NSManagedObjectContext!
+    
+    var tasks: [Task]?
     var taskList: [Task] = [Task]()
     var incompleteTasks: [Task] = [Task]()
     var completeTasks: [Task] = [Task]()
@@ -24,6 +29,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        managedContext = appDelegate.persistentContainer.viewContext
         
         incompleteTableView.delegate = self
         incompleteTableView.dataSource = self
@@ -134,23 +140,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func addTask(t:Task){
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                else {
-                    return
+    //function to load tasks from core data
+    func loadTasks() {
+            tasks = [Task]()
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
+            
+            do {
+                        let results = try managedContext.fetch(fetchRequest)
+                        if results is [NSManagedObject] {
+                        for result in (results as! [NSManagedObject]) {
+                            
+                        let name = result.value(forKey: "name") as! String
+                        let descr = result.value(forKey: "desc") as! String
+                        let status = result.value(forKey: "status") as! Status
+                        let subtask = result.value(forKey: "subtask") as! [Int]
+                        let images = result.value(forKey: "images") as! [String]
+                        let audios = result.value(forKey: "audios") as! [String]
+                        let dueDate = result.value(forKey: "dueDate") as! Date
+                        let createdDate = result.value(forKey: "createdDate") as! Date
+                            let cat = result.value(forKey: "category") as! Category
+                        
+                        tasks?.append(Task(id: 0, name: name, description: descr, category: cat, status: status, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
+                    }
                 }
-                let managedContext = appDelegate.persistentContainer.viewContext
-                //2
-                let newTask = NSEntityDescription.insertNewObject(forEntityName: "Task", into: managedContext)
-                //4
+                
+            } catch {
+                print(error)
+            }
+        }
+    
+    //function to add a task to core data
+    func addTask(t:Task){
+                
+                let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
+                
                 newTask.setValue(t.getName, forKey: "name")
                 newTask.setValue(t.getDescription, forKey: "desc")
-                newTask.setValue(0, forKey: "status")
+                newTask.setValue(t.getStatus, forKey: "status")
                 newTask.setValue(t.getSubTask, forKey: "subtask")
                 newTask.setValue(t.getImages, forKey: "images")
                 newTask.setValue(t.getAudios, forKey: "audios")
                 newTask.setValue(t.getDueDate, forKey: "dueDate")
                 newTask.setValue(t.getCreatedDate, forKey: "createdDate")
+                newTask.setValue(t.getCategory, forKey: "category")
 
                 do {
                     try managedContext.save()
@@ -166,6 +199,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let error as NSError {
                     print("Could not save. \(error),\(error.userInfo)")
                 }
+    }
+    
+    // function to delete all tasks from core data
+    func clearTaskData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
+
+        do {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let results = try managedContext.fetch(fetchRequest)
+            for result in results {
+                if let managedObject = result as? NSManagedObject {
+                    managedContext.delete(managedObject)
+                }
+            }
+        } catch {
+            print("Error deleting records \(error)")
+        }
+        
     }
 }
 
