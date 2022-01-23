@@ -9,9 +9,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var taskList: [Task] = [Task]()
-    var incompleteTasks: [Task] = [Task]()
-    var completeTasks: [Task] = [Task]()
+    
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
     @IBOutlet weak var incompleteView: UIView!
