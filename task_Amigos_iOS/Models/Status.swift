@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Status {
+@objc enum Status: Int32 {
     case incomplete, complete
 }

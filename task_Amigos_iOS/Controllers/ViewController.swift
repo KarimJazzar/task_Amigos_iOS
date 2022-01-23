@@ -66,6 +66,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {}, completion: { finished in self.completeView.frame.origin.x = (self.completeView.frame.origin.x * 2) + self.completeView.frame.width
         })
         
+        
+        clearTaskData()
+        addTask(t: Task(id: 0, name: "Dio", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+        addTask(t: Task(id: 0, name: "Jotarou", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+        
+        loadTasks()
+        print("There are \(tasks?.count) tasks")
+        for t in tasks!{
+            print(t.getName())
+            print(t.getAudios())
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,15 +164,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             
                         let name = result.value(forKey: "name") as! String
                         let descr = result.value(forKey: "desc") as! String
-                        let status = result.value(forKey: "status") as! Status
+                            let status = result.value(forKey: "status") as! Status.RawValue
                         let subtask = result.value(forKey: "subtask") as! [Int]
                         let images = result.value(forKey: "images") as! [String]
                         let audios = result.value(forKey: "audios") as! [String]
                         let dueDate = result.value(forKey: "dueDate") as! Date
                         let createdDate = result.value(forKey: "createdDate") as! Date
-                            let cat = result.value(forKey: "category") as! Category
+                            let cat = result.value(forKey: "category") as! Category.RawValue
                         
-                        tasks?.append(Task(id: 0, name: name, description: descr, category: cat, status: status, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
+                            tasks?.append(Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
                     }
                 }
                 
@@ -175,15 +186,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
                 
-                newTask.setValue(t.getName, forKey: "name")
-                newTask.setValue(t.getDescription, forKey: "desc")
-                newTask.setValue(t.getStatus, forKey: "status")
-                newTask.setValue(t.getSubTask, forKey: "subtask")
-                newTask.setValue(t.getImages, forKey: "images")
-                newTask.setValue(t.getAudios, forKey: "audios")
-                newTask.setValue(t.getDueDate, forKey: "dueDate")
-                newTask.setValue(t.getCreatedDate, forKey: "createdDate")
-                newTask.setValue(t.getCategory, forKey: "category")
+                newTask.setValue(t.getName(), forKey: "name")
+                newTask.setValue(t.getDescription(), forKey: "desc")
+                newTask.setValue(t.getStatus().rawValue, forKey: "status")
+                newTask.setValue(t.getSubTask(), forKey: "subtask")
+                newTask.setValue(t.getImages(), forKey: "images")
+                newTask.setValue(t.getAudios(), forKey: "audios")
+                newTask.setValue(t.getDueDate(), forKey: "dueDate")
+                newTask.setValue(t.getCreatedDate(), forKey: "createdDate")
+                newTask.setValue(t.getCategory().rawValue, forKey: "category")
 
                 do {
                     try managedContext.save()
