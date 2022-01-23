@@ -54,8 +54,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         taskList.append(tempTask)
         completeTasks.append(tempTask)
-        
-        AnimationHelper.FixPositionX(view: completeView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

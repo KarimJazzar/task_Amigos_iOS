@@ -14,10 +14,4 @@ public class AnimationHelper {
             view.frame.origin.x = CGFloat(x)
         }
     }
-    
-    static func FixPositionX(view: UIView) -> Void {
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {}, completion: {
-            finished in view.frame.origin.x = 30 + view.frame.width
-        })
-    }
 }
