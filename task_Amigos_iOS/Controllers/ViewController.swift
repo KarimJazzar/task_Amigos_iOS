@@ -67,14 +67,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         })
         
         
-        clearTaskData()
-        addTask(t: Task(id: 0, name: "Dio", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
-        addTask(t: Task(id: 0, name: "Jotarou", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+        //clearTaskData()
         
+        //testing core data
+//        addTask(t: Task(id: 0, name: "Dio", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+//        addTask(t: Task(id: 0, name: "Jotarou", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+//
         loadTasks()
         print("There are \(tasks?.count) tasks")
         for t in tasks!{
-            print(t.getName())
+            print("Task name is \(t.getName())")
             print(t.getAudios())
         }
     }
@@ -179,37 +181,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     
-    //function to add a task to core data
-    func addTask(t:Task){
-                
-                let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
-                
-                newTask.setValue(t.getName(), forKey: "name")
-                newTask.setValue(t.getDescription(), forKey: "desc")
-                newTask.setValue(t.getStatus().rawValue, forKey: "status")
-                newTask.setValue(t.getSubTask(), forKey: "subtask")
-                newTask.setValue(t.getImages(), forKey: "images")
-                newTask.setValue(t.getAudios(), forKey: "audios")
-                newTask.setValue(t.getDueDate(), forKey: "dueDate")
-                newTask.setValue(t.getCreatedDate(), forKey: "createdDate")
-                newTask.setValue(t.getCategory().rawValue, forKey: "category")
-
-                do {
-                    try managedContext.save()
-                    print("Record Added!")
-                    //To display an alert box
-                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
-                    let OKAction = UIAlertAction(title: "OK", style: .default) {
-                        (action: UIAlertAction!) in
-                    }
-                    alertController.addAction(OKAction)
-                    self.present(alertController, animated: true, completion: nil)
-                } catch
-                let error as NSError {
-                    print("Could not save. \(error),\(error.userInfo)")
-                }
-    }
-    
     // function to delete all tasks from core data
     func clearTaskData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
@@ -225,7 +196,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } catch {
             print("Error deleting records \(error)")
         }
-        
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let avc = segue.destination as! AddViewController
+//        avc.tasks = tasks
+//    }
+//
+//    @IBAction func moveToAdd(_ sender: Any) {
+//        performSegue(withIdentifier: "AddT", sender: tasks)
+//    }
+    
 }
 

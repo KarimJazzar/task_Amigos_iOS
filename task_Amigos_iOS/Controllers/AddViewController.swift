@@ -9,7 +9,12 @@ import UIKit
 import CoreData
 
 class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var managedContext: NSManagedObjectContext!
 
+    var tasks: [Task]?
     
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var descriptionTV: UITextView!
@@ -38,6 +43,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        managedContext = appDelegate.persistentContainer.viewContext
         
         imageTableView.delegate = self
         imageTableView.dataSource = self
@@ -131,7 +138,30 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    @IBAction func Saveask(_ sender: Any) {
+    @IBAction func SaveTask(_ sender: Any) {
+        
+        let name = nameTF.text!
+        let desc = descriptionTV.text!
+        let bname = categoryBtn.title(for: .normal)
+        let cat: Category
+        if(bname == "Groceries"){
+            cat = Category.groceries
+        }else if(bname == "School"){
+            cat = Category.school
+        }else if(bname == "Shopping"){
+            cat = Category.shopping
+        }else{
+            cat = Category.work
+        }
+        
+        let stat: Status
+        if(statusBtn.title(for: .normal) == "Incomplete"){
+            stat = Status.incomplete
+        }else{
+            stat = Status.complete
+        }
+        
+        addTask(t: Task(id: 0, name: name, description: desc, category: cat, status: stat, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: dueDatePicker.date, createdDate: createdDatePicker.date))
         
     }
     
@@ -154,6 +184,55 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 break
             default:
                 break
+        }
+    }
+    
+    
+    //function to add a task to core data
+    func addTask(t:Task){
+                
+                let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
+                
+                newTask.setValue(t.getName(), forKey: "name")
+                newTask.setValue(t.getDescription(), forKey: "desc")
+                newTask.setValue(t.getStatus().rawValue, forKey: "status")
+                newTask.setValue(t.getSubTask(), forKey: "subtask")
+                newTask.setValue(t.getImages(), forKey: "images")
+                newTask.setValue(t.getAudios(), forKey: "audios")
+                newTask.setValue(t.getDueDate(), forKey: "dueDate")
+                newTask.setValue(t.getCreatedDate(), forKey: "createdDate")
+                newTask.setValue(t.getCategory().rawValue, forKey: "category")
+
+                do {
+                    try managedContext.save()
+                    print("Record Added!")
+                    //To display an alert box
+                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default) {
+                        (action: UIAlertAction!) in
+                    }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } catch
+                let error as NSError {
+                    print("Could not save. \(error),\(error.userInfo)")
+                }
+    }
+    
+    // function to delete all tasks from core data
+    func clearTaskData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
+
+        do {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let results = try managedContext.fetch(fetchRequest)
+            for result in results {
+                if let managedObject = result as? NSManagedObject {
+                    managedContext.delete(managedObject)
+                }
+            }
+        } catch {
+            print("Error deleting records \(error)")
         }
     }
 }

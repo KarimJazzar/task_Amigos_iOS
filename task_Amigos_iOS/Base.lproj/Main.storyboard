@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XYp-v0-roV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XYp-v0-roV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +29,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Add New Task"/>
                                 <connections>
-                                    <segue destination="LOM-NX-vCc" kind="show" id="x91-ks-OUq"/>
+                                    <segue destination="LOM-NX-vCc" kind="show" identifier="addT" id="x91-ks-OUq"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_btn.png" translatesAutoresizingMaskIntoConstraints="NO" id="EKp-1K-yoO">
@@ -360,19 +361,7 @@
                                                             <constraint firstAttribute="height" constant="24" id="x3V-ug-d4q"/>
                                                         </constraints>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="filled">
-                                                            <backgroundConfiguration key="background"/>
-                                                            <attributedString key="attributedTitle">
-                                                                <fragment content="Work">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                            </attributedString>
-                                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <color key="baseBackgroundColor" red="0.14913329480000001" green="0.14448630809999999" blue="0.16980668900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </buttonConfiguration>
+                                                        <state key="normal" title="Groceries"/>
                                                         <connections>
                                                             <action selector="ShowMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="fdy-6s-2f5"/>
                                                         </connections>
@@ -419,17 +408,6 @@
                                                         </constraints>
                                                         <color key="tintColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="filled">
-                                                            <attributedString key="attributedTitle">
-                                                                <fragment content="Incomplete">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                            </attributedString>
-                                                            <color key="baseForegroundColor" red="0.87486539490676074" green="0.84498638920743252" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="baseBackgroundColor" red="0.1178925708" green="0.1172484681" blue="0.13413485880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="ShowMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="jIh-H4-iz5"/>
                                                         </connections>
@@ -475,7 +453,7 @@
                                         <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageCellView" rowHeight="87" id="huX-pt-yOg" customClass="ImageTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="319" height="87"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="huX-pt-yOg" id="mIL-cR-OD5">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="87"/>
@@ -496,18 +474,8 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-Om-WTg">
-                                                            <rect key="frame" x="256" y="51.5" width="53" height="25.5"/>
+                                                            <rect key="frame" x="263" y="47" width="46" height="30"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="filled">
-                                                                <attributedString key="attributedTitle">
-                                                                    <fragment content="Delete">
-                                                                        <attributes>
-                                                                            <font key="NSFont" size="10" name="Helvetica"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <color key="baseBackgroundColor" systemColor="systemRedColor"/>
-                                                            </buttonConfiguration>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -543,7 +511,6 @@
                                             <constraint firstAttribute="width" constant="20" id="TMX-po-U9o"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -608,20 +575,11 @@
                                     <constraint firstAttribute="height" constant="24" id="xT9-qf-FGr"/>
                                     <constraint firstAttribute="width" constant="67" id="z1M-de-bX1"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled">
-                                    <backgroundConfiguration key="background"/>
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Save">
-                                            <attributes>
-                                                <font key="NSFont" size="10" name="Helvetica"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
-                                </buttonConfiguration>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
                                 <connections>
-                                    <action selector="Saveask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="UOk-19-e0N"/>
+                                    <action selector="SaveTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="UOk-19-e0N"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4N-HL-wlk">
@@ -631,104 +589,46 @@
                                     <constraint firstAttribute="width" constant="67" id="pTw-mA-Y4Q"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemRedColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Delete">
-                                            <attributes>
-                                                <font key="NSFont" size="10" name="Helvetica"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
-                                </buttonConfiguration>
+                                <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="DeleteTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="eQP-SB-Do9"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="q8r-Hl-Ki4">
-                                <rect key="frame" x="15" y="319" width="184.5" height="102"/>
+                                <rect key="frame" x="15" y="319" width="184.5" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xQ-ED-o23">
-                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Work">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="g2a-yM-kiG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azV-fU-iqH">
-                                        <rect key="frame" x="0.0" y="25.5" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="30" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="School">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="EXg-R9-C1e"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVZ-33-XnN">
-                                        <rect key="frame" x="0.0" y="51" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="60" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Shopping">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="ksf-t6-r1t"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-St-Lz1">
-                                        <rect key="frame" x="0.0" y="76.5" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="90" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Groceries">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="laf-H8-KVu"/>
                                         </connections>
@@ -737,46 +637,22 @@
                                 <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </stackView>
                             <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AWe-8J-TzM">
-                                <rect key="frame" x="214.5" y="319" width="184.5" height="51"/>
+                                <rect key="frame" x="214.5" y="319" width="184.5" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azo-Xb-j1k">
-                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Incomplete">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="dtm-CU-C1n"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-Us-3rp">
-                                        <rect key="frame" x="0.0" y="25.5" width="184.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="30" width="184.5" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Complete">
-                                                    <attributes>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="SelectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="4hZ-v9-6u2"/>
                                         </connections>
@@ -798,7 +674,7 @@
                                         <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="audioCellView" rowHeight="87" id="utc-MB-dkM" customClass="AudioTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="319" height="87"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="utc-MB-dkM" id="4Bp-Zl-w2S">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="87"/>
@@ -825,21 +701,10 @@
                                                                 <constraint firstAttribute="height" constant="67" id="dEc-Fg-MNY"/>
                                                             </constraints>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain"/>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmR-Xb-fkz">
-                                                            <rect key="frame" x="256" y="51.5" width="53" height="25.5"/>
+                                                            <rect key="frame" x="263" y="47" width="46" height="30"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="filled">
-                                                                <attributedString key="attributedTitle">
-                                                                    <fragment content="Delete">
-                                                                        <attributes>
-                                                                            <font key="NSFont" size="10" name="Helvetica"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <color key="baseBackgroundColor" systemColor="systemRedColor"/>
-                                                            </buttonConfiguration>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -878,7 +743,6 @@
                                             <constraint firstAttribute="width" constant="20" id="o1a-qN-Ax6"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -966,7 +830,6 @@
         <!--Navigation Controller-->
         <scene sceneID="rTh-ab-Plv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oeg-C0-Kwj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XYp-v0-roV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MO6-rM-4mp">
@@ -987,6 +850,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vks-7i-1cQ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oeg-C0-Kwj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="72.991071428571431"/>
         </scene>
@@ -998,6 +862,9 @@
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="doc" catalog="system" width="115" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
