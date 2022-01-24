@@ -26,6 +26,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var imageTableView: UITableView!
     @IBOutlet weak var audioTableView: UITableView!
     
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
+    @IBOutlet weak var createdDatePicker: UIDatePicker!
+    
     let currentDateTime = Date()
     var task: Task?
     var imageTestRows: Int = 10
@@ -46,6 +49,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             tempSwipe.direction = gesture
             view.addGestureRecognizer(tempSwipe)
         }
+        
+        dueDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
+        createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
