@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
     @IBOutlet weak var nameTF: UITextField!
@@ -21,17 +21,48 @@ class AddViewController: UIViewController {
     @IBOutlet weak var statusImg: UIImageView!
     @IBOutlet weak var statusMenu: UIStackView!
     
+    @IBOutlet weak var imageView: UIView!
+    @IBOutlet weak var imageTableView: UITableView!
     
     let currentDateTime = Date()
     var task: Task?
+    var imageTestRows: Int = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        imageTableView.delegate = self
+        imageTableView.dataSource = self
     }
     
-    @IBAction func showMenu(_ sender: UIButton) {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == imageTableView {
+            return imageTestRows
+        } else {
+            return 0
+        }
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        let verticalPadding: CGFloat = 8
+
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 5    //if you want round edges
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x + 5, y: cell.bounds.origin.y, width: cell.bounds.width - 10, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
+        
+        cell.imgName.text = "Image #\(indexPath.row)"
+    
+        return cell
+    }
+    
+    @IBAction func ShowMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
             
@@ -55,12 +86,12 @@ class AddViewController: UIViewController {
         }
     }
     
-    @IBAction func selectCategory(_ sender: UIButton) {
+    @IBAction func SelectCategory(_ sender: UIButton) {
         ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
         UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.titleLabel?.text ?? "Work")
     }
     
-    @IBAction func selectStatus(_ sender: UIButton) {
+    @IBAction func SelectStatus(_ sender: UIButton) {
         ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
         UpdateAttributeTitle(btn: statusBtn, newTitle: sender.titleLabel?.text ?? "Incomplete")
     }
@@ -72,5 +103,13 @@ class AddViewController: UIViewController {
             mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: newTitle)
             btn.setAttributedTitle(mutableAttributedTitle, for: .normal)
         }
+    }
+    
+    @IBAction func Saveask(_ sender: Any) {
+        
+    }
+    
+    @IBAction func DeleteTask(_ sender: Any) {
+        
     }
 }

@@ -20,6 +20,7 @@
 		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
 		CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */; };
 		CF466BBC2799F22800DA75D1 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */; };
+		CFBBC8D5279E316600D23CD7 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */; };
 		CFE51726279A1E94006CD986 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51725279A1E94006CD986 /* AnimationHelper.swift */; };
 		CFE5172A279A3347006CD986 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51729279A3347006CD986 /* TaskManager.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
+		CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		CFE51725279A1E94006CD986 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 		CFE51729279A3347006CD986 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
+				CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
 				65D489E8278E551800880817 /* ViewController.swift in Sources */,
 				65D489E4278E551800880817 /* AppDelegate.swift in Sources */,
+				CFBBC8D5279E316600D23CD7 /* ImageTableViewCell.swift in Sources */,
 				65D489E6278E551800880817 /* SceneDelegate.swift in Sources */,
 				CF2EE1C8278E634200A80185 /* Status.swift in Sources */,
 			);
