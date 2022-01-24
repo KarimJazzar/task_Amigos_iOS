@@ -30,6 +30,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var task: Task?
     var imageTestRows: Int = 10
     var audiosTestRows: Int = 3
+    private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         audioTableView.delegate = self
         audioTableView.dataSource = self
+        
+        for gesture in gestureList {
+            let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
+            tempSwipe.direction = gesture
+            view.addGestureRecognizer(tempSwipe)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -123,5 +130,23 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func DeleteTask(_ sender: Any) {
         
+    }
+    
+    @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+        let swipeGesture = gesture as UISwipeGestureRecognizer
+        
+        switch swipeGesture.direction {
+            case .left:
+                let newX = UIScreen.main.bounds.width - audioView.frame.width - 15
+                AnimationHelper.SlideX(view: audioView, x: newX)
+                AnimationHelper.SlideX(view: imageView, x: newX - imageView.frame.width - 15)
+                break
+            case .right:
+                AnimationHelper.SlideX(view: audioView, x: audioView.frame.width + 30)
+                AnimationHelper.SlideX(view: imageView, x: 15)
+                break
+            default:
+                break
+        }
     }
 }

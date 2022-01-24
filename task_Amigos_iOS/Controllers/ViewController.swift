@@ -80,8 +80,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = CheckCellType(isCompleteTable: isCompleteTable)
         let tempTask = isCompleteTable ? completeTasks[indexPath.row] : incompleteTasks[indexPath.row]
         let color = CategoryHelper.GetCategoryColor(category: tempTask.getCategory())
-        
-        print("\(color)")
 
         cell.categoryColorLine.backgroundColor = color
         cell.categoryLabel.text = CategoryHelper.GetCategoryString(category: tempTask.getCategory())
