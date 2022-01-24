@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112DB129279F2ADC008FF0B3 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112DB128279F2ADC008FF0B3 /* AudioManager.swift */; };
 		3B58268B279A508F00D57D55 /* ImagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58268A279A508F00D57D55 /* ImagesManager.swift */; };
 		65D489E4278E551800880817 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489E3278E551800880817 /* AppDelegate.swift */; };
 		65D489E6278E551800880817 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D489E5278E551800880817 /* SceneDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		112DB128279F2ADC008FF0B3 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3B58268A279A508F00D57D55 /* ImagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesManager.swift; sourceTree = "<group>"; };
 		65D489E0278E551800880817 /* task_Amigos_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = task_Amigos_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D489E3278E551800880817 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				CF2EE1C4278E630700A80185 /* Category.swift */,
 				CF2EE1C7278E634200A80185 /* Status.swift */,
 				3B58268A279A508F00D57D55 /* ImagesManager.swift */,
+				112DB128279F2ADC008FF0B3 /* AudioManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				3B58268B279A508F00D57D55 /* ImagesManager.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
 				65D489E8278E551800880817 /* ViewController.swift in Sources */,
+				112DB129279F2ADC008FF0B3 /* AudioManager.swift in Sources */,
 				65D489E4278E551800880817 /* AppDelegate.swift in Sources */,
 				CFBBC8D5279E316600D23CD7 /* ImageTableViewCell.swift in Sources */,
 				65D489E6278E551800880817 /* SceneDelegate.swift in Sources */,
