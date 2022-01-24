@@ -22,24 +22,30 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var statusMenu: UIStackView!
     
     @IBOutlet weak var imageView: UIView!
+    @IBOutlet weak var audioView: UIView!
     @IBOutlet weak var imageTableView: UITableView!
+    @IBOutlet weak var audioTableView: UITableView!
     
     let currentDateTime = Date()
     var task: Task?
     var imageTestRows: Int = 10
+    var audiosTestRows: Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imageTableView.delegate = self
         imageTableView.dataSource = self
+        
+        audioTableView.delegate = self
+        audioTableView.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == imageTableView {
             return imageTestRows
         } else {
-            return 0
+            return audiosTestRows
         }
     }
 
@@ -55,11 +61,17 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
-        
-        cell.imgName.text = "Image #\(indexPath.row)"
-    
-        return cell
+        if tableView == imageTableView {
+            let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
+            cell.imgName.text = "Image #\(indexPath.row)"
+            
+            return cell
+        } else {
+            let cell = audioTableView.dequeueReusableCell(withIdentifier: "audioCellView") as! AudioTableViewCell
+            cell.audioName.text = "Audio #\(indexPath.row)"
+            
+            return cell
+        }
     }
     
     @IBAction func ShowMenu(_ sender: UIButton) {
