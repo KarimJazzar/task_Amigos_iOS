@@ -9,10 +9,18 @@ import UIKit
 
 class AddViewController: UIViewController {
 
-    @IBOutlet weak var createdDate: UILabel!
-    @IBOutlet weak var taskName: UITextField!
     
-    @IBOutlet weak var taskDescription: UITextView!
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var descriptionTV: UITextView!
+    
+    @IBOutlet weak var categoryBtn: UIButton!
+    @IBOutlet weak var categoryImg: UIImageView!
+    @IBOutlet weak var categoryMenu: UIStackView!
+    
+    @IBOutlet weak var statusBtn: UIButton!
+    @IBOutlet weak var statusImg: UIImageView!
+    @IBOutlet weak var statusMenu: UIStackView!
+    
     
     let currentDateTime = Date()
     var task: Task?
@@ -20,34 +28,10 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateString = df.string(from: currentDateTime)
-        createdDate.text = dateString
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addTaskSegue"){
-            //let dest = segue.destination as? ViewController
-            //dest?.incompleteTasks.append(task!)
-        }
+    @IBAction func showMenu(_ sender: UIButton) {
+        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    @IBAction func add(_ sender: UIButton) {
-        //task = Task(name: taskName.text!, description: taskDescription.text, category: , status: , subTask: , images: , audios: , dueDate: , createdDate: currentDateTime)
-        dismiss(animated: true, completion: nil)
-        //performSegue(withIdentifier: "addTaskSegue", sender: <#T##Any?#>)
-    }
-    
 }
