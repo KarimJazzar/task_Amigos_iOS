@@ -32,6 +32,45 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func showMenu(_ sender: UIButton) {
+        if sender.tag == 0 {
+            ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
+            
+            let tempAlpha = CGFloat(categoryMenu.alpha == 1 ? 0 : 1)
+            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: tempAlpha)
+        } else {
+            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+            
+            let tempAlpha = CGFloat(statusMenu.alpha == 1 ? 0 : 1)
+            ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: tempAlpha)
+        }
+    }
+    
+    func ToggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
+        menu.alpha = alpha
         
+        if alpha == 1 {
+            img.image = UIImage(systemName: "arrow.up.circle")
+        } else {
+            img.image = UIImage(systemName: "arrow.down.circle")
+        }
+    }
+    
+    @IBAction func selectCategory(_ sender: UIButton) {
+        ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+        UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.titleLabel?.text ?? "Work")
+    }
+    
+    @IBAction func selectStatus(_ sender: UIButton) {
+        ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
+        UpdateAttributeTitle(btn: statusBtn, newTitle: sender.titleLabel?.text ?? "Incomplete")
+    }
+    
+    func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
+        if let attributedTitle = btn.attributedTitle(for: .normal) {
+            let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
+            
+            mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: newTitle)
+            btn.setAttributedTitle(mutableAttributedTitle, for: .normal)
+        }
     }
 }
