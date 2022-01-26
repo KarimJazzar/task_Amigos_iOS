@@ -23,6 +23,7 @@ class TaskManager {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
         
+        //clearTaskData()
         loadData()
     }
     
@@ -61,7 +62,6 @@ class TaskManager {
         }
     }
     
-    
     //function to add a task to core data
     func addTask(task:Task, view: UIViewController){
             let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
@@ -86,8 +86,7 @@ class TaskManager {
                 }
                 alertController.addAction(OKAction)
                 view.present(alertController, animated: true, completion: nil)
-            } catch
-            let error as NSError {
+            } catch let error as NSError {
                 print("Could not save. \(error),\(error.userInfo)")
             }
     }
@@ -103,6 +102,8 @@ class TaskManager {
                     managedContext.delete(managedObject)
                 }
             }
+            
+            try managedContext.save()
         } catch {
             print("Error deleting records \(error)")
         }
