@@ -100,6 +100,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.layer.mask = maskLayer
     }
     
+   
+    //table view clicked
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == completeTableView{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddViewController") as! AddViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        
+        }
+        else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddViewController") as! AddViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        }
+    }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let isCompleteTable = tableView == completeTableView
         let cell = CheckCellType(isCompleteTable: isCompleteTable)
