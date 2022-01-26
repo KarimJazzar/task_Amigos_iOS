@@ -821,9 +821,11 @@
                         <outlet property="statusBtn" destination="v0d-Zk-xY5" id="d4g-J8-a6I"/>
                         <outlet property="statusImg" destination="qxP-Pv-0T8" id="R3W-zQ-F6Y"/>
                         <outlet property="statusMenu" destination="AWe-8J-TzM" id="6vz-6z-VZn"/>
+                        <segue destination="INK-eY-xfs" kind="unwind" identifier="exitAfterAdding" unwindAction="unwindToMainViewWithSegue:" id="0fm-Qz-bj2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8H-vC-DQb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="INK-eY-xfs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2008.6956521739132" y="72.991071428571431"/>
         </scene>

@@ -27,7 +27,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         managedContext = appDelegate.persistentContainer.viewContext
         
@@ -43,38 +42,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             view.addGestureRecognizer(tempSwipe)
         }
         
-        var tempTask = Task(id: 0, name: "Incomplete Task 1", description: "This is an example of incomplete task.", category: Category.work, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
-        
-        taskList.append(tempTask)
-        incompleteTasks.append(tempTask)
-        
-        tempTask = Task(id: 0, name: "Incomplete Task 2", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
-        
-        taskList.append(tempTask)
-        incompleteTasks.append(tempTask)
-        
-        tempTask = Task(id: 0, name: "Complete Task 1", description: "This is an example of complete task.", category: Category.groceries, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
-        
-        taskList.append(tempTask)
-        completeTasks.append(tempTask)
-        
-        tempTask = Task(id: 0, name: "Complete Task 2", description: "This is an example of complete task.", category: Category.shopping, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
-        
-        taskList.append(tempTask)
-        completeTasks.append(tempTask)
+//        var tempTask = Task(id: 0, name: "Incomplete Task 1", description: "This is an example of incomplete task.", category: Category.work, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+//
+//        taskList.append(tempTask)
+//        incompleteTasks.append(tempTask)
+//
+//        tempTask = Task(id: 0, name: "Incomplete Task 2", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+//
+//        taskList.append(tempTask)
+//        incompleteTasks.append(tempTask)
+//
+//        tempTask = Task(id: 0, name: "Complete Task 1", description: "This is an example of complete task.", category: Category.groceries, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+//
+//        taskList.append(tempTask)
+//        completeTasks.append(tempTask)
+//
+//        tempTask = Task(id: 0, name: "Complete Task 2", description: "This is an example of complete task.", category: Category.shopping, status: Status.complete, subTask: [Int](), images: [String](), audios: [String](), dueDate: Date(), createdDate: Date())
+//
+//        taskList.append(tempTask)
+//        completeTasks.append(tempTask)
 
         UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {}, completion: { finished in self.completeView.frame.origin.x = (self.completeView.frame.origin.x * 2) + self.completeView.frame.width
         })
         
         
-        //clearTaskData()
+        clearTaskData()
         
         //testing core data
-//        addTask(t: Task(id: 0, name: "Dio", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
-//        addTask(t: Task(id: 0, name: "Jotarou", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+        //addTask(t: Task(id: 0, name: "Complete 1", description: "This is an example of complete task.", category: Category.school, status: Status.complete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
+        //addTask(t: Task(id: 0, name: "Incomp 2", description: "This is an example of incomplete task.", category: Category.school, status: Status.incomplete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
 //
         loadTasks()
-        print("There are \(tasks?.count) tasks")
+        print("There are \(String(describing: tasks?.count)) tasks")
         for t in tasks!{
             print("Task name is \(t.getName())")
             print(t.getAudios())
@@ -151,9 +150,42 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    //function to add a task to core data
+    func addTask(t:Task){
+                
+                let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
+                
+                newTask.setValue(t.getName(), forKey: "name")
+                newTask.setValue(t.getDescription(), forKey: "desc")
+                newTask.setValue(t.getStatus().rawValue, forKey: "status")
+                newTask.setValue(t.getSubTask(), forKey: "subtask")
+                newTask.setValue(t.getImages(), forKey: "images")
+                newTask.setValue(t.getAudios(), forKey: "audios")
+                newTask.setValue(t.getDueDate(), forKey: "dueDate")
+                newTask.setValue(t.getCreatedDate(), forKey: "createdDate")
+                newTask.setValue(t.getCategory().rawValue, forKey: "category")
+
+                do {
+                    try managedContext.save()
+                    print("Record Added!")
+                    //To display an alert box
+                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default) {
+                        (action: UIAlertAction!) in
+                    }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } catch
+                let error as NSError {
+                    print("Could not save. \(error),\(error.userInfo)")
+                }
+    }
+    
     //function to load tasks from core data
     func loadTasks() {
             tasks = [Task]()
+            incompleteTasks = [Task]()
+            completeTasks = [Task]()
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
             
@@ -173,6 +205,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             let cat = result.value(forKey: "category") as! Category.RawValue
                         
                             tasks?.append(Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
+                            if(Status(rawValue: status)! == Status.incomplete){
+                                incompleteTasks.append(Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
+                            }else{
+                                completeTasks.append(Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate))
+                            }
                     }
                 }
                 
@@ -198,13 +235,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    @IBAction func unwindToMainView(segue: UIStoryboardSegue) {
+        loadTasks()
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.incompleteTableView.reloadData()
+                self.completeTableView.reloadData()
+            }
+        }
+    }
+    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let avc = segue.destination as! AddViewController
-//        avc.tasks = tasks
 //    }
 //
 //    @IBAction func moveToAdd(_ sender: Any) {
-//        performSegue(withIdentifier: "AddT", sender: tasks)
+//        performSegue(withIdentifier: "AddT", sender: self)
 //    }
     
 }
