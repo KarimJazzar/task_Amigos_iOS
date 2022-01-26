@@ -64,10 +64,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let isCompleteTable = tableView == completeTableView
         let cell = CheckCellType(isCompleteTable: isCompleteTable)
         let tempTask = isCompleteTable ? completeTasks[indexPath.row] : incompleteTasks[indexPath.row]
-        let color = CategoryHelper.GetCategoryColor(category: tempTask.getCategory())
+        let color = CategoryHelper.getCategoryColor(category: tempTask.getCategory())
 
         cell.categoryColorLine.backgroundColor = color
-        cell.categoryLabel.text = CategoryHelper.GetCategoryString(category: tempTask.getCategory())
+        cell.categoryLabel.text = CategoryHelper.getCategoryString(category: tempTask.getCategory())
         cell.categoryLabel.textColor = color
         cell.taskName.text = "\(tempTask.getName())"
         
@@ -93,12 +93,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch swipeGesture.direction {
             case .left:
                 let newX = UIScreen.main.bounds.width - completeView.frame.width - 15
-                AnimationHelper.SlideX(view: completeView, x: newX)
-                AnimationHelper.SlideX(view: incompleteView, x: newX - incompleteView.frame.width - 15)
+                AnimationHelper.slideX(view: completeView, x: newX)
+                AnimationHelper.slideX(view: incompleteView, x: newX - incompleteView.frame.width - 15)
                 break
             case .right:
-                AnimationHelper.SlideX(view: completeView, x: completeView.frame.width + 30)
-                AnimationHelper.SlideX(view: incompleteView, x: 15)
+                AnimationHelper.slideX(view: completeView, x: completeView.frame.width + 30)
+                AnimationHelper.slideX(view: incompleteView, x: 15)
                 break
             default:
                 break
