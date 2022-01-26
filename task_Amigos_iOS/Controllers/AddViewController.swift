@@ -9,8 +9,6 @@ import UIKit
 
 class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var taskManager: TaskManager = TaskManager()
-    
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var descriptionTV: UITextView!
     

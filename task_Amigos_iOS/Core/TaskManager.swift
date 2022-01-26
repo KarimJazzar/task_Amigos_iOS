@@ -9,16 +9,14 @@ import UIKit
 import Foundation
 import CoreData
 
+let taskManager: TaskManager = TaskManager()
+
 class TaskManager {
-    var tasks: [Task]
-    var incompleteTasks: [Task] = [Task]()
-    var completeTasks: [Task] = [Task]()
+    var taskList: [Task]
     var managedContext: NSManagedObjectContext!
     
     init() {
-        tasks = [Task]()
-        incompleteTasks = [Task]()
-        completeTasks = [Task]()
+        taskList = [Task]()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
@@ -28,33 +26,26 @@ class TaskManager {
     }
     
     func loadData() {
-        tasks = [Task]()
-        incompleteTasks = [Task]()
-        completeTasks = [Task]()
+        taskList = [Task]()
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
         
         do {
             let results = try managedContext.fetch(fetchRequest)
             if results is [NSManagedObject] {
-            for result in (results as! [NSManagedObject]) {
-                let name = result.value(forKey: "name") as! String
-                let descr = result.value(forKey: "desc") as! String
-                let status = result.value(forKey: "status") as! Status.RawValue
-                let subtask = result.value(forKey: "subtask") as! [Int]
-                let images = result.value(forKey: "images") as! [String]
-                let audios = result.value(forKey: "audios") as! [String]
-                let dueDate = result.value(forKey: "dueDate") as! Date
-                let createdDate = result.value(forKey: "createdDate") as! Date
-                let cat = result.value(forKey: "category") as! Category.RawValue
-                let tempTask = Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate)
-                
-                    tasks.append(tempTask)
-                    if(Status(rawValue: status)! == Status.incomplete){
-                        incompleteTasks.append(tempTask)
-                    }else{
-                        completeTasks.append(tempTask)
-                    }
+                for result in (results as! [NSManagedObject]) {
+                    let name = result.value(forKey: "name") as! String
+                    let descr = result.value(forKey: "desc") as! String
+                    let status = result.value(forKey: "status") as! Status.RawValue
+                    let subtask = result.value(forKey: "subtask") as! [Int]
+                    let images = result.value(forKey: "images") as! [String]
+                    let audios = result.value(forKey: "audios") as! [String]
+                    let dueDate = result.value(forKey: "dueDate") as! Date
+                    let createdDate = result.value(forKey: "createdDate") as! Date
+                    let cat = result.value(forKey: "category") as! Category.RawValue
+                    let tempTask = Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate)
+                    
+                    taskList.append(tempTask)
                 }
             }
         } catch {
@@ -78,6 +69,7 @@ class TaskManager {
 
             do {
                 try managedContext.save()
+                taskList.append(task)
                 print("Record Added!")
                 //To display an alert box
                 let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
@@ -109,15 +101,47 @@ class TaskManager {
         }
     }
     
+    func remveTaskByIndex(index: Int) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            if let managedObject = results[index] as? NSManagedObject {
+                taskList.remove(at: index)
+                managedContext.delete(managedObject)
+                try managedContext.save()
+            }
+        } catch {
+            print("Error deleting records \(error)")
+        }
+    }
+    
     func getIncompleteTasksList() -> [Task] {
+        var incompleteTasks: [Task] = [Task]()
+        
+        for task in taskList {
+            if task.getStatus() == Status.incomplete {
+                incompleteTasks.append(task)
+            }
+        }
+        
         return incompleteTasks
     }
     
     func getCompleteTasksList() -> [Task] {
+        var completeTasks: [Task] = [Task]()
+        
+        for task in taskList {
+            if task.getStatus() == Status.complete {
+                completeTasks.append(task)
+            }
+        }
+        
         return completeTasks
     }
     
     func getTaskByIndex(index: Int) -> Task {
-        return tasks[index]
+        return taskList[index]
     }
 }

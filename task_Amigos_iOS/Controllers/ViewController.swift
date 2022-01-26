@@ -13,7 +13,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     var incompleteTasks: [Task] = [Task]()
     var completeTasks: [Task] = [Task]()
-    var taskManager: TaskManager = TaskManager()
     
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
@@ -25,9 +24,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        incompleteTasks = taskManager.getIncompleteTasksList()
-        completeTasks = taskManager.getCompleteTasksList()
-        
         incompleteTableView.delegate = self
         incompleteTableView.dataSource = self
         
@@ -39,6 +35,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tempSwipe.direction = gesture
             view.addGestureRecognizer(tempSwipe)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        incompleteTasks = taskManager.getIncompleteTasksList()
+        completeTasks = taskManager.getCompleteTasksList()
+        
+        incompleteTableView.reloadData()
+        completeTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
