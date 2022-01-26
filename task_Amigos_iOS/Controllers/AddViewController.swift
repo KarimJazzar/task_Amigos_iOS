@@ -28,10 +28,17 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var createdDatePicker: UIDatePicker!
     
+    
+    @IBOutlet weak var infoTapBtn: UIButton!
+    @IBOutlet weak var attachTapBtn: UIButton!
+    @IBOutlet weak var infoTapView: UIView!
+    @IBOutlet weak var attachTapView: UIView!
+    
     let currentDateTime = Date()
     var task: Task?
     var imageTestRows: Int = 10
     var audiosTestRows: Int = 3
+    private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
     override func viewDidLoad() {
@@ -51,6 +58,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         dueDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
+        infoTapBtn.roundTopCorners()
+        attachTapBtn.roundTopCorners()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,10 +129,27 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         UpdateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
-    func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
+    private func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
         btn.setTitle(newTitle, for: .normal)
     }
     
+    @IBAction func toggleTapView(_ sender: UIButton) {
+        if sender.tag == 0 {
+            changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
+        } else {
+            changeTapView(infoColor: .clear, attachColor: selectedColor, infoAlpha: 0, attachAlpha: 1)
+        }
+    }
+    
+    private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
+        infoTapBtn.backgroundColor = infoColor
+        attachTapBtn.backgroundColor = attachColor
+        infoTapView.alpha = infoAlpha
+        attachTapView.alpha = attachAlpha
+    }
+    
+    
+
     @IBAction func SaveTask(_ sender: Any) {
         
         let name = nameTF.text!

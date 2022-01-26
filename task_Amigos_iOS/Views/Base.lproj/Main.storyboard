@@ -597,7 +597,7 @@
                                     <constraint firstItem="v0d-Zk-xY5" firstAttribute="top" secondItem="AWe-8J-TzM" secondAttribute="bottom" id="yVa-xf-Tu9"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL3-Es-cKw">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL3-Es-cKw">
                                 <rect key="frame" x="0.0" y="118" width="414" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAB-xq-OWv">
@@ -691,7 +691,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXA-sx-ICg">
-                                        <rect key="frame" x="349" y="15" width="319" height="427"/>
+                                        <rect key="frame" x="349" y="15" width="319" height="663"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audios:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9V3-a6-7M2">
                                                 <rect key="frame" x="0.0" y="0.0" width="319" height="12"/>
@@ -700,7 +700,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-xV-6iC">
-                                                <rect key="frame" x="0.0" y="22" width="319" height="405"/>
+                                                <rect key="frame" x="0.0" y="22" width="319" height="641"/>
                                                 <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="audioCellView" rowHeight="87" id="utc-MB-dkM" customClass="AudioTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
@@ -795,7 +795,7 @@
                                 <color key="backgroundColor" red="0.17664694789999999" green="0.1718343198" blue="0.20137369629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="sAB-xq-OWv" firstAttribute="top" secondItem="IL3-Es-cKw" secondAttribute="top" constant="15" id="1wc-XM-fOj"/>
-                                    <constraint firstItem="rXA-sx-ICg" firstAttribute="height" secondItem="sAB-xq-OWv" secondAttribute="height" multiplier="0.643713" id="5un-sY-0PN"/>
+                                    <constraint firstItem="rXA-sx-ICg" firstAttribute="height" secondItem="sAB-xq-OWv" secondAttribute="height" id="5un-sY-0PN"/>
                                     <constraint firstItem="rXA-sx-ICg" firstAttribute="leading" secondItem="sAB-xq-OWv" secondAttribute="trailing" constant="15" id="6Jl-JL-c2L"/>
                                     <constraint firstAttribute="bottom" secondItem="sAB-xq-OWv" secondAttribute="bottom" constant="10" id="K5h-z7-iJp"/>
                                     <constraint firstAttribute="trailing" secondItem="sAB-xq-OWv" secondAttribute="trailing" constant="80" id="RZh-zM-bJL"/>
@@ -845,22 +845,28 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsi-VC-tIb">
-                                <rect key="frame" x="0.0" y="88" width="66.5" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Info">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </backgroundConfiguration>
-                                </buttonConfiguration>
+                                <rect key="frame" x="0.0" y="88" width="63" height="30"/>
+                                <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Info">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleTapView:" destination="LOM-NX-vCc" eventType="touchUpInside" id="Iv7-yf-d1k"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8C-tR-8bX">
-                                <rect key="frame" x="66.5" y="88" width="66.5" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Attach">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" red="0.090315841140000006" green="0.090001828970000003" blue="0.098449788989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </backgroundConfiguration>
-                                </buttonConfiguration>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8C-tR-8bX">
+                                <rect key="frame" x="63" y="88" width="63" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Attach">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleTapView:" destination="LOM-NX-vCc" eventType="touchUpInside" id="rHL-NV-ePP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="q2J-C7-CrG"/>
@@ -890,6 +896,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Task" id="TbX-R2-Keb"/>
                     <connections>
+                        <outlet property="attachTapBtn" destination="D8C-tR-8bX" id="Stm-Pj-aYe"/>
+                        <outlet property="attachTapView" destination="IL3-Es-cKw" id="e4e-s0-BuW"/>
                         <outlet property="audioTableView" destination="Lg7-xV-6iC" id="Qhh-nK-C5o"/>
                         <outlet property="audioView" destination="rXA-sx-ICg" id="9fF-iP-zLH"/>
                         <outlet property="categoryBtn" destination="VVQ-kR-Hxy" id="bmf-zi-7gg"/>
@@ -900,6 +908,8 @@
                         <outlet property="dueDatePicker" destination="z7p-25-A5G" id="gBg-fp-uba"/>
                         <outlet property="imageTableView" destination="N4X-lf-Y8d" id="jAy-gN-3q2"/>
                         <outlet property="imageView" destination="sAB-xq-OWv" id="S1m-i6-RJ3"/>
+                        <outlet property="infoTapBtn" destination="zsi-VC-tIb" id="PB0-rq-bi5"/>
+                        <outlet property="infoTapView" destination="4ub-SF-3bq" id="vlO-MQ-yqA"/>
                         <outlet property="nameTF" destination="BHT-LT-Lea" id="bfu-lD-0gU"/>
                         <outlet property="statusBtn" destination="v0d-Zk-xY5" id="d4g-J8-a6I"/>
                         <outlet property="statusImg" destination="qxP-Pv-0T8" id="R3W-zQ-F6Y"/>
