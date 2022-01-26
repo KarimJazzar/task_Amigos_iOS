@@ -162,6 +162,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         addTask(t: Task(id: 0, name: name, description: desc, category: cat, status: stat, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: dueDatePicker.date, createdDate: createdDatePicker.date))
+        self.performSegue(withIdentifier: "exitAfterAdding", sender: self)
         
     }
     
@@ -207,12 +208,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     try managedContext.save()
                     print("Record Added!")
                     //To display an alert box
-                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
-                    let OKAction = UIAlertAction(title: "OK", style: .default) {
-                        (action: UIAlertAction!) in
-                    }
-                    alertController.addAction(OKAction)
-                    self.present(alertController, animated: true, completion: nil)
+//                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
+//                    let OKAction = UIAlertAction(title: "OK", style: .default) {
+//                        (action: UIAlertAction!) in
+//                    }
+                    //alertController.addAction(OKAction)
+                    //self.present(alertController, animated: true, completion: nil)
                 } catch
                 let error as NSError {
                     print("Could not save. \(error),\(error.userInfo)")
@@ -235,4 +236,5 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             print("Error deleting records \(error)")
         }
     }
-}
+    
+    }

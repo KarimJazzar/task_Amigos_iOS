@@ -82,6 +82,7 @@
 		65D489E2278E551800880817 /* task_Amigos_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CFAC698B27A0E4CB00ED8883 /* Core */,
 				CF466BC12799F87D00DA75D1 /* Helpers */,
 				CF466BC02799F87200DA75D1 /* Models */,
 				CF466BBE2799F85600DA75D1 /* Views */,
@@ -93,8 +94,6 @@
 				65D489EC278E551C00880817 /* Assets.xcassets */,
 				65D489EE278E551C00880817 /* LaunchScreen.storyboard */,
 				65D489F1278E551C00880817 /* Info.plist */,
-				CFE51729279A3347006CD986 /* TaskManager.swift */,
-				65D48A54279A28E700880817 /* Task_Data.xcdatamodeld */,
 			);
 			path = task_Amigos_iOS;
 			sourceTree = "<group>";
@@ -129,6 +128,7 @@
 		CF466BC02799F87200DA75D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				65D48A54279A28E700880817 /* Task_Data.xcdatamodeld */,
 				CF2EE1C2278E5F7E00A80185 /* Task.swift */,
 				CF2EE1C4278E630700A80185 /* Category.swift */,
 				CF2EE1C7278E634200A80185 /* Status.swift */,
@@ -144,6 +144,14 @@
 				CFE51725279A1E94006CD986 /* AnimationHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CFAC698B27A0E4CB00ED8883 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CFE51729279A3347006CD986 /* TaskManager.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
