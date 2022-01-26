@@ -38,7 +38,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     let currentDateTime = Date()
     var task: Task?
-    var imageTestRows: Int = 10
+    var subTaskTestRows: Int = 2
+    var imageTestRows: Int = 4
     var audiosTestRows: Int = 3
     private var isAttachViewVisible = false
     private var currentTable = 0
@@ -54,6 +55,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         audioTableView.delegate = self
         audioTableView.dataSource = self
         
+        subTaskTableView.delegate = self
+        subTaskTableView.dataSource = self
+        
         for gesture in gestureList {
             let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
             tempSwipe.direction = gesture
@@ -67,7 +71,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == imageTableView {
+        if tableView == subTaskTableView {
+          return subTaskTestRows
+        } else if tableView == imageTableView {
             return imageTestRows
         } else {
             return audiosTestRows
@@ -86,7 +92,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == imageTableView {
+        if tableView == subTaskTableView {
+            let cell = subTaskTableView.dequeueReusableCell(withIdentifier: "subTaskCellView") as! SubTaskTableViewCell
+            cell.subTaskName.text = "Subtask #\(indexPath.row)"
+            
+            return cell
+        } else if tableView == imageTableView {
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
             
