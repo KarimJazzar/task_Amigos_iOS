@@ -78,14 +78,14 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         attachTapBtn.roundTopCorners()
         
         if isEditMode {
-            activateEditMode()
+            toggleEditMode(deleteAlpha: 1, statusAlpha: 1, saveTitle: "Save")
             fillFields()
         }
     }
     
-    func activateEditMode() {
-        deleteBtn.alpha = 1
-        statusStackView.alpha = 1
+    func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
+        deleteBtn.alpha = deleteAlpha
+        statusStackView.alpha = statusAlpha
         saveBtn.setTitle("Save", for: .normal)
     }
     
@@ -240,7 +240,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func DeleteTask(_ sender: Any) {
         let id = task?.getId() ?? -1
-        print("\(id)")
+        
         if id >= 0 {
             taskManager.remuveTaskById(id: id)
             
@@ -256,6 +256,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             dueDatePicker.date = currentDateTime
             createdDatePicker.date = currentDateTime
         }
+        
+        isEditMode = false
+        toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
     }
     
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
