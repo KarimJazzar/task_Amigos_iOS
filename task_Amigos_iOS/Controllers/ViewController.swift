@@ -63,10 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         taskList.append(tempTask)
         completeTasks.append(tempTask)
 
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {}, completion: { finished in self.completeView.frame.origin.x = (self.completeView.frame.origin.x * 2) + self.completeView.frame.width
-        })
-        
-        
+    
         //clearTaskData()
         
         //testing core data
