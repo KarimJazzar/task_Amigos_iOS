@@ -83,6 +83,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    //table view clicked
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddViewController") as! AddViewController
+        vc.isEditMode = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func CheckCellType(isCompleteTable: Bool) -> TaskTableViewCell {
         if isCompleteTable {
             return completeTableView.dequeueReusableCell(withIdentifier: "taskCellComplete") as! TaskTableViewCell

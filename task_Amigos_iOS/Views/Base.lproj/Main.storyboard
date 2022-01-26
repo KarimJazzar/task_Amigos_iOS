@@ -307,7 +307,7 @@
         <!--Add Task-->
         <scene sceneID="p5R-8q-74G">
             <objects>
-                <viewController id="LOM-NX-vCc" customClass="AddViewController" customModule="task_Amigos_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddViewController" id="LOM-NX-vCc" customClass="AddViewController" customModule="task_Amigos_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="bZ2-Um-zcS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -917,7 +917,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="SaveTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="UOk-19-e0N"/>
+                                    <action selector="SaveTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="d0b-vV-bHd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4N-HL-wlk">
@@ -1000,6 +1000,7 @@
                         <outlet property="categoryImg" destination="4SU-UZ-gNF" id="6U3-oD-dDY"/>
                         <outlet property="categoryMenu" destination="q8r-Hl-Ki4" id="bcB-Pg-WTR"/>
                         <outlet property="createdDatePicker" destination="TeL-NL-tYg" id="VY8-fX-FmL"/>
+                        <outlet property="deleteBtn" destination="M4N-HL-wlk" id="gEZ-E8-Fae"/>
                         <outlet property="descriptionTV" destination="Sf1-mj-aox" id="cna-d2-oWR"/>
                         <outlet property="dueDatePicker" destination="z7p-25-A5G" id="gBg-fp-uba"/>
                         <outlet property="imageTableView" destination="N4X-lf-Y8d" id="jAy-gN-3q2"/>
@@ -1007,9 +1008,11 @@
                         <outlet property="infoTapBtn" destination="zsi-VC-tIb" id="PB0-rq-bi5"/>
                         <outlet property="infoTapView" destination="4ub-SF-3bq" id="vlO-MQ-yqA"/>
                         <outlet property="nameTF" destination="BHT-LT-Lea" id="bfu-lD-0gU"/>
+                        <outlet property="saveBtn" destination="OBU-jZ-1j8" id="wg9-8j-Uyy"/>
                         <outlet property="statusBtn" destination="v0d-Zk-xY5" id="d4g-J8-a6I"/>
                         <outlet property="statusImg" destination="qxP-Pv-0T8" id="R3W-zQ-F6Y"/>
                         <outlet property="statusMenu" destination="AWe-8J-TzM" id="6vz-6z-VZn"/>
+                        <outlet property="statusStackView" destination="7WA-5L-3WH" id="9A4-kR-mRd"/>
                         <outlet property="subTaskTableView" destination="CPZ-lp-rrd" id="V5x-K3-6jO"/>
                         <outlet property="subTaskView" destination="257-Ze-Sc7" id="TPo-eS-E3e"/>
                         <segue destination="INK-eY-xfs" kind="unwind" identifier="exitAfterAdding" unwindAction="unwindToMainViewWithSegue:" id="0fm-Qz-bj2"/>

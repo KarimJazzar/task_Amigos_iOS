@@ -36,8 +36,16 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var infoTapView: UIView!
     @IBOutlet weak var attachTapView: UIView!
     
+    
+    @IBOutlet weak var statusStackView: UIStackView!
+    
+    @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
+    
     let currentDateTime = Date()
     var task: Task?
+    var isEditMode: Bool = false
     var subTaskTestRows: Int = 2
     var imageTestRows: Int = 4
     var audiosTestRows: Int = 3
@@ -68,6 +76,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         infoTapBtn.roundTopCorners()
         attachTapBtn.roundTopCorners()
+        
+        if isEditMode {
+            deleteBtn.alpha = 1
+            statusStackView.alpha = 1
+            saveBtn.setTitle("Save", for: .normal)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
