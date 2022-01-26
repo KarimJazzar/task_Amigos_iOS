@@ -62,7 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        taskList.append(tempTask)
 //        completeTasks.append(tempTask)
         
-        clearTaskData()
+        //clearTaskData()
         
         //testing core data
         //addTask(t: Task(id: 0, name: "Complete 1", description: "This is an example of complete task.", category: Category.school, status: Status.complete, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: Date(), createdDate: Date()))
