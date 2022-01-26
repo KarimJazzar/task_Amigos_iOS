@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XYp-v0-roV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XYp-v0-roV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -53,7 +54,7 @@
                                         <color key="backgroundColor" red="0.13725490196078433" green="0.13333333333333333" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="taskCellIncomplete" rowHeight="100" id="k9s-wM-Vvp" customClass="TaskTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="319" height="100"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="319" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k9s-wM-Vvp" id="s39-7n-FYy">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="100"/>
@@ -170,7 +171,7 @@
                                         <color key="backgroundColor" red="0.13725490196078433" green="0.13333333333333333" blue="0.16078431372549018" alpha="0.99999989894841679" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="taskCellComplete" rowHeight="100" id="SyY-N2-Ip7" customClass="TaskTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="319" height="100"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="319" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SyY-N2-Ip7" id="bi0-0E-s1B">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="100"/>
@@ -453,7 +454,7 @@
                                         <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageCellView" rowHeight="87" id="huX-pt-yOg" customClass="ImageTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="319" height="87"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="huX-pt-yOg" id="mIL-cR-OD5">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="87"/>
@@ -674,7 +675,7 @@
                                         <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="audioCellView" rowHeight="87" id="utc-MB-dkM" customClass="AudioTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="319" height="87"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="utc-MB-dkM" id="4Bp-Zl-w2S">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="87"/>
