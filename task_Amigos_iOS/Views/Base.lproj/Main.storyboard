@@ -302,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928.98550724637687" y="72.991071428571431"/>
+            <point key="canvasLocation" x="749" y="73"/>
         </scene>
         <!--Add Task-->
         <scene sceneID="p5R-8q-74G">
@@ -858,7 +858,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8H-vC-DQb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="INK-eY-xfs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2008.6956521739132" y="72.991071428571431"/>
+            <point key="canvasLocation" x="1564" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rTh-ab-Plv">

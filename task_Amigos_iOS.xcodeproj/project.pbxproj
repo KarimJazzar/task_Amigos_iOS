@@ -90,9 +90,7 @@
 				CF466BB42799993100DA75D1 /* Images */,
 				65D489E3278E551800880817 /* AppDelegate.swift */,
 				65D489E5278E551800880817 /* SceneDelegate.swift */,
-				65D489E9278E551800880817 /* Main.storyboard */,
 				65D489EC278E551C00880817 /* Assets.xcassets */,
-				65D489EE278E551C00880817 /* LaunchScreen.storyboard */,
 				65D489F1278E551C00880817 /* Info.plist */,
 			);
 			path = task_Amigos_iOS;
@@ -118,6 +116,8 @@
 		CF466BBE2799F85600DA75D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				65D489EE278E551C00880817 /* LaunchScreen.storyboard */,
+				65D489E9278E551800880817 /* Main.storyboard */,
 				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
 				CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */,
 				CFBBC8D6279E3E1C00D23CD7 /* AudioTableViewCell.swift */,
