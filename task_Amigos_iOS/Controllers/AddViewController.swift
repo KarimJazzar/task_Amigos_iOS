@@ -22,8 +22,10 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var audioView: UIView!
+    @IBOutlet weak var subTaskView: UIView!
     @IBOutlet weak var imageTableView: UITableView!
     @IBOutlet weak var audioTableView: UITableView!
+    @IBOutlet weak var subTaskTableView: UITableView!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var createdDatePicker: UIDatePicker!
