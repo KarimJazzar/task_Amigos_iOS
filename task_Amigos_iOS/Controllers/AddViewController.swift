@@ -171,19 +171,20 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         let name = nameTF.text!
         let desc = descriptionTV.text!
-        let bname = categoryBtn.title(for: .normal)
+        let bname = categoryBtn.title(for: .normal) ?? ""
         
-        let cat: Category
-        if(bname == "Groceries"){
-            cat = Category.groceries
-        }else if(bname == "School"){
-            cat = Category.school
-        }else if(bname == "Shopping"){
-            cat = Category.shopping
-        }else{
-            cat = Category.work
+        if name == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
+            return
         }
         
+        if desc == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
+            return
+        }
+        
+        let cat: Category = CategoryHelper.getCategoryByString(category: bname)
+   
         let stat: Status
         if(statusBtn.title(for: .normal) == "Incomplete"){
             stat = Status.incomplete

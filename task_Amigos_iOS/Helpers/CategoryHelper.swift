@@ -34,4 +34,19 @@ public class CategoryHelper {
                 return "Groceries"
         }
     }
+    
+    static func getCategoryByString(category: String) -> Category {
+        switch category.lowercased() {
+            case "work":
+                return Category.work
+            case "school":
+                return Category.school
+            case "shopping":
+                return Category.shopping
+            case "groceries":
+                return Category.groceries
+            default:
+                return Category.work
+        }
+    }
 }
