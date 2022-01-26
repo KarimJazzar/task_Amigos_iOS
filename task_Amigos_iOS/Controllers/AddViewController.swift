@@ -40,6 +40,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var task: Task?
     var imageTestRows: Int = 10
     var audiosTestRows: Int = 3
+    private var isAttachViewVisible = false
+    private var currentTable = 0
     private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
@@ -136,6 +138,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func toggleTapView(_ sender: UIButton) {
+        isAttachViewVisible = sender.tag == 1
+        
         if sender.tag == 0 {
             changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
         } else {
@@ -190,20 +194,41 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+        if !isAttachViewVisible {
+            return
+        }
+        
         let swipeGesture = gesture as UISwipeGestureRecognizer
         
         switch swipeGesture.direction {
             case .left:
-                let newX = UIScreen.main.bounds.width - audioView.frame.width - 15
-                AnimationHelper.slideX(view: audioView, x: newX)
-                AnimationHelper.slideX(view: imageView, x: newX - imageView.frame.width - 15)
+                currentTable += 1
+                currentTable = currentTable >= 2 ? 2 : currentTable
                 break
             case .right:
-                AnimationHelper.slideX(view: audioView, x: audioView.frame.width + 30)
-                AnimationHelper.slideX(view: imageView, x: 15)
+                currentTable -= 1
+                currentTable = currentTable <= 0 ? 0 : currentTable
                 break
             default:
                 break
+        }
+        
+        updateTablePositions()
+    }
+    
+    private func updateTablePositions() {
+        if currentTable == 0 {
+            AnimationHelper.slideX(view: subTaskView, x: 15)
+            AnimationHelper.slideX(view: imageView, x: subTaskView.frame.width + 30)
+            AnimationHelper.slideX(view: audioView, x: (subTaskView.frame.width * 2) + 45)
+        } else if currentTable == 1 {
+            AnimationHelper.slideX(view: subTaskView, x: -subTaskView.frame.width)
+            AnimationHelper.slideX(view: imageView, x: 15)
+            AnimationHelper.slideX(view: audioView, x: subTaskView.frame.width + 30)
+        } else {
+            let newX = UIScreen.main.bounds.width - subTaskView.frame.width - 15
+            AnimationHelper.slideX(view: imageView, x: newX - subTaskView.frame.width - 15)
+            AnimationHelper.slideX(view: audioView, x: newX)
         }
     }
 }

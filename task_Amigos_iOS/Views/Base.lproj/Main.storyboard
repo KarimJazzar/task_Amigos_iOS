@@ -597,7 +597,7 @@
                                     <constraint firstItem="v0d-Zk-xY5" firstAttribute="top" secondItem="AWe-8J-TzM" secondAttribute="bottom" id="yVa-xf-Tu9"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL3-Es-cKw">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL3-Es-cKw">
                                 <rect key="frame" x="0.0" y="118" width="414" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="257-Ze-Sc7">
@@ -611,7 +611,7 @@
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CPZ-lp-rrd">
                                                 <rect key="frame" x="0.0" y="35" width="319" height="628"/>
-                                                <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subTaskCell" rowHeight="50" id="ZeQ-VD-j6l">
                                                         <rect key="frame" x="0.0" y="44.5" width="319" height="50"/>
@@ -644,7 +644,7 @@
                                                                 <constraint firstItem="vwy-GS-Z3f" firstAttribute="leading" secondItem="77y-X1-TBO" secondAttribute="leading" constant="10" id="NbD-oO-dyt"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
@@ -692,7 +692,7 @@
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N4X-lf-Y8d">
                                                 <rect key="frame" x="0.0" y="35" width="319" height="628"/>
-                                                <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageCellView" rowHeight="87" id="huX-pt-yOg" customClass="ImageTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
@@ -731,7 +731,7 @@
                                                                 <constraint firstItem="z7n-jv-JpG" firstAttribute="top" secondItem="mIL-cR-OD5" secondAttribute="top" constant="10" id="yKE-MN-8zL"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="imgName" destination="z7n-jv-JpG" id="3ay-RO-Ow6"/>
                                                             <outlet property="imgView" destination="86U-0M-BK6" id="s9V-Gi-h7N"/>
@@ -783,7 +783,7 @@
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-xV-6iC">
                                                 <rect key="frame" x="0.0" y="35" width="319" height="628"/>
-                                                <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="audioCellView" rowHeight="87" id="utc-MB-dkM" customClass="AudioTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="319" height="87"/>
@@ -833,7 +833,7 @@
                                                                 <constraint firstItem="We3-J6-FMU" firstAttribute="top" secondItem="4Bp-Zl-w2S" secondAttribute="top" constant="10" id="tsa-Q8-cmY"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.1649509072" green="0.15995404120000001" blue="0.19370421769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="audioImage" destination="dei-58-bN7" id="l8g-IX-2KV"/>
                                                             <outlet property="audioName" destination="dBd-Ic-A9b" id="7U9-Hy-E2L"/>
