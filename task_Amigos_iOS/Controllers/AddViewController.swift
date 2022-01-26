@@ -42,13 +42,13 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
     
-    
-    let currentDateTime = Date()
     var task: Task?
     var isEditMode: Bool = false
-    var subTaskTestRows: Int = 2
-    var imageTestRows: Int = 4
-    var audiosTestRows: Int = 3
+    private var subtaskList: [Int] = [Int]()
+    private var audioList: [String] = [String]()
+    private var imagesList: [String] = [String]()
+    private let currentDateTime = Date()
+    
     private var isAttachViewVisible = false
     private var currentTable = 0
     private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
@@ -78,19 +78,39 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         attachTapBtn.roundTopCorners()
         
         if isEditMode {
-            deleteBtn.alpha = 1
-            statusStackView.alpha = 1
-            saveBtn.setTitle("Save", for: .normal)
+            activateEditMode()
+            fillFields()
         }
+    }
+    
+    func activateEditMode() {
+        deleteBtn.alpha = 1
+        statusStackView.alpha = 1
+        saveBtn.setTitle("Save", for: .normal)
+    }
+    
+    func fillFields() {
+        print("\(task?.getId() ?? -1)")
+        subtaskList = task?.getSubTask() ?? []
+        imagesList = task?.getImages() ?? []
+        audioList = task?.getAudios() ?? []
+        nameTF.text = task?.getName() ?? ""
+        descriptionTV.text = task?.getDescription() ?? ""
+        
+        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
+        
+        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
+        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == subTaskTableView {
-          return subTaskTestRows
+            return subtaskList.count
         } else if tableView == imageTableView {
-            return imageTestRows
+            return imagesList.count
         } else {
-            return audiosTestRows
+            return audioList.count
         }
     }
 
@@ -182,10 +202,18 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
 
     @IBAction func SaveTask(_ sender: Any) {
-        
         let name = nameTF.text!
         let desc = descriptionTV.text!
         let bname = categoryBtn.title(for: .normal) ?? ""
+        let cat: Category = CategoryHelper.getCategoryByString(category: bname)
+        
+        let stat: Status
+        if(statusBtn.title(for: .normal) == "Incomplete"){
+            stat = Status.incomplete
+        }else{
+            stat = Status.complete
+        }
+        
         
         if name == "" {
             AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
@@ -197,26 +225,37 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return
         }
         
-        let cat: Category = CategoryHelper.getCategoryByString(category: bname)
-   
-        let stat: Status
-        if(statusBtn.title(for: .normal) == "Incomplete"){
-            stat = Status.incomplete
-        }else{
-            stat = Status.complete
-        }
+        let tempTask = Task(id: taskManager.getLastID(), name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
         
-        let tempTask = Task(id: 0, name: name, description: desc, category: cat, status: stat, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
-        
-        taskManager.addTask(task: tempTask, view: self)
-        
-        if let nav = self.navigationController {
-            nav.popViewController(animated: true)
+        if isEditMode {
+            taskManager.updateTask(task: tempTask)
+        } else {
+            taskManager.addTask(task: tempTask, view: self)
+            
+            if let nav = self.navigationController {
+                nav.popViewController(animated: true)
+            }
         }
     }
     
     @IBAction func DeleteTask(_ sender: Any) {
-        
+        let id = task?.getId() ?? -1
+        print("\(id)")
+        if id >= 0 {
+            taskManager.remuveTaskById(id: id)
+            
+            subtaskList = []
+            imagesList = []
+            audioList = []
+            nameTF.text = ""
+            descriptionTV.text =  ""
+            
+            let tempCategory = CategoryHelper.getCategoryString(category: Category.work)
+            categoryBtn.setTitle(tempCategory, for: .normal)
+            
+            dueDatePicker.date = currentDateTime
+            createdDatePicker.date = currentDateTime
+        }
     }
     
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {

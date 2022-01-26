@@ -86,7 +86,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //table view clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddViewController") as! AddViewController
+        
         vc.isEditMode = true
+        
+        if tableView == completeTableView {
+            vc.task = completeTasks[indexPath.row]
+        } else {
+            vc.task = incompleteTasks[indexPath.row]
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
