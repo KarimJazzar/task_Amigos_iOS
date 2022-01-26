@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public class CategoryHelper {
-    static func GetCategoryColor(category: Category) -> UIColor {
+    static func getCategoryColor(category: Category) -> UIColor {
         switch category {
             case Category.work:
             return UIColor(red: 254/255, green: 115/255, blue: 71/255, alpha: 1.0)
@@ -22,7 +22,7 @@ public class CategoryHelper {
         }
     }
     
-    static func GetCategoryString(category: Category) -> String {
+    static func getCategoryString(category: Category) -> String {
         switch category {
             case Category.work:
                 return "Work"
