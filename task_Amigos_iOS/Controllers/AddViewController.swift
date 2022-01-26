@@ -121,21 +121,16 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func SelectCategory(_ sender: UIButton) {
         ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
-        UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.titleLabel?.text ?? "Work")
+        UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
     @IBAction func SelectStatus(_ sender: UIButton) {
         ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
-        UpdateAttributeTitle(btn: statusBtn, newTitle: sender.titleLabel?.text ?? "Incomplete")
+        UpdateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
     func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
-        if let attributedTitle = btn.attributedTitle(for: .normal) {
-            let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
-            
-            mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: newTitle)
-            btn.setAttributedTitle(mutableAttributedTitle, for: .normal)
-        }
+        btn.setTitle(newTitle, for: .normal)
     }
     
     @IBAction func SaveTask(_ sender: Any) {
@@ -143,6 +138,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let name = nameTF.text!
         let desc = descriptionTV.text!
         let bname = categoryBtn.title(for: .normal)
+        
         let cat: Category
         if(bname == "Groceries"){
             cat = Category.groceries
