@@ -139,7 +139,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
             
-            cell.imgView.image = loadImageFromDocumentDirectory(nameOfImage: "C215868E-F864-4BAF-8847-B36F1565B3E3")
+            cell.imgView.image = loadImageFromDocumentDirectory(name: imagesList[indexPath.row])
+            //cell.imgView.image = loadImageFromDocumentDirectory(name: "2022-01-27 18:19:27 +0000.png")
             
             return cell
         } else {
@@ -180,7 +181,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func openCamera() {
-        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
+        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
@@ -200,18 +201,14 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
-        if let editedImage = info[.editedImage] as? UIImage{
-
-            let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
-            
+        if let editedImage = info[.editedImage] as? UIImage {
             
             guard let fileUrl = info[.imageURL] as? URL else { return }
-                print("haii" + fileUrl.lastPathComponent)
             
-            cell.imgView.image = editedImage
+            print("haii" + fileUrl.lastPathComponent)
             
-            saveImageToDocumentDirectory(image: editedImage, imgname: fileUrl.lastPathComponent)
-            
+            let tempName = Date()
+            saveImageToDocumentDirectory(image: editedImage, name: "\(tempName).png")
         }
         
         //Dismiss the UIImagePicker after selection
@@ -223,45 +220,51 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         self.dismiss(animated: true, completion: nil)
     }
     
-    func saveImageToDocumentDirectory(image: UIImage, imgname: String) {
-        var objCBool: ObjCBool = true
-        let mainPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-        let folderPath = mainPath + "/Screenshots/"
-
-        let isExist = FileManager.default.fileExists(atPath: folderPath, isDirectory: &objCBool)
-        if !isExist {
-            do {
-                try FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error)
-            }
+    func saveImageToDocumentDirectory(image: UIImage, name: String) {
+        guard let data = image.pngData() else {
+            print("Error getting data.")
+            return
         }
-
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let imageName = "\(imgname).png"
-        let imageUrl = documentDirectory.appendingPathComponent("Screenshots/\(imageName)")
-        if let data = image.jpegData(compressionQuality: 1.0){
-            do {
-                try data.write(to: imageUrl)
-                
-                print("saved ", imageUrl)
-            } catch {
-                print("error saving", error)
-            }
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let path = directory.appendingPathComponent("\(name)")
+        
+        do {
+            print("============")
+            print("\(path)")
+            print("============")
+            try data.write(to: path)
+            imagesList.append(name)
+            imageTableView.reloadData()
+            print("IMAGE SAVED")
+        } catch let error {
+            print("\(error)")
         }
     }
     
-    func loadImageFromDocumentDirectory(nameOfImage : String) -> UIImage {
-       let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
-       let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-       let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
-       if let dirPath = paths.first{
-           let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Screenshots/\(nameOfImage)")
-           guard let image = UIImage(contentsOfFile: imageURL.path)
-           else { return  UIImage.init(named: "C215868E-F864-4BAF-8847-B36F1565B3E3.png")!}
-           return image
-       }
-       return UIImage.init(named: "C215868E-F864-4BAF-8847-B36F1565B3E3.png")!
+    func loadImageFromDocumentDirectory(name : String) -> UIImage {
+        let emptyImg = UIImage(systemName: "doc")!
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first  else {
+            return emptyImg
+        }
+        
+        let path = directory.appendingPathComponent("\(name)")
+        
+        do {
+            let imageData = try Data(contentsOf: path)
+            print("=================================")
+            print("\(name)")
+            print("\(path)")
+            print("\(imageData)")
+            print("=================================")
+            return UIImage(data: imageData) ?? emptyImg
+        } catch let error {
+            print("\(error)")
+        }
+        
+        return emptyImg
    }
     
     @IBAction func showMenu(_ sender: UIButton) {
@@ -333,7 +336,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }else{
             stat = Status.complete
         }
-        
         
         if name == "" {
             AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
