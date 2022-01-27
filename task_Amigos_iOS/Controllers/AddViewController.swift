@@ -90,6 +90,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
             
+            cell.imgView.image = loadImageFromDocumentDirectory(nameOfImage: "C215868E-F864-4BAF-8847-B36F1565B3E3")
+            
             return cell
         } else {
             let cell = audioTableView.dequeueReusableCell(withIdentifier: "audioCellView") as! AudioTableViewCell
@@ -99,41 +101,35 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == imageTableView {
-            
-              
-               let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-               alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-                   self.openCamera()
-               }))
-               
-               alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-                   self.openGallery(indexPath: indexPath)
-               }))
-               
-               alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-               
-               /*If you want work actionsheet on ipad
-               then you have to use popoverPresentationController to present the actionsheet,
-               otherwise app will crash on iPad */
-               switch UIDevice.current.userInterfaceIdiom {
-               case .pad:
-                   alert.popoverPresentationController?.sourceView = tableView
-                   alert.popoverPresentationController?.sourceRect = tableView.bounds
-                   alert.popoverPresentationController?.permittedArrowDirections = .up
-               default:
-                   break
-               }
-               
-               self.present(alert, animated: true, completion: nil)
-
-            
-        } else {
-            
-            //click to add audio files
-            
+   
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallery()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        /*If you want work actionsheet on ipad
+        then you have to use popoverPresentationController to present the actionsheet,
+        otherwise app will crash on iPad */
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = sender.self
+            alert.popoverPresentationController?.sourceRect = sender.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
         }
+        
+        self.present(alert, animated: true, completion: nil)
+
     }
     
     func openCamera()
@@ -153,40 +149,85 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     
 
-    func openGallery(indexPath: IndexPath)
+    func openGallery()
         {
+            imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
             imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
-            
 
             
         }
+    
+   
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {       /*
-         Get the image from the info dictionary.
-         If no need to edit the photo, use `UIImagePickerControllerOriginalImage`
-         instead of `UIImagePickerControllerEditedImage`
-         */
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
-//                    self.imgProfile.image = editedImage
+        if let editedImage = info[.editedImage] as? UIImage{
+
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
-
+            
+            
+            guard let fileUrl = info[.imageURL] as? URL else { return }
+                print("haii" + fileUrl.lastPathComponent)
+            
             cell.imgView.image = editedImage
-
+            
+            saveImageToDocumentDirectory(image: editedImage, imgname: fileUrl.lastPathComponent)
+            
         }
         
         //Dismiss the UIImagePicker after selection
         picker.dismiss(animated: true, completion: nil)
     }
-//    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-//        imagePicker.dismiss(animated: true, completion: nil)
-//        var photo = info[UIImagePickerControllerOriginalImage] as? UIImage
-//        bedroomCells[lastSelectedIndex!.row].image = photo // Set the image for the selected index
-//        tableView.reloadData() // Reload table view
-//    }
 
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveImageToDocumentDirectory(image: UIImage, imgname: String) {
+        var objCBool: ObjCBool = true
+        let mainPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let folderPath = mainPath + "/Screenshots/"
+
+        let isExist = FileManager.default.fileExists(atPath: folderPath, isDirectory: &objCBool)
+        if !isExist {
+            do {
+                try FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let imageName = "\(imgname).png"
+        let imageUrl = documentDirectory.appendingPathComponent("Screenshots/\(imageName)")
+        if let data = image.jpegData(compressionQuality: 1.0){
+            do {
+                try data.write(to: imageUrl)
+                
+                print("saved ", imageUrl)
+            } catch {
+                print("error saving", error)
+            }
+        }
+    }
+    
+    func loadImageFromDocumentDirectory(nameOfImage : String) -> UIImage {
+       let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+       let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+       let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+       if let dirPath = paths.first{
+           let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Screenshots/\(nameOfImage)")
+           guard let image = UIImage(contentsOfFile: imageURL.path)
+           else { return  UIImage.init(named: "C215868E-F864-4BAF-8847-B36F1565B3E3.png")!}
+           return image
+       }
+       return UIImage.init(named: "C215868E-F864-4BAF-8847-B36F1565B3E3.png")!
+   }
+    
     @IBAction func ShowMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)

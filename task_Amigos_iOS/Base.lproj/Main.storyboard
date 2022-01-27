@@ -513,6 +513,9 @@
                                             <constraint firstAttribute="width" constant="20" id="TMX-po-U9o"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="addImage:" destination="LOM-NX-vCc" eventType="touchUpInside" id="1l1-Ny-lqc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
