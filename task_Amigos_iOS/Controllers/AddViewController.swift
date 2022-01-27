@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -41,6 +41,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var audiosTestRows: Int = 3
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +53,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         audioTableView.delegate = self
         audioTableView.dataSource = self
+        
+        imagePicker.delegate = self
         
         for gesture in gestureList {
             let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
@@ -95,6 +99,94 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == imageTableView {
+            
+              
+               let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+               alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                   self.openCamera()
+               }))
+               
+               alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+                   self.openGallery(indexPath: indexPath)
+               }))
+               
+               alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+               
+               /*If you want work actionsheet on ipad
+               then you have to use popoverPresentationController to present the actionsheet,
+               otherwise app will crash on iPad */
+               switch UIDevice.current.userInterfaceIdiom {
+               case .pad:
+                   alert.popoverPresentationController?.sourceView = tableView
+                   alert.popoverPresentationController?.sourceRect = tableView.bounds
+                   alert.popoverPresentationController?.permittedArrowDirections = .up
+               default:
+                   break
+               }
+               
+               self.present(alert, animated: true, completion: nil)
+
+            
+        } else {
+            
+            //click to add audio files
+            
+        }
+    }
+    
+    func openCamera()
+        {
+            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
+            {
+                imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            else
+            {
+                let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    
+
+    func openGallery(indexPath: IndexPath)
+        {
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+            
+
+            
+        }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {       /*
+         Get the image from the info dictionary.
+         If no need to edit the photo, use `UIImagePickerControllerOriginalImage`
+         instead of `UIImagePickerControllerEditedImage`
+         */
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+//                    self.imgProfile.image = editedImage
+            let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
+
+            cell.imgView.image = editedImage
+
+        }
+        
+        //Dismiss the UIImagePicker after selection
+        picker.dismiss(animated: true, completion: nil)
+    }
+//    
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+//        imagePicker.dismiss(animated: true, completion: nil)
+//        var photo = info[UIImagePickerControllerOriginalImage] as? UIImage
+//        bedroomCells[lastSelectedIndex!.row].image = photo // Set the image for the selected index
+//        tableView.reloadData() // Reload table view
+//    }
+
     @IBAction func ShowMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
