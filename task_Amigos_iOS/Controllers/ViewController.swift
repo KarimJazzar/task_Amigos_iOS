@@ -36,7 +36,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             view.addGestureRecognizer(tempSwipe)
         }
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         incompleteTasks = taskManager.getIncompleteTasksList()

@@ -141,6 +141,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             cell.imgView.image = loadImageFromDocumentDirectory(name: imagesList[indexPath.row])
             //cell.imgView.image = loadImageFromDocumentDirectory(name: "2022-01-27 18:19:27 +0000.png")
+            cell.deleteBtn.tag = indexPath.row
+            cell.deleteBtn.addTarget(self, action: #selector(deleteImage), for: .touchUpInside)
             
             return cell
         } else {
@@ -149,6 +151,11 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             return cell
         }
+    }
+    
+    @objc func deleteImage(_ sender: UIButton) {
+        print("\(sender.tag)")
+        removeImageFromDirecory(index: sender.tag)
     }
     
     @IBAction func addImage(_ sender: UIButton) {
@@ -207,7 +214,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             print("haii" + fileUrl.lastPathComponent)
             
-            let tempName = Date()
+            var tempName = "\(Date())"
+            tempName = tempName.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().lowercased()
             saveImageToDocumentDirectory(image: editedImage, name: "\(tempName).png")
         }
         
@@ -240,6 +248,23 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             print("IMAGE SAVED")
         } catch let error {
             print("\(error)")
+        }
+    }
+    
+    func removeImageFromDirecory(index: Int) {
+        let fileManager = FileManager.default
+        guard let directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first  else { return }
+        let path = directory.appendingPathComponent(imagesList[index])
+        
+        do {
+            print("============")
+            print("\(path)")
+            print("============")
+            try fileManager.removeItem(at: path)
+            imagesList.remove(at: index)
+            imageTableView.reloadData()
+        } catch {
+            print("Could not remove image: \(error)")
         }
     }
     

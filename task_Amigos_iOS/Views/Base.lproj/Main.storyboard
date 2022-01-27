@@ -739,6 +739,7 @@
                                                         </tableViewCellContentView>
                                                         <color key="backgroundColor" red="0.18455562" green="0.17956867809999999" blue="0.21332320569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
+                                                            <outlet property="deleteBtn" destination="fgQ-Om-WTg" id="wQD-HG-07r"/>
                                                             <outlet property="imgName" destination="z7n-jv-JpG" id="3ay-RO-Ow6"/>
                                                             <outlet property="imgView" destination="86U-0M-BK6" id="s9V-Gi-h7N"/>
                                                         </connections>
