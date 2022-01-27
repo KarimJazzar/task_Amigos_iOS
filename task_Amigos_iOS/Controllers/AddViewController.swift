@@ -6,15 +6,8 @@
 //
 
 import UIKit
-import CoreData
 
 class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    var managedContext: NSManagedObjectContext!
-
-    var tasks: [Task]?
     
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var descriptionTV: UITextView!
@@ -29,24 +22,42 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var audioView: UIView!
+    @IBOutlet weak var subTaskView: UIView!
     @IBOutlet weak var imageTableView: UITableView!
     @IBOutlet weak var audioTableView: UITableView!
+    @IBOutlet weak var subTaskTableView: UITableView!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var createdDatePicker: UIDatePicker!
     
-    let currentDateTime = Date()
+    
+    @IBOutlet weak var infoTapBtn: UIButton!
+    @IBOutlet weak var attachTapBtn: UIButton!
+    @IBOutlet weak var infoTapView: UIView!
+    @IBOutlet weak var attachTapView: UIView!
+    
+    
+    @IBOutlet weak var statusStackView: UIStackView!
+    
+    @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
     var task: Task?
-    var imageTestRows: Int = 10
-    var audiosTestRows: Int = 3
+    var isEditMode: Bool = false
+    private var subtaskList: [Int] = [Int]()
+    private var audioList: [String] = [String]()
+    private var imagesList: [String] = [String]()
+    private let currentDateTime = Date()
+    
+    private var isAttachViewVisible = false
+    private var currentTable = 0
+    private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
     var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        managedContext = appDelegate.persistentContainer.viewContext
         
         imageTableView.delegate = self
         imageTableView.dataSource = self
@@ -56,21 +67,54 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         imagePicker.delegate = self
         
+        subTaskTableView.delegate = self
+        subTaskTableView.dataSource = self
+        
         for gesture in gestureList {
-            let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
+            let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(performSwipe))
             tempSwipe.direction = gesture
             view.addGestureRecognizer(tempSwipe)
         }
         
         dueDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
+        infoTapBtn.roundTopCorners()
+        attachTapBtn.roundTopCorners()
+        
+        if isEditMode {
+            toggleEditMode(deleteAlpha: 1, statusAlpha: 1, saveTitle: "Save")
+            fillFields()
+        }
+    }
+    
+    func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
+        deleteBtn.alpha = deleteAlpha
+        statusStackView.alpha = statusAlpha
+        saveBtn.setTitle("Save", for: .normal)
+    }
+    
+    func fillFields() {
+        print("\(task?.getId() ?? -1)")
+        subtaskList = task?.getSubTask() ?? []
+        imagesList = task?.getImages() ?? []
+        audioList = task?.getAudios() ?? []
+        nameTF.text = task?.getName() ?? ""
+        descriptionTV.text = task?.getDescription() ?? ""
+        
+        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
+        
+        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
+        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == imageTableView {
-            return imageTestRows
+        if tableView == subTaskTableView {
+            return subtaskList.count
+        } else if tableView == imageTableView {
+            return imagesList.count
         } else {
-            return audiosTestRows
+            return audioList.count
         }
     }
 
@@ -86,7 +130,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == imageTableView {
+        if tableView == subTaskTableView {
+            let cell = subTaskTableView.dequeueReusableCell(withIdentifier: "subTaskCellView") as! SubTaskTableViewCell
+            cell.subTaskName.text = "Subtask #\(indexPath.row)"
+            
+            return cell
+        } else if tableView == imageTableView {
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
             
@@ -100,8 +149,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return cell
         }
     }
-    
-   
     
     @IBAction func addImage(_ sender: UIButton) {
         
@@ -132,35 +179,24 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     }
     
-    func openCamera()
-        {
-            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
-            {
-                imagePicker.sourceType = UIImagePickerController.SourceType.camera
-                imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-            else
-            {
-                let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    
-
-    func openGallery()
-        {
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+    func openCamera() {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
-
-            
+        } else {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
-    
-   
-    
+    }
+
+    func openGallery() {
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
@@ -228,21 +264,21 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
        return UIImage.init(named: "C215868E-F864-4BAF-8847-B36F1565B3E3.png")!
    }
     
-    @IBAction func ShowMenu(_ sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         if sender.tag == 0 {
-            ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
+            toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
             
             let tempAlpha = CGFloat(categoryMenu.alpha == 1 ? 0 : 1)
-            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: tempAlpha)
+            toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: tempAlpha)
         } else {
-            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+            toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
             
             let tempAlpha = CGFloat(statusMenu.alpha == 1 ? 0 : 1)
-            ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: tempAlpha)
+            toggleMenuUI(menu: statusMenu, img: statusImg, alpha: tempAlpha)
         }
     }
     
-    func ToggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
+    func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
         menu.alpha = alpha
         
         if alpha == 1 {
@@ -252,40 +288,44 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    @IBAction func SelectCategory(_ sender: UIButton) {
-        ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
-        UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.titleLabel?.text ?? "Work")
+    @IBAction func selectCategory(_ sender: UIButton) {
+        toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+        updateAttributeTitle(btn: categoryBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
-    @IBAction func SelectStatus(_ sender: UIButton) {
-        ToggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
-        UpdateAttributeTitle(btn: statusBtn, newTitle: sender.titleLabel?.text ?? "Incomplete")
+    @IBAction func selectStatus(_ sender: UIButton) {
+        toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
+        updateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
-    func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
-        if let attributedTitle = btn.attributedTitle(for: .normal) {
-            let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
-            
-            mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: newTitle)
-            btn.setAttributedTitle(mutableAttributedTitle, for: .normal)
+    private func updateAttributeTitle(btn: UIButton, newTitle: String) {
+        btn.setTitle(newTitle, for: .normal)
+    }
+    
+    @IBAction func toggleTapView(_ sender: UIButton) {
+        isAttachViewVisible = sender.tag == 1
+        
+        if sender.tag == 0 {
+            changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
+        } else {
+            changeTapView(infoColor: .clear, attachColor: selectedColor, infoAlpha: 0, attachAlpha: 1)
         }
     }
     
-    @IBAction func SaveTask(_ sender: Any) {
-        
+    private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
+        infoTapBtn.backgroundColor = infoColor
+        attachTapBtn.backgroundColor = attachColor
+        infoTapView.alpha = infoAlpha
+        attachTapView.alpha = attachAlpha
+    }
+    
+    
+
+    @IBAction func saveTask(_ sender: Any) {
         let name = nameTF.text!
         let desc = descriptionTV.text!
-        let bname = categoryBtn.title(for: .normal)
-        let cat: Category
-        if(bname == "Groceries"){
-            cat = Category.groceries
-        }else if(bname == "School"){
-            cat = Category.school
-        }else if(bname == "Shopping"){
-            cat = Category.shopping
-        }else{
-            cat = Category.work
-        }
+        let bname = categoryBtn.title(for: .normal) ?? ""
+        let cat: Category = CategoryHelper.getCategoryByString(category: bname)
         
         let stat: Status
         if(statusBtn.title(for: .normal) == "Incomplete"){
@@ -294,80 +334,89 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             stat = Status.complete
         }
         
-        addTask(t: Task(id: 0, name: name, description: desc, category: cat, status: stat, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: dueDatePicker.date, createdDate: createdDatePicker.date))
-        self.performSegue(withIdentifier: "exitAfterAdding", sender: self)
         
+        if name == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
+            return
+        }
+        
+        if desc == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
+            return
+        }
+        
+        let tempTask = Task(id: taskManager.getLastID(), name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
+        
+        if isEditMode {
+            taskManager.updateTask(task: tempTask)
+        } else {
+            taskManager.addTask(task: tempTask, view: self)
+            
+            if let nav = self.navigationController {
+                nav.popViewController(animated: true)
+            }
+        }
     }
     
-    @IBAction func DeleteTask(_ sender: Any) {
+    @IBAction func deleteTask(_ sender: Any) {
+        let id = task?.getId() ?? -1
         
+        if id >= 0 {
+            taskManager.remuveTaskById(id: id)
+            
+            subtaskList = []
+            imagesList = []
+            audioList = []
+            nameTF.text = ""
+            descriptionTV.text =  ""
+            
+            let tempCategory = CategoryHelper.getCategoryString(category: Category.work)
+            categoryBtn.setTitle(tempCategory, for: .normal)
+            
+            dueDatePicker.date = currentDateTime
+            createdDatePicker.date = currentDateTime
+        }
+        
+        isEditMode = false
+        toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
     }
     
-    @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+    @objc func performSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+        if !isAttachViewVisible {
+            return
+        }
+        
         let swipeGesture = gesture as UISwipeGestureRecognizer
         
         switch swipeGesture.direction {
             case .left:
-                let newX = UIScreen.main.bounds.width - audioView.frame.width - 15
-                AnimationHelper.SlideX(view: audioView, x: newX)
-                AnimationHelper.SlideX(view: imageView, x: newX - imageView.frame.width - 15)
+                currentTable += 1
+                currentTable = currentTable >= 2 ? 2 : currentTable
                 break
             case .right:
-                AnimationHelper.SlideX(view: audioView, x: audioView.frame.width + 30)
-                AnimationHelper.SlideX(view: imageView, x: 15)
+                currentTable -= 1
+                currentTable = currentTable <= 0 ? 0 : currentTable
                 break
             default:
                 break
         }
+        
+        updateTablePositions()
     }
     
-    
-    //function to add a task to core data
-    func addTask(t:Task){
-                
-                let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
-                
-                newTask.setValue(t.getName(), forKey: "name")
-                newTask.setValue(t.getDescription(), forKey: "desc")
-                newTask.setValue(t.getStatus().rawValue, forKey: "status")
-                newTask.setValue(t.getSubTask(), forKey: "subtask")
-                newTask.setValue(t.getImages(), forKey: "images")
-                newTask.setValue(t.getAudios(), forKey: "audios")
-                newTask.setValue(t.getDueDate(), forKey: "dueDate")
-                newTask.setValue(t.getCreatedDate(), forKey: "createdDate")
-                newTask.setValue(t.getCategory().rawValue, forKey: "category")
-
-                do {
-                    try managedContext.save()
-                    print("Record Added!")
-                    //To display an alert box
-//                    let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
-//                    let OKAction = UIAlertAction(title: "OK", style: .default) {
-//                        (action: UIAlertAction!) in
-//                    }
-                    //alertController.addAction(OKAction)
-                    //self.present(alertController, animated: true, completion: nil)
-                } catch
-                let error as NSError {
-                    print("Could not save. \(error),\(error.userInfo)")
-                }
-    }
-    
-    // function to delete all tasks from core data
-    func clearTaskData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-
-        do {
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let results = try managedContext.fetch(fetchRequest)
-            for result in results {
-                if let managedObject = result as? NSManagedObject {
-                    managedContext.delete(managedObject)
-                }
-            }
-        } catch {
-            print("Error deleting records \(error)")
+    private func updateTablePositions() {
+        if currentTable == 0 {
+            AnimationHelper.slideX(view: subTaskView, x: 15)
+            AnimationHelper.slideX(view: imageView, x: subTaskView.frame.width + 30)
+            AnimationHelper.slideX(view: audioView, x: (subTaskView.frame.width * 2) + 45)
+        } else if currentTable == 1 {
+            AnimationHelper.slideX(view: subTaskView, x: -subTaskView.frame.width)
+            AnimationHelper.slideX(view: imageView, x: 15)
+            AnimationHelper.slideX(view: audioView, x: subTaskView.frame.width + 30)
+        } else {
+            let newX = UIScreen.main.bounds.width - subTaskView.frame.width - 15
+            AnimationHelper.slideX(view: imageView, x: newX - subTaskView.frame.width - 15)
+            AnimationHelper.slideX(view: audioView, x: newX)
         }
     }
-    
-    }
+}

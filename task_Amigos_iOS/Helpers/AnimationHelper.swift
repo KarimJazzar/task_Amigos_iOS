@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public class AnimationHelper {
-    static func SlideX(view: UIView, x: CGFloat) -> Void {
+    static func slideX(view: UIView, x: CGFloat) -> Void {
         UIView.animate(withDuration: 0.5) {
             view.frame.origin.x = CGFloat(x)
         }
