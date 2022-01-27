@@ -22,16 +22,36 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var audioView: UIView!
+    @IBOutlet weak var subTaskView: UIView!
     @IBOutlet weak var imageTableView: UITableView!
     @IBOutlet weak var audioTableView: UITableView!
+    @IBOutlet weak var subTaskTableView: UITableView!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var createdDatePicker: UIDatePicker!
     
-    let currentDateTime = Date()
+    
+    @IBOutlet weak var infoTapBtn: UIButton!
+    @IBOutlet weak var attachTapBtn: UIButton!
+    @IBOutlet weak var infoTapView: UIView!
+    @IBOutlet weak var attachTapView: UIView!
+    
+    
+    @IBOutlet weak var statusStackView: UIStackView!
+    
+    @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
     var task: Task?
-    var imageTestRows: Int = 10
-    var audiosTestRows: Int = 3
+    var isEditMode: Bool = false
+    private var subtaskList: [Int] = [Int]()
+    private var audioList: [String] = [String]()
+    private var imagesList: [String] = [String]()
+    private let currentDateTime = Date()
+    
+    private var isAttachViewVisible = false
+    private var currentTable = 0
+    private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
     override func viewDidLoad() {
@@ -43,6 +63,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         audioTableView.delegate = self
         audioTableView.dataSource = self
         
+        subTaskTableView.delegate = self
+        subTaskTableView.dataSource = self
+        
         for gesture in gestureList {
             let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
             tempSwipe.direction = gesture
@@ -51,13 +74,43 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         dueDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
+        infoTapBtn.roundTopCorners()
+        attachTapBtn.roundTopCorners()
+        
+        if isEditMode {
+            toggleEditMode(deleteAlpha: 1, statusAlpha: 1, saveTitle: "Save")
+            fillFields()
+        }
+    }
+    
+    func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
+        deleteBtn.alpha = deleteAlpha
+        statusStackView.alpha = statusAlpha
+        saveBtn.setTitle("Save", for: .normal)
+    }
+    
+    func fillFields() {
+        print("\(task?.getId() ?? -1)")
+        subtaskList = task?.getSubTask() ?? []
+        imagesList = task?.getImages() ?? []
+        audioList = task?.getAudios() ?? []
+        nameTF.text = task?.getName() ?? ""
+        descriptionTV.text = task?.getDescription() ?? ""
+        
+        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
+        
+        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
+        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == imageTableView {
-            return imageTestRows
+        if tableView == subTaskTableView {
+            return subtaskList.count
+        } else if tableView == imageTableView {
+            return imagesList.count
         } else {
-            return audiosTestRows
+            return audioList.count
         }
     }
 
@@ -73,7 +126,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == imageTableView {
+        if tableView == subTaskTableView {
+            let cell = subTaskTableView.dequeueReusableCell(withIdentifier: "subTaskCellView") as! SubTaskTableViewCell
+            cell.subTaskName.text = "Subtask #\(indexPath.row)"
+            
+            return cell
+        } else if tableView == imageTableView {
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
             
@@ -120,26 +178,34 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         UpdateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
-    func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
+    private func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
         btn.setTitle(newTitle, for: .normal)
     }
     
-    @IBAction func SaveTask(_ sender: Any) {
+    @IBAction func toggleTapView(_ sender: UIButton) {
+        isAttachViewVisible = sender.tag == 1
         
+        if sender.tag == 0 {
+            changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
+        } else {
+            changeTapView(infoColor: .clear, attachColor: selectedColor, infoAlpha: 0, attachAlpha: 1)
+        }
+    }
+    
+    private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
+        infoTapBtn.backgroundColor = infoColor
+        attachTapBtn.backgroundColor = attachColor
+        infoTapView.alpha = infoAlpha
+        attachTapView.alpha = attachAlpha
+    }
+    
+    
+
+    @IBAction func SaveTask(_ sender: Any) {
         let name = nameTF.text!
         let desc = descriptionTV.text!
-        let bname = categoryBtn.title(for: .normal)
-        
-        let cat: Category
-        if(bname == "Groceries"){
-            cat = Category.groceries
-        }else if(bname == "School"){
-            cat = Category.school
-        }else if(bname == "Shopping"){
-            cat = Category.shopping
-        }else{
-            cat = Category.work
-        }
+        let bname = categoryBtn.title(for: .normal) ?? ""
+        let cat: Category = CategoryHelper.getCategoryByString(category: bname)
         
         let stat: Status
         if(statusBtn.title(for: .normal) == "Incomplete"){
@@ -148,34 +214,89 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             stat = Status.complete
         }
         
-        let tempTask = Task(id: 0, name: name, description: desc, category: cat, status: stat, subTask: [1,2], images: ["hello", "world"], audios: ["za", "wurdo"], dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
         
-        taskManager.addTask(task: tempTask, view: self)
+        if name == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
+            return
+        }
         
-        if let nav = self.navigationController {
-            nav.popViewController(animated: true)
+        if desc == "" {
+            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
+            return
+        }
+        
+        let tempTask = Task(id: taskManager.getLastID(), name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
+        
+        if isEditMode {
+            taskManager.updateTask(task: tempTask)
+        } else {
+            taskManager.addTask(task: tempTask, view: self)
+            
+            if let nav = self.navigationController {
+                nav.popViewController(animated: true)
+            }
         }
     }
     
     @IBAction func DeleteTask(_ sender: Any) {
+        let id = task?.getId() ?? -1
         
+        if id >= 0 {
+            taskManager.remuveTaskById(id: id)
+            
+            subtaskList = []
+            imagesList = []
+            audioList = []
+            nameTF.text = ""
+            descriptionTV.text =  ""
+            
+            let tempCategory = CategoryHelper.getCategoryString(category: Category.work)
+            categoryBtn.setTitle(tempCategory, for: .normal)
+            
+            dueDatePicker.date = currentDateTime
+            createdDatePicker.date = currentDateTime
+        }
+        
+        isEditMode = false
+        toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
     }
     
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
+        if !isAttachViewVisible {
+            return
+        }
+        
         let swipeGesture = gesture as UISwipeGestureRecognizer
         
         switch swipeGesture.direction {
             case .left:
-                let newX = UIScreen.main.bounds.width - audioView.frame.width - 15
-                AnimationHelper.slideX(view: audioView, x: newX)
-                AnimationHelper.slideX(view: imageView, x: newX - imageView.frame.width - 15)
+                currentTable += 1
+                currentTable = currentTable >= 2 ? 2 : currentTable
                 break
             case .right:
-                AnimationHelper.slideX(view: audioView, x: audioView.frame.width + 30)
-                AnimationHelper.slideX(view: imageView, x: 15)
+                currentTable -= 1
+                currentTable = currentTable <= 0 ? 0 : currentTable
                 break
             default:
                 break
+        }
+        
+        updateTablePositions()
+    }
+    
+    private func updateTablePositions() {
+        if currentTable == 0 {
+            AnimationHelper.slideX(view: subTaskView, x: 15)
+            AnimationHelper.slideX(view: imageView, x: subTaskView.frame.width + 30)
+            AnimationHelper.slideX(view: audioView, x: (subTaskView.frame.width * 2) + 45)
+        } else if currentTable == 1 {
+            AnimationHelper.slideX(view: subTaskView, x: -subTaskView.frame.width)
+            AnimationHelper.slideX(view: imageView, x: 15)
+            AnimationHelper.slideX(view: audioView, x: subTaskView.frame.width + 30)
+        } else {
+            let newX = UIScreen.main.bounds.width - subTaskView.frame.width - 15
+            AnimationHelper.slideX(view: imageView, x: newX - subTaskView.frame.width - 15)
+            AnimationHelper.slideX(view: audioView, x: newX)
         }
     }
 }

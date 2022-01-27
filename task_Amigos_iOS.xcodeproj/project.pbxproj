@@ -23,6 +23,9 @@
 		CF466BB62799995B00DA75D1 /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = CF466BB52799995B00DA75D1 /* add_btn.png */; };
 		CF466BBA2799C77300DA75D1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */; };
 		CF466BBC2799F22800DA75D1 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */; };
+		CFAC699127A1C60300ED8883 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAC699027A1C60300ED8883 /* ButtonExtension.swift */; };
+		CFAC699327A1E7A700ED8883 /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAC699227A1E7A700ED8883 /* SubTaskTableViewCell.swift */; };
+		CFAC699527A1EE7500ED8883 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAC699427A1EE7500ED8883 /* AlertHelper.swift */; };
 		CFBBC8D5279E316600D23CD7 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */; };
 		CFBBC8D7279E3E1C00D23CD7 /* AudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBBC8D6279E3E1C00D23CD7 /* AudioTableViewCell.swift */; };
 		CFE51726279A1E94006CD986 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51725279A1E94006CD986 /* AnimationHelper.swift */; };
@@ -48,6 +51,9 @@
 		CF466BB52799995B00DA75D1 /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
+		CFAC699027A1C60300ED8883 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		CFAC699227A1E7A700ED8883 /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
+		CFAC699427A1EE7500ED8883 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		CFBBC8D6279E3E1C00D23CD7 /* AudioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTableViewCell.swift; sourceTree = "<group>"; };
 		CFE51725279A1E94006CD986 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 		65D489E2278E551800880817 /* task_Amigos_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CFAC698F27A1C5EC00ED8883 /* Extensions */,
 				CFAC698B27A0E4CB00ED8883 /* Core */,
 				CF466BC12799F87D00DA75D1 /* Helpers */,
 				CF466BC02799F87200DA75D1 /* Models */,
@@ -123,6 +130,7 @@
 				CF466BB92799C77300DA75D1 /* TaskTableViewCell.swift */,
 				CFBBC8D4279E316600D23CD7 /* ImageTableViewCell.swift */,
 				CFBBC8D6279E3E1C00D23CD7 /* AudioTableViewCell.swift */,
+				CFAC699227A1E7A700ED8883 /* SubTaskTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -145,6 +153,7 @@
 			children = (
 				CF466BBB2799F22800DA75D1 /* CategoryHelper.swift */,
 				CFE51725279A1E94006CD986 /* AnimationHelper.swift */,
+				CFAC699427A1EE7500ED8883 /* AlertHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -155,6 +164,14 @@
 				CFE51729279A3347006CD986 /* TaskManager.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		CFAC698F27A1C5EC00ED8883 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CFAC699027A1C60300ED8883 /* ButtonExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,14 +251,17 @@
 				CFE5172A279A3347006CD986 /* TaskManager.swift in Sources */,
 				CF2EE1C3278E5F7E00A80185 /* Task.swift in Sources */,
 				CFBBC8D7279E3E1C00D23CD7 /* AudioTableViewCell.swift in Sources */,
+				CFAC699527A1EE7500ED8883 /* AlertHelper.swift in Sources */,
 				65D48A502798EF0D00880817 /* AddViewController.swift in Sources */,
 				3B58268B279A508F00D57D55 /* ImagesManager.swift in Sources */,
 				CF2EE1C5278E630700A80185 /* Category.swift in Sources */,
+				CFAC699127A1C60300ED8883 /* ButtonExtension.swift in Sources */,
 				65D489E8278E551800880817 /* ViewController.swift in Sources */,
 				112DB129279F2ADC008FF0B3 /* AudioManager.swift in Sources */,
 				65D489E4278E551800880817 /* AppDelegate.swift in Sources */,
 				CFBBC8D5279E316600D23CD7 /* ImageTableViewCell.swift in Sources */,
 				65D489E6278E551800880817 /* SceneDelegate.swift in Sources */,
+				CFAC699327A1E7A700ED8883 /* SubTaskTableViewCell.swift in Sources */,
 				65D48A56279A28E700880817 /* Task_Data.xcdatamodeld in Sources */,
 				CF2EE1C8278E634200A80185 /* Status.swift in Sources */,
 			);

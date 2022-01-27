@@ -12,11 +12,14 @@ import CoreData
 let taskManager: TaskManager = TaskManager()
 
 class TaskManager {
-    var taskList: [Task]
-    var managedContext: NSManagedObjectContext!
+    private var taskList: [Task]
+    private var taskEntitiesList: [TaskEntity]
+    private var managedContext: NSManagedObjectContext!
+    private let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
     
     init() {
         taskList = [Task]()
+        taskEntitiesList = [TaskEntity]()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
@@ -85,8 +88,6 @@ class TaskManager {
     
     // function to delete all tasks from core data
     func clearTaskData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-
         do {
             let results = try managedContext.fetch(fetchRequest)
             for result in results {
@@ -101,9 +102,44 @@ class TaskManager {
         }
     }
     
-    func remveTaskByIndex(index: Int) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-
+    func updateTask(task: Task) {
+        let id = task.getId()
+        let index = taskList.firstIndex(where: { $0.getId() == id }) ?? -1
+        
+        if index < 0 {
+            return
+        }
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            if let managedObject = results[index] as? NSManagedObject {
+                taskList[index] = task
+                
+                managedObject.setValue(task.getName(), forKey: "name")
+                managedObject.setValue(task.getDescription(), forKey: "desc")
+                managedObject.setValue(task.getStatus().rawValue, forKey: "status")
+                managedObject.setValue(task.getSubTask(), forKey: "subtask")
+                managedObject.setValue(task.getImages(), forKey: "images")
+                managedObject.setValue(task.getAudios(), forKey: "audios")
+                managedObject.setValue(task.getDueDate(), forKey: "dueDate")
+                managedObject.setValue(task.getCreatedDate(), forKey: "createdDate")
+                managedObject.setValue(task.getCategory().rawValue, forKey: "category")
+                
+                try managedContext.save()
+            }
+        } catch {
+            print("Error deleting records \(error)")
+        }
+    }
+    
+    func remuveTaskById(id: Int) {
+        let index = taskList.firstIndex(where: { $0.getId() == id }) ?? -1
+        
+        if index < 0 {
+            return
+        }
+        
         do {
             let results = try managedContext.fetch(fetchRequest)
             
@@ -143,5 +179,13 @@ class TaskManager {
     
     func getTaskByIndex(index: Int) -> Task {
         return taskList[index]
+    }
+    
+    func getLastID() -> Int {
+        if taskList.count > 0 {
+            return taskList[taskList.count - 1].getId()
+        }
+        
+        return 0
     }
 }
