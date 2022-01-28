@@ -50,9 +50,6 @@ class AddSubtaskViewController: UIViewController {
             deleteSubtaskButton.isHidden = true
             addSubtaskButton.setTitle("Add", for: .normal)
         }
-        
-        
-       
     }
     
     @IBAction func ShowMenu(_ sender: UIButton) {

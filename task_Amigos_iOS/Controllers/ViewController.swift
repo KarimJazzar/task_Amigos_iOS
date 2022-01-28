@@ -24,7 +24,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var selectedSort: UIButton!
     @IBOutlet weak var sortMenu: UIStackView!
     @IBOutlet weak var overlay: UIView!
-    @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var searchInput: UITextField!
     @IBOutlet weak var filterMenu: UIView!
     
@@ -44,8 +43,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tempSwipe.direction = gesture
             view.addGestureRecognizer(tempSwipe)
         }
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,11 +110,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             vc.task = incompleteTasks[indexPath.row]
             print("Task is: ", incompleteTasks[indexPath.row].getName(), incompleteTasks[indexPath.row].getSubTask())
         }
-        
-        print("===================")
-        print("\(vc.task?.getId())")
-        print("===================")
-        
+
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

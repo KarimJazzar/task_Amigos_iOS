@@ -193,6 +193,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func addImage(_ sender: UIButton) {
         imagesManager.generateView()
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
         
@@ -386,16 +387,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         self.navigationController?.pushViewController(addSub, animated: true)
     }
-    
-    @IBAction func unwindToAddTask(segue: UIStoryboardSegue) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            DispatchQueue.main.async {
-                self.subTaskTableView.reloadData()
-            }
-        }
-    }
-    
-    
     
     private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
         infoTapBtn.backgroundColor = infoColor
