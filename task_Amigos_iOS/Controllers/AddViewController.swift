@@ -238,6 +238,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func saveTask(_ sender: Any) {
+        let id = isEditMode ? task?.getId() ?? -1 : taskManager.getLastID()
         let name = nameTF.text!
         let desc = descriptionTV.text!
         let bname = categoryBtn.title(for: .normal) ?? ""
@@ -262,13 +263,14 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         imagesListBackup = imagesList
         
-        if(isEditMode){
-            let tempTask = Task(id: (task?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
+        let tempTask = Task(id: id, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
+        
+        if isEditMode && id >= 0 {
             taskManager.updateTask(task: tempTask, view:self)
         } else {
-            let tempTask = Task(id: taskManager.getLastID() + 1, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
             taskManager.addTask(task: tempTask, view: self)
             listOfSubtasks.subtasks.removeAll()
+            
             if let nav = self.navigationController {
                 nav.popViewController(animated: true)
             }
