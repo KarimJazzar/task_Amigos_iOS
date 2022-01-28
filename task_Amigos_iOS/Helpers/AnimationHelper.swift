@@ -10,8 +10,15 @@ import UIKit
 
 public class AnimationHelper {
     static func slideX(view: UIView, x: CGFloat) -> Void {
+  
         UIView.animate(withDuration: 0.5) {
-            view.frame.origin.x = CGFloat(x)
+            view.layer.frame.origin.x = CGFloat(x)
+        }
+    }
+    
+    static func fade(view: UIView, alpha: CGFloat) -> Void {
+        UIView.animate(withDuration: 0.5) {
+            view.alpha = alpha
         }
     }
 }
