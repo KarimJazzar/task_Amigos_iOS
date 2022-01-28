@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     var incompleteTasks: [Task] = [Task]()
     var completeTasks: [Task] = [Task]()
+    private var selectedFilter: Int = 1
     private var didFixPosition: Bool =  false
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
     
@@ -131,8 +132,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func selectSortType(_ sender: UIButton) {
         toggleSortMenu(alpha: 0)
         selectedSort.setTitle(sender.currentTitle, for: .normal)
+        selectedFilter = sender.tag
+        performSort()
     }
     
+    private func performSort() {
+        switch selectedFilter {
+            case 0:
+                completeTasks = completeTasks.sorted { $0.getName().lowercased() < $1.getName().lowercased() }
+                incompleteTasks = incompleteTasks.sorted { $0.getName().lowercased() < $1.getName().lowercased() }
+            case 1:
+                completeTasks = completeTasks.sorted { $0.getCreatedDate() < $1.getCreatedDate() }
+                incompleteTasks = incompleteTasks.sorted { $0.getCreatedDate() < $1.getCreatedDate() }
+            default:
+                completeTasks = completeTasks.sorted { $0.getDueDate() < $1.getDueDate() }
+                incompleteTasks = incompleteTasks.sorted { $0.getDueDate() < $1.getDueDate() }
+                break
+        }
+        
+        incompleteTableView.reloadData()
+        completeTableView.reloadData()
+    }
     
     private func toggleSortMenu(alpha: CGFloat) {
         sortMenu.alpha = alpha
