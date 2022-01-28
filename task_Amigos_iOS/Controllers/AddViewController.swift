@@ -203,6 +203,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         imagesManager.generateView()
     }
     
+    @IBAction func addAudio(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
+ 
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func showMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
