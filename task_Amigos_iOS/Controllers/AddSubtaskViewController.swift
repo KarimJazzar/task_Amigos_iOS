@@ -37,15 +37,17 @@ class AddSubtaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        statusStack.alpha = 1
         
-        if(isEditMode == true){
-            deleteSubtaskButton.isHidden = false
+        if isEditMode {
             addSubtaskButton.setTitle("Save", for: .normal)
             subName.text = taskSub?.getName()
             subDescription.text = taskSub?.getDescription()
             dueDate.date = (taskSub?.getDueDate())!
             createDate.date = (taskSub?.getCreatedDate())!
+            
+            deleteSubtaskButton.alpha = 1
+            statusStack.alpha = 1
+            addSubtaskButton.setTitle("Save", for: .normal)
         }else{
             deleteSubtaskButton.isHidden = true
             addSubtaskButton.setTitle("Add", for: .normal)
@@ -133,7 +135,7 @@ class AddSubtaskViewController: UIViewController {
         performSegue(withIdentifier: "unwindToTaskEdit", sender: self)
     }
     
-    func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
+    private func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
         menu.alpha = alpha
         
         if alpha == 1 {
@@ -141,6 +143,13 @@ class AddSubtaskViewController: UIViewController {
         } else {
             img.image = UIImage(systemName: "arrow.down.circle")
         }
+    }
+    
+    private func clearFields() {
+        subName.text = ""
+        subDescription.text = ""
+        categoryBtn.setTitle("Work", for: .normal)
+        statusBtn.setTitle("Incomplete", for: .normal)
     }
     
     private func updateAttributeTitle(btn: UIButton, newTitle: String) {
