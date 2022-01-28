@@ -52,42 +52,28 @@ class AddSubtaskViewController: UIViewController {
         }
     }
     
-    @IBAction func ShowMenu(_ sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         if sender.tag == 0 {
-            ToggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: 0)
+            toggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: 0)
             
             let tempAlpha = CGFloat(categoryMenu.alpha == 1 ? 0 : 1)
-            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: tempAlpha)
+            toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: tempAlpha)
         } else {
-            ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+            toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
             
             let tempAlpha = CGFloat(statusMenuSub.alpha == 1 ? 0 : 1)
-            ToggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: tempAlpha)
+            toggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: tempAlpha)
         }
     }
     
-    func ToggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
-        menu.alpha = alpha
-        
-        if alpha == 1 {
-            img.image = UIImage(systemName: "arrow.up.circle")
-        } else {
-            img.image = UIImage(systemName: "arrow.down.circle")
-        }
-    }
-    
-    @IBAction func SelectCategory(_ sender: UIButton) {
-        ToggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
-        UpdateAttributeTitle(btn: categoryBtn, newTitle: sender.currentTitle ?? "Work")
+    @IBAction func selectCategory(_ sender: UIButton) {
+        toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
+        updateAttributeTitle(btn: categoryBtn, newTitle: sender.currentTitle ?? "Work")
     }
 
-    @IBAction func SelectStatus(_ sender: UIButton) {
-        ToggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: 0)
-        UpdateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
-    }
-    
-    private func UpdateAttributeTitle(btn: UIButton, newTitle: String) {
-        btn.setTitle(newTitle, for: .normal)
+    @IBAction func selectStatus(_ sender: UIButton) {
+        toggleMenuUI(menu: statusMenuSub, img: statusImg, alpha: 0)
+        updateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
     }
     
     
@@ -105,16 +91,15 @@ class AddSubtaskViewController: UIViewController {
         }
         
         
-//        if name == "" {
-//            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
-//            return
-//        }
-//
-//        if desc == "" {
-//            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
-//            return
-//        }
-        
+       if name == "" {
+           AlertHelper.showModal(view: self, type: AlertType.error, msg: "Task name can't be empty.")
+            return
+        }
+
+       if desc == "" {
+           AlertHelper.showModal(view: self, type: AlertType.error, msg: "Task description can't be empty.")
+            return
+        }
         
         if(isNewTask){
             if(isEditMode == false){
@@ -124,7 +109,6 @@ class AddSubtaskViewController: UIViewController {
                 AddViewController.listOfSubtasks.subtasks.append(ind)
                 //parentTask?.appendSubtask(subId: tempTask.getId())
                 //taskManager.updateTask(task: parentTask!)
-                
             }else{
                 let tempTask = Task(id: (taskSub?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
                 taskManager.updateTask(task: tempTask, view: self)
@@ -144,10 +128,22 @@ class AddSubtaskViewController: UIViewController {
         
     }
     
-    
     @IBAction func deleteSubtask(_ sender: Any) {
         taskManager.remuveTaskById(id: (taskSub?.getId())!, view: self)
         performSegue(withIdentifier: "unwindToTaskEdit", sender: self)
     }
     
+    func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
+        menu.alpha = alpha
+        
+        if alpha == 1 {
+            img.image = UIImage(systemName: "arrow.up.circle")
+        } else {
+            img.image = UIImage(systemName: "arrow.down.circle")
+        }
+    }
+    
+    private func updateAttributeTitle(btn: UIButton, newTitle: String) {
+        btn.setTitle(newTitle, for: .normal)
+    }
 }

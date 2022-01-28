@@ -123,8 +123,8 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00-00-0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffv-zG-w0Y">
-                                                            <rect key="frame" x="20" y="77" width="299" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="20" y="77" width="299" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -240,8 +240,8 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00-00-0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAm-7M-gSi">
-                                                            <rect key="frame" x="20" y="77" width="299" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="20" y="77" width="299" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -483,7 +483,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ub-SF-3bq">
-                                <rect key="frame" x="0.0" y="118" width="414" height="684"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="683"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ev-E5-0Qo">
                                         <rect key="frame" x="15" y="10" width="384" height="12"/>
@@ -503,14 +503,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sf1-mj-aox">
-                                        <rect key="frame" x="15" y="88" width="384" height="466"/>
+                                        <rect key="frame" x="15" y="88" width="384" height="465"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="cc9-Eq-eaM">
-                                        <rect key="frame" x="15" y="564" width="384" height="50"/>
+                                        <rect key="frame" x="15" y="563" width="384" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="mlV-oy-OMW">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="48"/>
@@ -534,7 +534,7 @@
                                                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Work"/>
                                                                 <connections>
-                                                                    <action selector="ShowMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="igf-fC-fOg"/>
+                                                                    <action selector="showMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="P8Q-Le-lhr"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4SU-UZ-gNF">
@@ -583,7 +583,7 @@
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="ShowMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="LVX-Js-tvo"/>
+                                                                    <action selector="showMenu:" destination="LOM-NX-vCc" eventType="touchUpInside" id="CC3-HF-uCq"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qxP-Pv-0T8">
@@ -614,7 +614,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Egc-Wf-e0g">
-                                        <rect key="frame" x="15" y="624" width="384" height="50"/>
+                                        <rect key="frame" x="15" y="623" width="384" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MGg-ka-sWo">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="50"/>
@@ -654,7 +654,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="q8r-Hl-Ki4">
-                                        <rect key="frame" x="15" y="468" width="184.5" height="120"/>
+                                        <rect key="frame" x="15" y="467" width="184.5" height="120"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xQ-ED-o23">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
@@ -665,7 +665,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="g2a-yM-kiG"/>
+                                                    <action selector="selectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="MtD-Ye-E71"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azV-fU-iqH">
@@ -677,7 +677,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="EXg-R9-C1e"/>
+                                                    <action selector="selectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="b42-Jk-cwt"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVZ-33-XnN">
@@ -689,7 +689,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="ksf-t6-r1t"/>
+                                                    <action selector="selectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="GNR-2W-PYW"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-St-Lz1">
@@ -701,14 +701,14 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="laf-H8-KVu"/>
+                                                    <action selector="selectCategory:" destination="LOM-NX-vCc" eventType="touchUpInside" id="SzY-AV-RTi"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                     <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AWe-8J-TzM">
-                                        <rect key="frame" x="214.5" y="528" width="184.5" height="60"/>
+                                        <rect key="frame" x="214.5" y="527" width="184.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azo-Xb-j1k">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
@@ -719,7 +719,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="dtm-CU-C1n"/>
+                                                    <action selector="selectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="FoC-TY-j8z"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-Us-3rp">
@@ -731,7 +731,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="4hZ-v9-6u2"/>
+                                                    <action selector="selectStatus:" destination="LOM-NX-vCc" eventType="touchUpInside" id="O0C-kx-DbH"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -768,10 +768,10 @@
                                 </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL3-Es-cKw">
-                                <rect key="frame" x="0.0" y="118" width="414" height="684"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="683"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="257-Ze-Sc7">
-                                        <rect key="frame" x="15" y="15" width="319" height="659"/>
+                                        <rect key="frame" x="15" y="15" width="319" height="658"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtask:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbd-Up-9z9">
                                                 <rect key="frame" x="0.0" y="0.0" width="319" height="20"/>
@@ -780,7 +780,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CPZ-lp-rrd">
-                                                <rect key="frame" x="0.0" y="35" width="319" height="624"/>
+                                                <rect key="frame" x="0.0" y="35" width="319" height="623"/>
                                                 <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subTaskCellView" rowHeight="50" id="ZeQ-VD-j6l" customClass="SubTaskTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
@@ -859,7 +859,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAB-xq-OWv">
-                                        <rect key="frame" x="349" y="15" width="319" height="659"/>
+                                        <rect key="frame" x="349" y="15" width="319" height="658"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Images:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-XW-YnY">
                                                 <rect key="frame" x="0.0" y="0.0" width="319" height="20"/>
@@ -868,7 +868,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N4X-lf-Y8d">
-                                                <rect key="frame" x="0.0" y="35" width="319" height="624"/>
+                                                <rect key="frame" x="0.0" y="35" width="319" height="623"/>
                                                 <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageCellView" rowHeight="87" id="huX-pt-yOg" customClass="ImageTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
@@ -956,7 +956,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXA-sx-ICg">
-                                        <rect key="frame" x="683" y="15" width="319" height="659"/>
+                                        <rect key="frame" x="683" y="15" width="319" height="658"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audios:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9V3-a6-7M2">
                                                 <rect key="frame" x="0.0" y="0.0" width="319" height="20"/>
@@ -965,7 +965,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-xV-6iC">
-                                                <rect key="frame" x="0.0" y="35" width="319" height="624"/>
+                                                <rect key="frame" x="0.0" y="35" width="319" height="623"/>
                                                 <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="audioCellView" rowHeight="87" id="utc-MB-dkM" customClass="AudioTableViewCell" customModule="task_Amigos_iOS" customModuleProvider="target">
@@ -1078,7 +1078,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBU-jZ-1j8">
-                                <rect key="frame" x="319" y="817" width="80" height="30"/>
+                                <rect key="frame" x="319" y="816" width="80" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="z1M-de-bX1"/>
                                 </constraints>
@@ -1086,12 +1086,15 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <buttonConfiguration key="configuration" style="filled" title="Add">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="SaveTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="d0b-vV-bHd"/>
+                                    <action selector="saveTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="ZoM-Fs-dkh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4N-HL-wlk">
-                                <rect key="frame" x="224" y="817" width="80" height="30"/>
+                                <rect key="frame" x="224" y="816" width="80" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="pTw-mA-Y4Q"/>
                                 </constraints>
@@ -1099,8 +1102,12 @@
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <buttonConfiguration key="configuration" style="filled" title="Delete">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="DeleteTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="eQP-SB-Do9"/>
+                                    <action selector="deleteTask:" destination="LOM-NX-vCc" eventType="touchUpInside" id="P6Q-uK-LqA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsi-VC-tIb">
@@ -1173,9 +1180,9 @@
                         <outlet property="nameTF" destination="BHT-LT-Lea" id="bfu-lD-0gU"/>
                         <outlet property="saveBtn" destination="OBU-jZ-1j8" id="wg9-8j-Uyy"/>
                         <outlet property="statusBtn" destination="v0d-Zk-xY5" id="d4g-J8-a6I"/>
+                        <outlet property="statusContainer" destination="9Sy-Bg-Zkg" id="gY3-ks-Rov"/>
                         <outlet property="statusImg" destination="qxP-Pv-0T8" id="R3W-zQ-F6Y"/>
                         <outlet property="statusMenu" destination="AWe-8J-TzM" id="6vz-6z-VZn"/>
-                        <outlet property="statusStackView" destination="7WA-5L-3WH" id="9A4-kR-mRd"/>
                         <outlet property="subTaskTableView" destination="CPZ-lp-rrd" id="V5x-K3-6jO"/>
                         <outlet property="subTaskView" destination="257-Ze-Sc7" id="TPo-eS-E3e"/>
                         <segue destination="INK-eY-xfs" kind="unwind" identifier="exitAfterAdding" unwindAction="unwindToMainViewWithSegue:" id="0fm-Qz-bj2"/>
@@ -1195,7 +1202,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llE-bI-QpE">
-                                <rect key="frame" x="0.0" y="106" width="414" height="684"/>
+                                <rect key="frame" x="0.0" y="97.5" width="414" height="701"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBD-s0-GDw">
                                         <rect key="frame" x="15" y="10" width="384" height="12"/>
@@ -1215,14 +1222,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UqR-eY-HEs">
-                                        <rect key="frame" x="15" y="88" width="384" height="466"/>
+                                        <rect key="frame" x="15" y="88" width="384" height="483"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jk9-FO-5bG">
-                                        <rect key="frame" x="15" y="564" width="384" height="50"/>
+                                        <rect key="frame" x="15" y="581" width="384" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="obv-Df-B1z">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="48"/>
@@ -1246,7 +1253,7 @@
                                                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Work"/>
                                                                 <connections>
-                                                                    <action selector="ShowMenu:" destination="pcc-IH-5eI" eventType="touchUpInside" id="sWY-hH-DGC"/>
+                                                                    <action selector="showMenu:" destination="pcc-IH-5eI" eventType="touchUpInside" id="Eb1-4e-emU"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YAB-QG-ddg">
@@ -1295,7 +1302,7 @@
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="ShowMenu:" destination="pcc-IH-5eI" eventType="touchUpInside" id="2IV-PW-31u"/>
+                                                                    <action selector="showMenu:" destination="pcc-IH-5eI" eventType="touchUpInside" id="wmd-IH-KCk"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HXt-C7-cQx">
@@ -1326,7 +1333,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZT7-d3-iOq">
-                                        <rect key="frame" x="15" y="624" width="384" height="50"/>
+                                        <rect key="frame" x="15" y="641" width="384" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OiV-wh-og5">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="50"/>
@@ -1366,7 +1373,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-xU-R8l">
-                                        <rect key="frame" x="15" y="468" width="184.5" height="120"/>
+                                        <rect key="frame" x="15" y="485" width="184.5" height="120"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1J-PJ-OLq">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
@@ -1377,7 +1384,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="Rqa-GQ-ogK"/>
+                                                    <action selector="selectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="fvp-56-7LY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ga-3A-wNv">
@@ -1389,7 +1396,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="ZeX-qq-zeg"/>
+                                                    <action selector="selectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="rrT-4F-b2u"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTf-o8-0UE">
@@ -1401,7 +1408,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="pxd-yp-ioa"/>
+                                                    <action selector="selectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="bel-Z9-FMb"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Th-D1-caP">
@@ -1413,14 +1420,14 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="qtC-7n-dVh"/>
+                                                    <action selector="selectCategory:" destination="pcc-IH-5eI" eventType="touchUpInside" id="g3Q-jU-AGp"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.082411773499999993" green="0.082257516680000003" blue="0.086483426390000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                     <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bW1-Gz-kj6">
-                                        <rect key="frame" x="214.5" y="528" width="184.5" height="60"/>
+                                        <rect key="frame" x="214.5" y="545" width="184.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8M-Ru-CZT">
                                                 <rect key="frame" x="0.0" y="0.0" width="184.5" height="30"/>
@@ -1431,7 +1438,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectStatus:" destination="pcc-IH-5eI" eventType="touchUpInside" id="lcv-J7-POF"/>
+                                                    <action selector="selectStatus:" destination="pcc-IH-5eI" eventType="touchUpInside" id="3Zd-L2-7En"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0LB-DG-din">
@@ -1443,7 +1450,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SelectStatus:" destination="pcc-IH-5eI" eventType="touchUpInside" id="1rb-zV-895"/>
+                                                    <action selector="selectStatus:" destination="pcc-IH-5eI" eventType="touchUpInside" id="0kB-lY-WpR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1479,8 +1486,26 @@
                                     <constraint firstAttribute="bottom" secondItem="ZT7-d3-iOq" secondAttribute="bottom" constant="10" id="xqf-SX-2Mf"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED5-HC-ZQD">
+                                <rect key="frame" x="224" y="813.5" width="80" height="33.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="QMD-2N-d6x"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                                <buttonConfiguration key="configuration" style="filled" title="Delete">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="deleteSubtask:" destination="pcc-IH-5eI" eventType="touchUpInside" id="S6b-an-hcR"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVU-D6-Ak8">
-                                <rect key="frame" x="314" y="798" width="80" height="30"/>
+                                <rect key="frame" x="319" y="813.5" width="80" height="33.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="yv2-lv-Wfh"/>
                                 </constraints>
@@ -1488,32 +1513,24 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <buttonConfiguration key="configuration" style="filled" title="Add">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="addSubtask:" destination="pcc-IH-5eI" eventType="touchUpInside" id="dBp-R4-YZv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED5-HC-ZQD">
-                                <rect key="frame" x="270" y="797" width="47" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Delete">
-                                    <color key="titleColor" systemColor="systemRedColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="deleteSubtask:" destination="pcc-IH-5eI" eventType="touchUpInside" id="czH-eR-rTS"/>
+                                    <action selector="addSubtask:" destination="pcc-IH-5eI" eventType="touchUpInside" id="tNH-qj-Auv"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qnc-GR-3yb"/>
                         <color key="backgroundColor" systemColor="labelColor"/>
                         <constraints>
-                            <constraint firstItem="qnc-GR-3yb" firstAttribute="bottom" secondItem="RVU-D6-Ak8" secondAttribute="bottom" constant="34" id="2xa-nZ-fOw"/>
-                            <constraint firstItem="RVU-D6-Ak8" firstAttribute="trailing" secondItem="4Qb-LJ-SAN" secondAttribute="trailingMargin" id="8Sj-0v-f9l"/>
-                            <constraint firstItem="qnc-GR-3yb" firstAttribute="bottom" secondItem="ED5-HC-ZQD" secondAttribute="bottom" constant="33" id="FE8-uL-K79"/>
-                            <constraint firstItem="RVU-D6-Ak8" firstAttribute="top" secondItem="llE-bI-QpE" secondAttribute="bottom" constant="8" id="Hjg-fG-aua"/>
-                            <constraint firstItem="ED5-HC-ZQD" firstAttribute="top" secondItem="llE-bI-QpE" secondAttribute="bottom" constant="7" id="MdP-wM-ej6"/>
-                            <constraint firstItem="qnc-GR-3yb" firstAttribute="trailing" secondItem="ED5-HC-ZQD" secondAttribute="trailing" constant="97" id="SDg-Pz-BZc"/>
+                            <constraint firstItem="RVU-D6-Ak8" firstAttribute="top" secondItem="llE-bI-QpE" secondAttribute="bottom" constant="15" id="8R2-qd-rC1"/>
+                            <constraint firstItem="qnc-GR-3yb" firstAttribute="trailing" secondItem="RVU-D6-Ak8" secondAttribute="trailing" constant="15" id="FYr-G8-3Er"/>
+                            <constraint firstItem="qnc-GR-3yb" firstAttribute="bottom" secondItem="RVU-D6-Ak8" secondAttribute="bottom" constant="15" id="Jf1-Ti-cRj"/>
+                            <constraint firstItem="RVU-D6-Ak8" firstAttribute="leading" secondItem="ED5-HC-ZQD" secondAttribute="trailing" constant="15" id="PgW-dj-GHF"/>
                             <constraint firstItem="llE-bI-QpE" firstAttribute="centerY" secondItem="4Qb-LJ-SAN" secondAttribute="centerY" id="W06-8x-hl9"/>
-                            <constraint firstItem="ED5-HC-ZQD" firstAttribute="leading" secondItem="qnc-GR-3yb" secondAttribute="leading" constant="270" id="dzA-id-4ZA"/>
+                            <constraint firstItem="qnc-GR-3yb" firstAttribute="bottom" secondItem="ED5-HC-ZQD" secondAttribute="bottom" constant="15" id="XAb-59-zm3"/>
+                            <constraint firstItem="ED5-HC-ZQD" firstAttribute="top" secondItem="llE-bI-QpE" secondAttribute="bottom" constant="15" id="nL9-fo-NYP"/>
                             <constraint firstItem="llE-bI-QpE" firstAttribute="leading" secondItem="qnc-GR-3yb" secondAttribute="leading" id="sQo-hs-ZSg"/>
                             <constraint firstItem="llE-bI-QpE" firstAttribute="centerX" secondItem="4Qb-LJ-SAN" secondAttribute="centerX" id="ypc-UU-0hG"/>
                         </constraints>

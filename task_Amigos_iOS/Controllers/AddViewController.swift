@@ -19,6 +19,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var statusBtn: UIButton!
     @IBOutlet weak var statusImg: UIImageView!
     @IBOutlet weak var statusMenu: UIStackView!
+    @IBOutlet weak var statusContainer: UIStackView!
     
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var audioView: UIView!
@@ -35,9 +36,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var attachTapBtn: UIButton!
     @IBOutlet weak var infoTapView: UIView!
     @IBOutlet weak var attachTapView: UIView!
-    
-    
-    @IBOutlet weak var statusStackView: UIStackView!
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
@@ -161,6 +159,17 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         cell.layer.mask = maskLayer
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
+        
+        editSub.isEditMode = true
+        
+        if tableView == subTaskTableView {
+            editSub.taskSub = subTasks[indexPath.row]
+        }
+        self.navigationController?.pushViewController(editSub, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == subTaskTableView {
             let cell = subTaskTableView.dequeueReusableCell(withIdentifier: "subTaskCellView") as! SubTaskTableViewCell
@@ -194,18 +203,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         imagesManager.generateView()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let editSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
-        
-        editSub.isEditMode = true
-        
-        if tableView == subTaskTableView {
-            editSub.taskSub = subTasks[indexPath.row]
-        }
-        self.navigationController?.pushViewController(editSub, animated: true)
-    }
-    
-    @IBAction func ShowMenu(_ sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
             
@@ -262,9 +260,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return
         }
         
-        
-        
         imagesListBackup = imagesList
+        
         if(isEditMode){
             let tempTask = Task(id: (task?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
             taskManager.updateTask(task: tempTask, view:self)
@@ -283,10 +280,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func deleteTask(_ sender: Any) {
         let id = task?.getId() ?? -1
         
-        print("==============")
-        print("ID: \(id)")
-        print("==============")
-        
         if id >= 0 {
             taskManager.remuveTaskById(id: id, view: self)
             clearFields()
@@ -296,7 +289,20 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         isEditMode = false
         toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
-        performSegue(withIdentifier: "exitAfterAdding", sender: self)
+    }
+
+    @IBAction func addSubtaskButton(_ sender: Any) {
+        let addSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
+        
+        if(isEditMode){
+            addSub.parentTask = task
+            addSub.isNewTask = false
+        }else{
+            addSub.newTaskSubList = subtaskList
+            addSub.isNewTask = true
+        }
+        
+        self.navigationController?.pushViewController(addSub, animated: true)
     }
     
     func updateImagesTable(images: [String]) {
@@ -316,7 +322,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     private func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
         deleteBtn.alpha = deleteAlpha
-        statusStackView.alpha = statusAlpha
+        statusContainer.alpha = statusAlpha
         saveBtn.setTitle("Save", for: .normal)
     }
     
@@ -340,23 +346,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
     }
     
-    private func fillFields() {
-        print("\(task?.getId() ?? -1)")
-        subtaskList = task?.getSubTask() ?? []
-        imagesList = task?.getImages() ?? []
-        imagesListBackup = imagesList
-        audioList = task?.getAudios() ?? []
-        nameTF.text = task?.getName() ?? ""
-        descriptionTV.text = task?.getDescription() ?? ""
-        imagesManager.setImagesList(imagesList: imagesList)
-        
-        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
-        categoryBtn.setTitle(tempCategory, for: .normal)
-        
-        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
-        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
-    }
-    
     private func updateTablePositions() {
         if currentTable == 0 {
             AnimationHelper.slideX(view: subTaskView, x: 15)
@@ -373,19 +362,21 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-
-    @IBAction func addSubtaskButton(_ sender: Any) {
-        let addSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
+    private func fillFields() {
+        print("\(task?.getId() ?? -1)")
+        subtaskList = task?.getSubTask() ?? []
+        imagesList = task?.getImages() ?? []
+        imagesListBackup = imagesList
+        audioList = task?.getAudios() ?? []
+        nameTF.text = task?.getName() ?? ""
+        descriptionTV.text = task?.getDescription() ?? ""
+        imagesManager.setImagesList(imagesList: imagesList)
         
-        if(isEditMode){
-            addSub.parentTask = task
-            addSub.isNewTask = false
-        }else{
-            addSub.newTaskSubList = subtaskList
-            addSub.isNewTask = true
-        }
+        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
         
-        self.navigationController?.pushViewController(addSub, animated: true)
+        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
+        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
     }
     
     private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
