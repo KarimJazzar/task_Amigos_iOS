@@ -108,15 +108,15 @@ class AddSubtaskViewController: UIViewController {
         }
         
         
-        if name == "" {
-            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
-            return
-        }
-        
-        if desc == "" {
-            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
-            return
-        }
+//        if name == "" {
+//            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
+//            return
+//        }
+//
+//        if desc == "" {
+//            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
+//            return
+//        }
         
         
         if(isNewTask){
@@ -130,17 +130,17 @@ class AddSubtaskViewController: UIViewController {
                 
             }else{
                 let tempTask = Task(id: (taskSub?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
-                taskManager.updateTask(task: tempTask)
+                taskManager.updateTask(task: tempTask, view: self)
             }
         }else{
             if(isEditMode == false){
                 let tempTask = Task(id: taskManager.getLastID()+1, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
                 taskManager.addTask(task: tempTask, view: self)
                 parentTask?.appendSubtask(subId: tempTask.getId())
-                taskManager.updateTask(task: parentTask!)
+                taskManager.updateTask(task: parentTask!, view: self)
             }else{
                 let tempTask = Task(id: (taskSub?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
-                taskManager.updateTask(task: tempTask)
+                taskManager.updateTask(task: tempTask, view: self)
             }
         }
         
@@ -149,7 +149,7 @@ class AddSubtaskViewController: UIViewController {
     
     
     @IBAction func deleteSubtask(_ sender: Any) {
-        taskManager.remuveTaskById(id: (taskSub?.getId())!)
+        taskManager.remuveTaskById(id: (taskSub?.getId())!, view: self)
         performSegue(withIdentifier: "unwindToTaskEdit", sender: self)
     }
     

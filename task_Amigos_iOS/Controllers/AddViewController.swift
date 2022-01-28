@@ -203,7 +203,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         self.navigationController?.pushViewController(editSub, animated: true)
     }
-    @IBAction func ShowMenu(_ sender: UIButton) {
+    
     @IBAction func ShowMenu(_ sender: UIButton) {
         if sender.tag == 0 {
             toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
@@ -264,10 +264,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         
         imagesListBackup = imagesList
-        
+        if(isEditMode){
             let tempTask = Task(id: (task?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
-            taskManager.updateTask(task: tempTask)
-            taskManager.updateTask(task: tempTask)
+            taskManager.updateTask(task: tempTask, view:self)
         } else {
             let tempTask = Task(id: taskManager.getLastID() + 1, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
             taskManager.addTask(task: tempTask, view: self)
@@ -437,4 +436,5 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         updateTablePositions()
     }
+
 }
