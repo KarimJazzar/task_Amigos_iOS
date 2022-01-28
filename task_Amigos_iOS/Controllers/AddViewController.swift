@@ -44,6 +44,10 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         static var subtasks: [Int] = [Int]()
     }
     
+    struct taskAddedOrNot {
+        static var wasTaskAdded: Bool = false
+    }
+    
     var subTasks: [Task] = [Task]()
     var task: Task?
     var isEditMode: Bool = false
@@ -92,6 +96,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             fillFields()
         }
         subTasks.removeAll()
+        //taskAddedOrNot.wasTaskAdded = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,14 +110,14 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 }
             }
         }else{
-            subtaskList = listOfSubtasks.subtasks
-            for taskS in subTemp{
-                for i in subtaskList{
-                    if(taskS.getId() == i){
-                        subTasks.append(taskS)
+                subtaskList = listOfSubtasks.subtasks
+                for taskS in subTemp{
+                    for i in subtaskList{
+                        if(taskS.getId() == i){
+                            subTasks.append(taskS)
+                        }
                     }
                 }
-            }
         }
         //subTasks = taskManager.getSubtasks()
         subTaskTableView.reloadData()
@@ -266,10 +271,30 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let tempTask = Task(id: id, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
         
         if isEditMode && id >= 0 {
-            taskManager.updateTask(task: tempTask, view:self)
+            if(statusBtn.title(for: .normal) == "Complete"){
+                var check = true
+                for task in subTasks{
+                    if(task.getStatus() == Status.incomplete){
+                        check = false
+                        break
+                    }
+                }
+                if(check == false){
+                    AlertHelper.showModal(view: self, type: AlertType.error, msg: "Subtasks need to be completed first!")
+                    return
+                }else{
+                    taskManager.updateTask(task: tempTask, view:self)
+                }
+            }else{
+                taskManager.updateTask(task: tempTask, view:self)
+            }
+            
         } else {
             taskManager.addTask(task: tempTask, view: self)
+            taskAddedOrNot.wasTaskAdded = true
             listOfSubtasks.subtasks.removeAll()
+            subTasks.removeAll()
+            subTaskTableView.reloadData()
             
             if let nav = self.navigationController {
                 nav.popViewController(animated: true)
