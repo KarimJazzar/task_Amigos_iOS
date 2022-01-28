@@ -62,11 +62,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>You can select photos to attach to reports.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This app will use camera.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Please allow access to save photo in your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>You can select photos to attach to reports.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app will use camera.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to save photo in your photo library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs mic to record.</string>
 </dict>
 </plist>
