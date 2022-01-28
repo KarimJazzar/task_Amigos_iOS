@@ -632,7 +632,7 @@
                                                     </datePicker>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9Sy-Bg-Zkg">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9Sy-Bg-Zkg">
                                                 <rect key="frame" x="199.5" y="0.0" width="184.5" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Creation Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnE-M2-sCY">
@@ -1180,7 +1180,7 @@
                         <outlet property="nameTF" destination="BHT-LT-Lea" id="bfu-lD-0gU"/>
                         <outlet property="saveBtn" destination="OBU-jZ-1j8" id="wg9-8j-Uyy"/>
                         <outlet property="statusBtn" destination="v0d-Zk-xY5" id="d4g-J8-a6I"/>
-                        <outlet property="statusContainer" destination="9Sy-Bg-Zkg" id="gY3-ks-Rov"/>
+                        <outlet property="statusContainer" destination="7WA-5L-3WH" id="JP2-jE-ogx"/>
                         <outlet property="statusImg" destination="qxP-Pv-0T8" id="R3W-zQ-F6Y"/>
                         <outlet property="statusMenu" destination="AWe-8J-TzM" id="6vz-6z-VZn"/>
                         <outlet property="subTaskTableView" destination="CPZ-lp-rrd" id="V5x-K3-6jO"/>
