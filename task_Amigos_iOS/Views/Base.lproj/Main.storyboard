@@ -1193,6 +1193,22 @@
             </objects>
             <point key="canvasLocation" x="1563.768115942029" y="72.991071428571431"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="fOS-fR-UeS">
+            <objects>
+                <viewController id="rrt-Tc-yiy" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ofu-vm-4Pi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6ZI-Fi-2SR"/>
+                        <color key="backgroundColor" red="0.090315841140000006" green="0.090001828970000003" blue="0.098449788989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zc-X7-CHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="735"/>
+        </scene>
         <!--Add Subtask View Controller-->
         <scene sceneID="32j-R5-vlg">
             <objects>
@@ -1522,7 +1538,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qnc-GR-3yb"/>
-                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <color key="backgroundColor" red="0.090315841140000006" green="0.090001828970000003" blue="0.098449788989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RVU-D6-Ak8" firstAttribute="top" secondItem="llE-bI-QpE" secondAttribute="bottom" constant="15" id="8R2-qd-rC1"/>
                             <constraint firstItem="qnc-GR-3yb" firstAttribute="trailing" secondItem="RVU-D6-Ak8" secondAttribute="trailing" constant="15" id="FYr-G8-3Er"/>
@@ -1556,7 +1572,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7SR-m6-xJh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="pCl-tK-gNO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2429" y="78"/>
+            <point key="canvasLocation" x="2280" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rTh-ab-Plv">
@@ -1596,9 +1612,6 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
