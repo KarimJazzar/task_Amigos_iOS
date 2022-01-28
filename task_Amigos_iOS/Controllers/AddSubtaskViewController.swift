@@ -109,11 +109,14 @@ class AddSubtaskViewController: UIViewController {
                 let tempTask = Task(id: taskManager.getLastID()+1, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
                 taskManager.addTask(task: tempTask, view: self)
                 AddViewController.listOfSubtasks.subtasks.append(ind)
+                clearFields()
                 //parentTask?.appendSubtask(subId: tempTask.getId())
                 //taskManager.updateTask(task: parentTask!)
+                
             }else{
                 let tempTask = Task(id: (taskSub?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
                 taskManager.updateTask(task: tempTask, view: self)
+                clearFields()
             }
         }else{
             if(isEditMode == false){
@@ -121,10 +124,13 @@ class AddSubtaskViewController: UIViewController {
                 taskManager.addTask(task: tempTask, view: self)
                 parentTask?.appendSubtask(subId: tempTask.getId())
                 taskManager.updateTask(task: parentTask!, view: self)
+                clearFields()
             }else{
                 let tempTask = Task(id: (taskSub?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: [], images: [], audios:[], dueDate: dueDate.date, createdDate: createDate.date, isSub: true)
                 taskManager.updateTask(task: tempTask, view: self)
+                clearFields()
             }
+            
         }
         
         
@@ -133,6 +139,7 @@ class AddSubtaskViewController: UIViewController {
     @IBAction func deleteSubtask(_ sender: Any) {
         taskManager.remuveTaskById(id: (taskSub?.getId())!, view: self)
         performSegue(withIdentifier: "unwindToTaskEdit", sender: self)
+        clearFields()
     }
     
     private func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
