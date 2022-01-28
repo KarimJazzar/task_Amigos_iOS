@@ -1200,14 +1200,78 @@
                     <view key="view" contentMode="scaleToFill" id="Ofu-vm-4Pi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waveform.path" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Heu-s2-Mld">
+                                <rect key="frame" x="15" y="299" width="384" height="308.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Heu-s2-Mld" secondAttribute="height" multiplier="10:8" id="xCi-Bj-CzS"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM6-jj-l5V">
+                                <rect key="frame" x="15" y="621.5" width="70" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="6rP-dD-KnZ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Record">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7I-20-dt4">
+                                <rect key="frame" x="100" y="621.5" width="70" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="dC5-gX-9LH"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Play">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRb-30-bAe">
+                                <rect key="frame" x="319" y="816" width="80" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="7DR-xF-03v"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save">
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdV-Oy-iyw">
+                                <rect key="frame" x="224" y="816" width="80" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="xJ4-2l-eGT"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Delete">
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6ZI-Fi-2SR"/>
                         <color key="backgroundColor" red="0.090315841140000006" green="0.090001828970000003" blue="0.098449788989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IM6-jj-l5V" firstAttribute="leading" secondItem="6ZI-Fi-2SR" secondAttribute="leading" constant="15" id="18a-uB-gsm"/>
+                            <constraint firstItem="Heu-s2-Mld" firstAttribute="leading" secondItem="6ZI-Fi-2SR" secondAttribute="leading" constant="15" id="Bbz-Zq-6gM"/>
+                            <constraint firstItem="6ZI-Fi-2SR" firstAttribute="trailing" secondItem="DRb-30-bAe" secondAttribute="trailing" constant="15" id="CnF-AB-TXx"/>
+                            <constraint firstItem="Heu-s2-Mld" firstAttribute="centerY" secondItem="6ZI-Fi-2SR" secondAttribute="centerY" id="HLT-vc-dBi"/>
+                            <constraint firstItem="6ZI-Fi-2SR" firstAttribute="bottom" secondItem="PdV-Oy-iyw" secondAttribute="bottom" constant="15" id="LHO-I2-NXV"/>
+                            <constraint firstItem="6ZI-Fi-2SR" firstAttribute="trailing" secondItem="Heu-s2-Mld" secondAttribute="trailing" constant="15" id="LXc-Xv-JBX"/>
+                            <constraint firstItem="h7I-20-dt4" firstAttribute="top" secondItem="Heu-s2-Mld" secondAttribute="bottom" constant="15" id="N8u-Oa-pNy"/>
+                            <constraint firstItem="h7I-20-dt4" firstAttribute="leading" secondItem="IM6-jj-l5V" secondAttribute="trailing" constant="15" id="cTI-Er-Saj"/>
+                            <constraint firstItem="DRb-30-bAe" firstAttribute="leading" secondItem="PdV-Oy-iyw" secondAttribute="trailing" constant="15" id="fAe-z0-JAx"/>
+                            <constraint firstItem="IM6-jj-l5V" firstAttribute="top" secondItem="Heu-s2-Mld" secondAttribute="bottom" constant="15" id="laD-If-KL4"/>
+                            <constraint firstItem="6ZI-Fi-2SR" firstAttribute="bottom" secondItem="DRb-30-bAe" secondAttribute="bottom" constant="15" id="qaa-VX-Ifx"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Zc-X7-CHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564" y="735"/>
+            <point key="canvasLocation" x="1563.768115942029" y="734.59821428571422"/>
         </scene>
         <!--Add Subtask View Controller-->
         <scene sceneID="32j-R5-vlg">
@@ -1611,6 +1675,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>
+        <image name="waveform.path" catalog="system" width="128" height="117"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
