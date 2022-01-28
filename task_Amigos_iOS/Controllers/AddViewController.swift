@@ -261,6 +261,16 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return
         }
         
+        if desc == "" {
+            AlertHelper.showModal(view: self, type: AlertType.error, msg: "Task description can't be empty.")
+            return
+        }
+        
+        if dueDatePicker.date < currentDateTime && !isEditMode{
+            AlertHelper.showModal(view: self, type: AlertType.error, msg: "Invalid Date.")
+            return
+        }
+        
         imagesListBackup = imagesList
         
         let tempTask = Task(id: id, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
