@@ -13,12 +13,14 @@ let taskManager: TaskManager = TaskManager()
 
 class TaskManager {
     private var taskList: [Task]
+    private var subTaskList: [Task]
     private var taskEntitiesList: [TaskEntity]
     private var managedContext: NSManagedObjectContext!
     private let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
     
     init() {
         taskList = [Task]()
+        subTaskList = [Task]()
         taskEntitiesList = [TaskEntity]()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -37,6 +39,7 @@ class TaskManager {
             let results = try managedContext.fetch(fetchRequest)
             if results is [NSManagedObject] {
                 for result in (results as! [NSManagedObject]) {
+                    let id = result.value(forKey: "id") as! Int32
                     let name = result.value(forKey: "name") as! String
                     let descr = result.value(forKey: "desc") as! String
                     let status = result.value(forKey: "status") as! Status.RawValue
@@ -46,7 +49,8 @@ class TaskManager {
                     let dueDate = result.value(forKey: "dueDate") as! Date
                     let createdDate = result.value(forKey: "createdDate") as! Date
                     let cat = result.value(forKey: "category") as! Category.RawValue
-                    let tempTask = Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate)
+                    let isSub = result.value(forKey: "isSubtask") as! Bool
+                    let tempTask = Task(id: Int(id), name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate, isSub: isSub)
                     
                     taskList.append(tempTask)
                 }
@@ -59,7 +63,7 @@ class TaskManager {
     //function to add a task to core data
     func addTask(task:Task, view: UIViewController){
             let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
-            
+            newTask.setValue(task.getId(), forKey: "id")
             newTask.setValue(task.getName(), forKey: "name")
             newTask.setValue(task.getDescription(), forKey: "desc")
             newTask.setValue(task.getStatus().rawValue, forKey: "status")
@@ -69,6 +73,7 @@ class TaskManager {
             newTask.setValue(task.getDueDate(), forKey: "dueDate")
             newTask.setValue(task.getCreatedDate(), forKey: "createdDate")
             newTask.setValue(task.getCategory().rawValue, forKey: "category")
+            newTask.setValue(task.getIsSub(), forKey: "isSubtask")
 
             do {
                 try managedContext.save()
@@ -115,7 +120,6 @@ class TaskManager {
             
             if let managedObject = results[index] as? NSManagedObject {
                 taskList[index] = task
-                
                 managedObject.setValue(task.getName(), forKey: "name")
                 managedObject.setValue(task.getDescription(), forKey: "desc")
                 managedObject.setValue(task.getStatus().rawValue, forKey: "status")
@@ -125,7 +129,7 @@ class TaskManager {
                 managedObject.setValue(task.getDueDate(), forKey: "dueDate")
                 managedObject.setValue(task.getCreatedDate(), forKey: "createdDate")
                 managedObject.setValue(task.getCategory().rawValue, forKey: "category")
-                
+                managedObject.setValue(task.getIsSub(), forKey: "isSubtask")
                 try managedContext.save()
             }
         } catch {
@@ -157,7 +161,7 @@ class TaskManager {
         var incompleteTasks: [Task] = [Task]()
         
         for task in taskList {
-            if task.getStatus() == Status.incomplete {
+            if (task.getStatus() == Status.incomplete && task.getIsSub() == false) {
                 incompleteTasks.append(task)
             }
         }
@@ -169,7 +173,7 @@ class TaskManager {
         var completeTasks: [Task] = [Task]()
         
         for task in taskList {
-            if task.getStatus() == Status.complete {
+            if (task.getStatus() == Status.complete && task.getIsSub() == false) {
                 completeTasks.append(task)
             }
         }
@@ -187,5 +191,25 @@ class TaskManager {
         }
         
         return 0
+    }
+    
+    func getSubtasks() -> [Task] {
+        var subtasks: [Task] = [Task]()
+        
+//        let ind = getTaskByIndex(index: index)
+//        for id in ind.getSubTask(){
+//            let tsk = getTaskByIndex(index: id)
+//            if(tsk.getIsSub() == true){
+//                subtasks.append(tsk)
+//            }
+//        }
+        
+        for task in taskList {
+            if (task.getIsSub() == true) {
+                subtasks.append(task)
+            }
+        }
+        
+        return subtasks
     }
 }

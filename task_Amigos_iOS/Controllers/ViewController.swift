@@ -24,6 +24,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        //taskManager.clearTaskData()
+        
         incompleteTableView.delegate = self
         incompleteTableView.dataSource = self
         
@@ -35,6 +37,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tempSwipe.direction = gesture
             view.addGestureRecognizer(tempSwipe)
         }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +97,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             vc.task = completeTasks[indexPath.row]
         } else {
             vc.task = incompleteTasks[indexPath.row]
+            print("Task is: ", incompleteTasks[indexPath.row].getName(), incompleteTasks[indexPath.row].getSubTask())
         }
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -143,9 +148,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let avc = segue.destination as! AddViewController
 //    }
-//
+
 //    @IBAction func moveToAdd(_ sender: Any) {
-//        performSegue(withIdentifier: "AddT", sender: self)
+//
 //    }
     
 }

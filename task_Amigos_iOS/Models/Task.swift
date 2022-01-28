@@ -20,9 +20,10 @@ class Task {
     private var audios: [String]
     private var dueDate: Date
     private var createdDate: Date
+    private var isSubtask: Bool
     
     // Constructor
-    init(id: Int, name: String, description: String, category: Category, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date) {
+    init(id: Int, name: String, description: String, category: Category, status: Status, subTask: [Int], images: [String], audios: [String], dueDate: Date, createdDate: Date, isSub: Bool) {
         self.id = id
         self.name = name
         self.description = description
@@ -33,6 +34,7 @@ class Task {
         self.audios = audios
         self.dueDate = dueDate
         self.createdDate = createdDate
+        self.isSubtask = isSub
     }
     
     // Setters
@@ -76,6 +78,10 @@ class Task {
         self.createdDate = createdDate
     }
     
+    public func setissub(isSub: Bool) -> Void {
+        self.isSubtask = isSub
+    }
+    
     // Getters
     public func getId() -> Int {
         return id
@@ -115,5 +121,13 @@ class Task {
     
     public func getCreatedDate() -> Date {
         return createdDate
+    }
+    
+    public func appendSubtask(subId: Int){
+        subTask.append(subId)
+    }
+    
+    public func getIsSub() -> Bool{
+        return isSubtask
     }
 }

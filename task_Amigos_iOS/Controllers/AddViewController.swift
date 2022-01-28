@@ -42,9 +42,15 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
     
+    struct listOfSubtasks {
+        static var subtasks: [Int] = [Int]()
+    }
+    
+    var subTasks: [Task] = [Task]()
     var task: Task?
     var isEditMode: Bool = false
-    private var subtaskList: [Int] = [Int]()
+    var subtaskList: [Int] = [Int]()
+    //var subtaskList = listOfSubtasks.subtasks
     private var audioList: [String] = [String]()
     private var imagesList: [String] = [String]()
     private let currentDateTime = Date()
@@ -66,6 +72,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         subTaskTableView.delegate = self
         subTaskTableView.dataSource = self
         
+        
         for gesture in gestureList {
             let tempSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PerformSwipe))
             tempSwipe.direction = gesture
@@ -81,6 +88,31 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             toggleEditMode(deleteAlpha: 1, statusAlpha: 1, saveTitle: "Save")
             fillFields()
         }
+        subTasks.removeAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        subTasks.removeAll()
+        super.viewWillAppear(animated)
+        let subTemp = taskManager.getSubtasks()
+        if(task != nil){
+            for taskS in subTemp{
+                if(task!.getSubTask().contains(taskS.getId())){
+                    subTasks.append(taskS)
+                }
+            }
+        }else{
+            subtaskList = listOfSubtasks.subtasks
+            for taskS in subTemp{
+                for i in subtaskList{
+                    if(taskS.getId() == i){
+                        subTasks.append(taskS)
+                    }
+                }
+            }
+        }
+        //subTasks = taskManager.getSubtasks()
+        subTaskTableView.reloadData()
     }
     
     func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
@@ -106,7 +138,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == subTaskTableView {
-            return subtaskList.count
+            return subTasks.count
         } else if tableView == imageTableView {
             return imagesList.count
         } else {
@@ -128,7 +160,14 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == subTaskTableView {
             let cell = subTaskTableView.dequeueReusableCell(withIdentifier: "subTaskCellView") as! SubTaskTableViewCell
-            cell.subTaskName.text = "Subtask #\(indexPath.row)"
+            //cell.subTaskName.text = "Subtask #\(indexPath.row)"
+
+                if(subTasks[indexPath.row].getStatus() == Status.incomplete){
+                    cell.subTaskName.text = "\( subTasks[indexPath.row].getName()) | Incomplete"
+                }else{
+                    cell.subTaskName.text = "\( subTasks[indexPath.row].getName()) | Complete"
+                }
+            
             
             return cell
         } else if tableView == imageTableView {
@@ -142,6 +181,17 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
+        
+        editSub.isEditMode = true
+        
+        if tableView == subTaskTableView {
+            editSub.taskSub = subTasks[indexPath.row]
+        }
+        self.navigationController?.pushViewController(editSub, animated: true)
     }
     
     @IBAction func ShowMenu(_ sender: UIButton) {
@@ -225,13 +275,15 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return
         }
         
-        let tempTask = Task(id: taskManager.getLastID(), name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
+        
         
         if isEditMode {
+            let tempTask = Task(id: (task?.getId())!, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
             taskManager.updateTask(task: tempTask)
         } else {
+            let tempTask = Task(id: taskManager.getLastID() + 1, name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date, isSub: false)
             taskManager.addTask(task: tempTask, view: self)
-            
+            listOfSubtasks.subtasks.removeAll()
             if let nav = self.navigationController {
                 nav.popViewController(animated: true)
             }
@@ -259,6 +311,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         isEditMode = false
         toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
+        performSegue(withIdentifier: "exitAfterAdding", sender: self)
     }
     
     @objc func PerformSwipe(gesture: UISwipeGestureRecognizer) -> Void {
@@ -299,4 +352,30 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             AnimationHelper.slideX(view: audioView, x: newX)
         }
     }
+    
+
+    @IBAction func addSubtaskButton(_ sender: Any) {
+        let addSub = self.storyboard?.instantiateViewController(withIdentifier: "AddSubtaskViewController") as! AddSubtaskViewController
+        
+        if(isEditMode){
+            addSub.parentTask = task
+            addSub.isNewTask = false
+        }else{
+            addSub.newTaskSubList = subtaskList
+            addSub.isNewTask = true
+        }
+        
+        self.navigationController?.pushViewController(addSub, animated: true)
+    }
+    
+    @IBAction func unwindToAddTask(segue: UIStoryboardSegue) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.subTaskTableView.reloadData()
+            }
+        }
+    }
+    
+    
+    
 }
