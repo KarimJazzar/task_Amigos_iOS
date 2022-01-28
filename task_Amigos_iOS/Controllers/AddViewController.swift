@@ -277,6 +277,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         imagesManager.removeNotSavedImages(images: imagesListBackup)
+        clearFields()
     }
     
     @IBAction func deleteTask(_ sender: Any) {
