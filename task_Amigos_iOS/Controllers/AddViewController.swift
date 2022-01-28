@@ -204,12 +204,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         if name == "" {
-            AlertHelper.showValidationAlert(view: self, msg: "Task name can't be empty.")
+            AlertHelper.showModal(view: self, type: AlertType.error, msg: "Task name can't be empty.")
             return
         }
         
         if desc == "" {
-            AlertHelper.showValidationAlert(view: self, msg: "Task description can't be empty.")
+            AlertHelper.showModal(view: self, type: AlertType.error, msg: "Task description can't be empty.")
             return
         }
         
@@ -218,7 +218,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         imagesListBackup = imagesList
         
         if isEditMode {
-            taskManager.updateTask(task: tempTask)
+            taskManager.updateTask(task: tempTask, view: self)
         } else {
             clearFields()
             taskManager.addTask(task: tempTask, view: self)
@@ -230,8 +230,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func deleteTask(_ sender: Any) {
         let id = task?.getId() ?? -1
         
+        print("==============")
+        print("ID: \(id)")
+        print("==============")
+        
         if id >= 0 {
-            taskManager.remuveTaskById(id: id)
+            taskManager.remuveTaskById(id: id, view: self)
             clearFields()
             imagesListBackup.removeAll()
             imagesManager.removeNotSavedImages(images: imagesListBackup)

@@ -37,6 +37,7 @@ class TaskManager {
             let results = try managedContext.fetch(fetchRequest)
             if results is [NSManagedObject] {
                 for result in (results as! [NSManagedObject]) {
+                    let id = result.value(forKey: "id") as! Int
                     let name = result.value(forKey: "name") as! String
                     let descr = result.value(forKey: "desc") as! String
                     let status = result.value(forKey: "status") as! Status.RawValue
@@ -46,7 +47,7 @@ class TaskManager {
                     let dueDate = result.value(forKey: "dueDate") as! Date
                     let createdDate = result.value(forKey: "createdDate") as! Date
                     let cat = result.value(forKey: "category") as! Category.RawValue
-                    let tempTask = Task(id: 0, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate)
+                    let tempTask = Task(id: id, name: name, description: descr, category: Category(rawValue: cat)!, status: Status(rawValue: status)!, subTask: subtask, images: images, audios: audios, dueDate: dueDate, createdDate: createdDate)
                     
                     taskList.append(tempTask)
                 }
@@ -57,9 +58,10 @@ class TaskManager {
     }
     
     //function to add a task to core data
-    func addTask(task:Task, view: UIViewController){
+    func addTask(task:Task, view: UIViewController) {
             let newTask = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: managedContext)
             
+            newTask.setValue(task.getId(), forKey: "id")
             newTask.setValue(task.getName(), forKey: "name")
             newTask.setValue(task.getDescription(), forKey: "desc")
             newTask.setValue(task.getStatus().rawValue, forKey: "status")
@@ -73,16 +75,10 @@ class TaskManager {
             do {
                 try managedContext.save()
                 taskList.append(task)
-                print("Record Added!")
                 //To display an alert box
-                let alertController = UIAlertController(title: "Message", message: "Task Added!", preferredStyle: .alert)
-                let OKAction = UIAlertAction(title: "OK", style: .default) {
-                    (action: UIAlertAction!) in
-                }
-                alertController.addAction(OKAction)
-                view.present(alertController, animated: true, completion: nil)
-            } catch let error as NSError {
-                print("Could not save. \(error),\(error.userInfo)")
+                AlertHelper.showModal(view: view, type: AlertType.message, msg: "Task Added!")
+            } catch {
+                AlertHelper.showModal(view: view, type: AlertType.error, msg: "Couldn't Save Task.")
             }
     }
     
@@ -102,7 +98,7 @@ class TaskManager {
         }
     }
     
-    func updateTask(task: Task) {
+    func updateTask(task: Task, view: UIViewController) {
         let id = task.getId()
         let index = taskList.firstIndex(where: { $0.getId() == id }) ?? -1
         
@@ -127,13 +123,15 @@ class TaskManager {
                 managedObject.setValue(task.getCategory().rawValue, forKey: "category")
                 
                 try managedContext.save()
+                
+                AlertHelper.showModal(view: view, type: AlertType.message, msg: "Task Updated!")
             }
         } catch {
-            print("Error deleting records \(error)")
+            AlertHelper.showModal(view: view, type: AlertType.error, msg: "Couldn't Update Task.")
         }
     }
     
-    func remuveTaskById(id: Int) {
+    func remuveTaskById(id: Int, view: UIViewController) {
         let index = taskList.firstIndex(where: { $0.getId() == id }) ?? -1
         
         if index < 0 {
@@ -146,10 +144,13 @@ class TaskManager {
             if let managedObject = results[index] as? NSManagedObject {
                 taskList.remove(at: index)
                 managedContext.delete(managedObject)
+                
                 try managedContext.save()
+                
+                AlertHelper.showModal(view: view, type: AlertType.message, msg: "Task Deleted!")
             }
         } catch {
-            print("Error deleting records \(error)")
+            AlertHelper.showModal(view: view, type: AlertType.error, msg: "Couldn't Delete Task.")
         }
     }
     
@@ -223,7 +224,7 @@ class TaskManager {
     
     func getLastID() -> Int {
         if taskList.count > 0 {
-            return taskList[taskList.count - 1].getId()
+            return taskList[taskList.count - 1].getId() + 1
         }
         
         return 0

@@ -109,6 +109,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             vc.task = incompleteTasks[indexPath.row]
         }
         
+        print("===================")
+        print("\(vc.task?.getId())")
+        print("===================")
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -142,6 +146,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let keyWord = searchInput.text ?? ""
         
         if keyWord == "" {
+            AlertHelper.showModal(view: self, type: AlertType.error, msg: "Search field can't be empty.")
             return
         }
         
