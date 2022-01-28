@@ -1256,7 +1256,7 @@
                                     <action selector="performSave:" destination="rrt-Tc-yiy" eventType="touchUpInside" id="Bz8-gw-1Qp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdV-Oy-iyw">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdV-Oy-iyw">
                                 <rect key="frame" x="224" y="816" width="80" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="xJ4-2l-eGT"/>

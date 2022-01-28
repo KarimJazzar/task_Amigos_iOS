@@ -17,6 +17,7 @@ class AudioViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecor
     
     var soundPlayer: AVAudioPlayer!
     var soundRecorder: AVAudioRecorder!
+    var audioName: String = ""
     var tempAudioName: String = "audio.m4a"
     var isRecoding: Bool = false
     var isPlaying: Bool = false
@@ -84,7 +85,11 @@ class AudioViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecor
         
     }
     
-    func getDirectory() -> URL {
+    func setAudioName(name: String) {
+        audioName = name
+    }
+    
+    private func getDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return path[0]
     }
