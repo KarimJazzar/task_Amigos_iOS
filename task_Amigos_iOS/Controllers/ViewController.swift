@@ -51,15 +51,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         filterMenu.translatesAutoresizingMaskIntoConstraints = true
     }
     
-  
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         incompleteTasks = taskManager.getIncompleteTasksList()
         completeTasks = taskManager.getCompleteTasksList()
         
-        incompleteTableView.reloadData()
-        completeTableView.reloadData()
+        performSort()
+        refrestTaskTabele()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,8 +130,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func selectSortType(_ sender: UIButton) {
         toggleSortMenu(alpha: 0)
         selectedSort.setTitle(sender.currentTitle, for: .normal)
+        
+        if selectedFilter == sender.tag { return }
+        
         selectedFilter = sender.tag
         performSort()
+        refrestTaskTabele()
+    }
+    
+    @IBAction func searchTask(_ sender: Any) {
+        let keyWord = searchInput.text ?? ""
+        
+        if keyWord == "" {
+            return
+        }
+        
+        searchInput.text = ""
+        
+        AnimationHelper.fade(view: overlay, alpha: 0)
+        AnimationHelper.slideX(view: filterMenu, x: -filterMenu.frame.width)
+        
+        incompleteTasks = taskManager.getImcompleteTaskMatches(value: keyWord)
+        completeTasks = taskManager.getCompleteTaskMatches(value: keyWord)
+        
+        performSort()
+        refrestTaskTabele()
+    }
+    
+    private func refrestTaskTabele() {
+        incompleteTableView.reloadData()
+        completeTableView.reloadData()
     }
     
     private func performSort() {
@@ -149,9 +175,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 incompleteTasks = incompleteTasks.sorted { $0.getDueDate() < $1.getDueDate() }
                 break
         }
-        
-        incompleteTableView.reloadData()
-        completeTableView.reloadData()
     }
     
     private func toggleSortMenu(alpha: CGFloat) {

@@ -165,11 +165,51 @@ class TaskManager {
         return incompleteTasks
     }
     
+    func getImcompleteTaskMatches(value: String) -> [Task] {
+        var incompleteTasks: [Task] = [Task]()
+    
+        var isIncomplete = false
+        var nameMatch = false
+        var descriptionMatch = false
+        
+        for task in taskList {
+            isIncomplete = task.getStatus() == Status.incomplete
+            nameMatch =  task.getName().lowercased().contains(value.lowercased())
+            descriptionMatch = task.getName().lowercased().contains(value.lowercased())
+            
+            if isIncomplete && (nameMatch || descriptionMatch) {
+                incompleteTasks.append(task)
+            }
+        }
+        
+        return incompleteTasks
+    }
+    
     func getCompleteTasksList() -> [Task] {
         var completeTasks: [Task] = [Task]()
         
         for task in taskList {
             if task.getStatus() == Status.complete {
+                completeTasks.append(task)
+            }
+        }
+        
+        return completeTasks
+    }
+    
+    func getCompleteTaskMatches(value: String) -> [Task] {
+        var completeTasks: [Task] = [Task]()
+        
+        var isIncomplete = false
+        var nameMatch = false
+        var descriptionMatch = false
+        
+        for task in taskList {
+            isIncomplete = task.getStatus() == Status.complete
+            nameMatch =  task.getName().lowercased().contains(value.lowercased())
+            descriptionMatch = task.getName().lowercased().contains(value.lowercased())
+            
+            if isIncomplete && (nameMatch || descriptionMatch) {
                 completeTasks.append(task)
             }
         }
