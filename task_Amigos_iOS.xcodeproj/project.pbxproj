@@ -140,7 +140,6 @@
 				CF2EE1C2278E5F7E00A80185 /* Task.swift */,
 				CF2EE1C4278E630700A80185 /* Category.swift */,
 				CF2EE1C7278E634200A80185 /* Status.swift */,
-				3B58268A279A508F00D57D55 /* ImagesManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 		CFAC698B27A0E4CB00ED8883 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3B58268A279A508F00D57D55 /* ImagesManager.swift */,
 				CFE51729279A3347006CD986 /* TaskManager.swift */,
 			);
 			path = Core;

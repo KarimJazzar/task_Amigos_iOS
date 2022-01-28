@@ -44,17 +44,17 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     var task: Task?
     var isEditMode: Bool = false
+    private let imagesManager = ImagesManager()
     private var subtaskList: [Int] = [Int]()
     private var audioList: [String] = [String]()
     private var imagesList: [String] = [String]()
+    private var imagesListBackup: [String] = [String]()
     private let currentDateTime = Date()
-    
+    private var imagePicker = UIImagePickerController()
     private var isAttachViewVisible = false
     private var currentTable = 0
     private let selectedColor: UIColor = UIColor(red: 47/255, green: 46/255, blue: 54/255, alpha: 1.0)
     private var gestureList: [UISwipeGestureRecognizer.Direction] = [.left, .right]
-    
-    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +76,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             view.addGestureRecognizer(tempSwipe)
         }
         
+        imagesManager.setUpManager(view: self, imagePicker: imagePicker)
+        
         dueDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         createdDatePicker.setValue(UIColor.white, forKey: "backgroundColor")
         infoTapBtn.roundTopCorners()
@@ -87,27 +89,26 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
-        deleteBtn.alpha = deleteAlpha
-        statusStackView.alpha = statusAlpha
-        saveBtn.setTitle("Save", for: .normal)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print("Is Edit Mode: \(isEditMode)")
+        
+        imagesManager.removeNotSavedImages(images: imagesListBackup)
     }
     
-    func fillFields() {
-        print("\(task?.getId() ?? -1)")
-        subtaskList = task?.getSubTask() ?? []
-        imagesList = task?.getImages() ?? []
-        audioList = task?.getAudios() ?? []
-        nameTF.text = task?.getName() ?? ""
-        descriptionTV.text = task?.getDescription() ?? ""
-        
-        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
-        categoryBtn.setTitle(tempCategory, for: .normal)
-        
-        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
-        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
+    // ImagePickerView behavior
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        imagesManager.savePicketmage(info: info)
+        picker.dismiss(animated: true, completion: nil)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Table view behaviors
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == subTaskTableView {
             return subtaskList.count
@@ -138,9 +139,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else if tableView == imageTableView {
             let cell = imageTableView.dequeueReusableCell(withIdentifier: "imageCellView") as! ImageTableViewCell
             cell.imgName.text = "Image #\(indexPath.row)"
-            
-            cell.imgView.image = loadImageFromDocumentDirectory(name: imagesList[indexPath.row])
-            //cell.imgView.image = loadImageFromDocumentDirectory(name: "2022-01-27 18:19:27 +0000.png")
+            cell.imgView.image = imagesManager.loadImage(name: imagesList[indexPath.row])
             cell.deleteBtn.tag = indexPath.row
             cell.deleteBtn.addTarget(self, action: #selector(deleteImage), for: .touchUpInside)
             
@@ -153,144 +152,9 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    @objc func deleteImage(_ sender: UIButton) {
-        print("\(sender.tag)")
-        removeImageFromDirecory(index: sender.tag)
-    }
-    
     @IBAction func addImage(_ sender: UIButton) {
-        
-        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-            self.openCamera()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-            self.openGallery()
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-        
-        /*If you want work actionsheet on ipad
-        then you have to use popoverPresentationController to present the actionsheet,
-        otherwise app will crash on iPad */
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
-            alert.popoverPresentationController?.sourceView = sender.self
-            alert.popoverPresentationController?.sourceRect = sender.bounds
-            alert.popoverPresentationController?.permittedArrowDirections = .up
-        default:
-            break
-        }
-        
-        self.present(alert, animated: true, completion: nil)
-
+        imagesManager.generateView()
     }
-    
-    func openCamera() {
-        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            imagePicker.allowsEditing = true
-            self.present(imagePicker, animated: true, completion: nil)
-        } else {
-            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-
-    func openGallery() {
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-        if let editedImage = info[.editedImage] as? UIImage {
-            
-            guard let fileUrl = info[.imageURL] as? URL else { return }
-            
-            print("haii" + fileUrl.lastPathComponent)
-            
-            var tempName = "\(Date())"
-            tempName = tempName.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().lowercased()
-            saveImageToDocumentDirectory(image: editedImage, name: "\(tempName).png")
-        }
-        
-        //Dismiss the UIImagePicker after selection
-        picker.dismiss(animated: true, completion: nil)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.isNavigationBarHidden = false
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func saveImageToDocumentDirectory(image: UIImage, name: String) {
-        guard let data = image.pngData() else {
-            print("Error getting data.")
-            return
-        }
-        
-        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
-        let path = directory.appendingPathComponent("\(name)")
-        
-        do {
-            print("============")
-            print("\(path)")
-            print("============")
-            try data.write(to: path)
-            imagesList.append(name)
-            imageTableView.reloadData()
-            print("IMAGE SAVED")
-        } catch let error {
-            print("\(error)")
-        }
-    }
-    
-    func removeImageFromDirecory(index: Int) {
-        let fileManager = FileManager.default
-        guard let directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first  else { return }
-        let path = directory.appendingPathComponent(imagesList[index])
-        
-        do {
-            print("============")
-            print("\(path)")
-            print("============")
-            try fileManager.removeItem(at: path)
-            imagesList.remove(at: index)
-            imageTableView.reloadData()
-        } catch {
-            print("Could not remove image: \(error)")
-        }
-    }
-    
-    func loadImageFromDocumentDirectory(name : String) -> UIImage {
-        let emptyImg = UIImage(systemName: "doc")!
-        
-        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first  else {
-            return emptyImg
-        }
-        
-        let path = directory.appendingPathComponent("\(name)")
-        
-        do {
-            let imageData = try Data(contentsOf: path)
-            print("=================================")
-            print("\(name)")
-            print("\(path)")
-            print("\(imageData)")
-            print("=================================")
-            return UIImage(data: imageData) ?? emptyImg
-        } catch let error {
-            print("\(error)")
-        }
-        
-        return emptyImg
-   }
     
     @IBAction func showMenu(_ sender: UIButton) {
         if sender.tag == 0 {
@@ -306,16 +170,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
-        menu.alpha = alpha
-        
-        if alpha == 1 {
-            img.image = UIImage(systemName: "arrow.up.circle")
-        } else {
-            img.image = UIImage(systemName: "arrow.down.circle")
-        }
-    }
-    
     @IBAction func selectCategory(_ sender: UIButton) {
         toggleMenuUI(menu: categoryMenu, img: categoryImg, alpha: 0)
         updateAttributeTitle(btn: categoryBtn, newTitle: sender.currentTitle ?? "Work")
@@ -324,10 +178,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func selectStatus(_ sender: UIButton) {
         toggleMenuUI(menu: statusMenu, img: statusImg, alpha: 0)
         updateAttributeTitle(btn: statusBtn, newTitle: sender.currentTitle ?? "Work")
-    }
-    
-    private func updateAttributeTitle(btn: UIButton, newTitle: String) {
-        btn.setTitle(newTitle, for: .normal)
     }
     
     @IBAction func toggleTapView(_ sender: UIButton) {
@@ -340,15 +190,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
-        infoTapBtn.backgroundColor = infoColor
-        attachTapBtn.backgroundColor = attachColor
-        infoTapView.alpha = infoAlpha
-        attachTapView.alpha = attachAlpha
-    }
-    
-    
-
     @IBAction func saveTask(_ sender: Any) {
         let name = nameTF.text!
         let desc = descriptionTV.text!
@@ -374,15 +215,16 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         let tempTask = Task(id: taskManager.getLastID(), name: name, description: desc, category: cat, status: stat, subTask: subtaskList, images: imagesList, audios:audioList, dueDate: dueDatePicker.date, createdDate: createdDatePicker.date)
         
+        imagesListBackup = imagesList
+        
         if isEditMode {
             taskManager.updateTask(task: tempTask)
         } else {
+            clearFields()
             taskManager.addTask(task: tempTask, view: self)
-            
-            if let nav = self.navigationController {
-                nav.popViewController(animated: true)
-            }
         }
+        
+        imagesManager.removeNotSavedImages(images: imagesListBackup)
     }
     
     @IBAction func deleteTask(_ sender: Any) {
@@ -390,22 +232,104 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         if id >= 0 {
             taskManager.remuveTaskById(id: id)
-            
-            subtaskList = []
-            imagesList = []
-            audioList = []
-            nameTF.text = ""
-            descriptionTV.text =  ""
-            
-            let tempCategory = CategoryHelper.getCategoryString(category: Category.work)
-            categoryBtn.setTitle(tempCategory, for: .normal)
-            
-            dueDatePicker.date = currentDateTime
-            createdDatePicker.date = currentDateTime
+            clearFields()
+            imagesListBackup.removeAll()
+            imagesManager.removeNotSavedImages(images: imagesListBackup)
         }
         
         isEditMode = false
         toggleEditMode(deleteAlpha: 0, statusAlpha: 0, saveTitle: "Add")
+    }
+    
+    func updateImagesTable(images: [String]) {
+        imagesList = images
+        imageTableView.reloadData()
+    }
+    
+    private func toggleMenuUI(menu: UIView, img: UIImageView, alpha: CGFloat) {
+        menu.alpha = alpha
+        
+        if alpha == 1 {
+            img.image = UIImage(systemName: "arrow.up.circle")
+        } else {
+            img.image = UIImage(systemName: "arrow.down.circle")
+        }
+    }
+    
+    private func toggleEditMode(deleteAlpha: CGFloat, statusAlpha: CGFloat, saveTitle: String) {
+        deleteBtn.alpha = deleteAlpha
+        statusStackView.alpha = statusAlpha
+        saveBtn.setTitle("Save", for: .normal)
+    }
+    
+    private func clearFields() {
+        subtaskList.removeAll()
+        imagesList.removeAll()
+        audioList.removeAll()
+        nameTF.text = ""
+        descriptionTV.text =  ""
+        
+        let tempCategory = CategoryHelper.getCategoryString(category: Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
+        
+        dueDatePicker.date = currentDateTime
+        createdDatePicker.date = currentDateTime
+        
+        subTaskTableView.reloadData()
+        imageTableView.reloadData()
+        audioTableView.reloadData()
+        
+        changeTapView(infoColor: selectedColor, attachColor: .clear, infoAlpha: 1, attachAlpha: 0)
+    }
+    
+    private func fillFields() {
+        print("\(task?.getId() ?? -1)")
+        subtaskList = task?.getSubTask() ?? []
+        imagesList = task?.getImages() ?? []
+        imagesListBackup = imagesList
+        audioList = task?.getAudios() ?? []
+        nameTF.text = task?.getName() ?? ""
+        descriptionTV.text = task?.getDescription() ?? ""
+        imagesManager.setImagesList(imagesList: imagesList)
+        
+        let tempCategory = CategoryHelper.getCategoryString(category:task?.getCategory() ?? Category.work)
+        categoryBtn.setTitle(tempCategory, for: .normal)
+        
+        dueDatePicker.date = task?.getDueDate() ?? currentDateTime
+        createdDatePicker.date = task?.getCreatedDate() ?? currentDateTime
+    }
+    
+    private func updateTablePositions() {
+        if currentTable == 0 {
+            AnimationHelper.slideX(view: subTaskView, x: 15)
+            AnimationHelper.slideX(view: imageView, x: subTaskView.frame.width + 30)
+            AnimationHelper.slideX(view: audioView, x: (subTaskView.frame.width * 2) + 45)
+        } else if currentTable == 1 {
+            AnimationHelper.slideX(view: subTaskView, x: -subTaskView.frame.width)
+            AnimationHelper.slideX(view: imageView, x: 15)
+            AnimationHelper.slideX(view: audioView, x: subTaskView.frame.width + 30)
+        } else {
+            let newX = UIScreen.main.bounds.width - subTaskView.frame.width - 15
+            AnimationHelper.slideX(view: imageView, x: newX - subTaskView.frame.width - 15)
+            AnimationHelper.slideX(view: audioView, x: newX)
+        }
+    }
+    
+    private func changeTapView(infoColor: UIColor, attachColor: UIColor, infoAlpha: CGFloat, attachAlpha: CGFloat) {
+        infoTapBtn.backgroundColor = infoColor
+        attachTapBtn.backgroundColor = attachColor
+        infoTapView.alpha = infoAlpha
+        attachTapView.alpha = attachAlpha
+    }
+    
+    private func updateAttributeTitle(btn: UIButton, newTitle: String) {
+        btn.setTitle(newTitle, for: .normal)
+    }
+    
+    @objc func deleteImage(_ sender: UIButton) {
+        let index = sender.tag
+        imagesList.remove(at: index)
+        imageTableView.reloadData()
     }
     
     @objc func performSwipe(gesture: UISwipeGestureRecognizer) -> Void {
@@ -429,21 +353,5 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         updateTablePositions()
-    }
-    
-    private func updateTablePositions() {
-        if currentTable == 0 {
-            AnimationHelper.slideX(view: subTaskView, x: 15)
-            AnimationHelper.slideX(view: imageView, x: subTaskView.frame.width + 30)
-            AnimationHelper.slideX(view: audioView, x: (subTaskView.frame.width * 2) + 45)
-        } else if currentTable == 1 {
-            AnimationHelper.slideX(view: subTaskView, x: -subTaskView.frame.width)
-            AnimationHelper.slideX(view: imageView, x: 15)
-            AnimationHelper.slideX(view: audioView, x: subTaskView.frame.width + 30)
-        } else {
-            let newX = UIScreen.main.bounds.width - subTaskView.frame.width - 15
-            AnimationHelper.slideX(view: imageView, x: newX - subTaskView.frame.width - 15)
-            AnimationHelper.slideX(view: audioView, x: newX)
-        }
     }
 }
